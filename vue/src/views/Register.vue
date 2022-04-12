@@ -1,6 +1,6 @@
 <template>
   <div id="register" class="text-center">
-    <form class="form-register" @submit.prevent="register">
+    <form class="form-register container" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -90,4 +90,52 @@ export default {
 };
 </script>
 
-<style></style>
+
+<style>
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
+}
+:root {
+  --main-green: #019875;
+}
+h1,
+h2,
+h3 {
+  color: #444;
+}
+a {
+  text-decoration: none;
+  margin: 0 auto;
+  color: #444444;
+}
+button[type='submit'] {
+  width: 50%;
+  background-color: var(--main-green);
+  border: 1px solid var(--main-green);
+  padding: 10px 0;
+  color: white;
+  border-radius: 2px;
+  margin: 5px auto;
+  font-size: 16px;
+  box-shadow: 0 1px 8px rgba(61, 61, 61, 0.767);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    justify-content: space-around;
+    margin: 80px auto 0;
+    border: 0.7px solid #aaa;
+    padding: 60px;
+    border-radius: 5px;
+}
+.container a {
+  color: #0055c5;
+}
+input {
+  margin-bottom: 25px;
+  padding: 8px 15px;
+  border: 0.7px solid gray;
+  border-radius: 2px;
+}
+</style>
