@@ -28,6 +28,7 @@ CREATE TABLE users (
 CREATE TABLE plants (
 	plant_id int IDENTITY (1,1) NOT NULL,
 	common_name varchar(50) NOT NULL,
+	description varchar(1000),
 	square_area int NOT NULL,
 	cost decimal NOT NULL,
 	sun_requirements varchar(50) NOT NULL,
@@ -196,3 +197,4 @@ INSERT INTO plants (common_name, square_area, cost, sun_requirements, image_url,
 ('Watermelon-All Sweet', 3, 3.00, 'Sun', 'https://www.ufseeds.com/dw/image/v2/BFKV_PRD/on/demandware.static/-/Sites-master-urbanfarmer/default/dw31116792/images/products/All_Sweet_Watermelon_Seeds.jpg?sw=450&sh=450', '3,4,5,6,7,8,9');    
 
 GO
+
