@@ -7,6 +7,7 @@
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
+        public int Zip { get; set; }
     }
 
     /// <summary>
@@ -46,5 +47,6 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string Role { get; set; }
+        public int Zip { get; set; }
     }
 }

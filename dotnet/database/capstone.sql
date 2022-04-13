@@ -20,8 +20,11 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
-	user_role varchar(50) NOT NULL
-	--email address, region
+	user_role varchar(50) NOT NULL,
+	zip varchar(20) NOT NULL,
+	first_name varchar(100),
+	last_name varchar(100),
+    email varchar(100),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -33,59 +36,112 @@ CREATE TABLE plants (
 	cost decimal NOT NULL,
 	sun_requirements varchar(50) NOT NULL,
 	image_url varchar(500),
-	temporary_usda_zones varchar(50) -- using as placeholder until we decide how to define "region/zone/etc"
+	temporary_usda_zones varchar(30)
 
 	CONSTRAINT PK_plants PRIMARY KEY (plant_id)
 );
 
-CREATE TABLE zones ( --still unsure about this
-	zone_id int IDENTITY (1,1) NOT NULL,
-	zone_name varchar(10) NOT NULL
-	
-	CONSTRAINT PK_zones PRIMARY KEY (zone_id)
+CREATE TABLE hardiness (
+	zone_id int IDENTITY (1,1) not NULL,
+	zone_name varchar(50) not NULL,
+	avg_last_frost_month varchar(10),
+	avg_last_frost_day int,
+	avg_first_frost_month varchar(10),
+	avg_first_frost_day int,
+	avg_growing_days int,
+    
+	CONSTRAINT PK_hardiness PRIMARY KEY (zone_id)
 );
 
-CREATE TABLE plant_zone (
-	plant_zone_id int IDENTITY (1,1) NOT NULL,
-	plant_id int,
-	zone_id int,
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('3', 'May', '15', 'September', '15', '123');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('4', 'May', '15', 'October', '1', '139');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('5', 'May', '1', 'October', '15', '168');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('6', 'Apr', '15', 'October', '15', '183');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('7', 'Apr', '1', 'October', '31', '213');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('8', 'March', '15', 'November', '15', '245');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('9', 'February', '15', 'November', '30', '290');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('10', 'January', '1', 'December', '31', '290');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('11', 'January', '1', 'December', '31', '290');
 
-	CONSTRAINT PK_plant_zone PRIMARY KEY (plant_zone_id),
-	CONSTRAINT FK_plant_zone_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id),
-	CONSTRAINT FK_plant_zone_zones FOREIGN KEY (zone_id) REFERENCES zones(zone_id)
+
+CREATE TABLE plant_hardiness (
+    zone_id int,
+	plant_id int,
+    CONSTRAINT PK_plant_hardiness PRIMARY KEY (zone_id, plant_id),
+	CONSTRAINT FK_plant_hardiness_hardiness FOREIGN KEY (zone_id) REFERENCES hardiness(zone_id),
+	CONSTRAINT FK_plant_hardiness_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 );
 
 CREATE TABLE farms (
-	farm_id int IDENTITY (1,1),
-	user_id int,
-
+	farm_id int IDENTITY (1,1) NOT NULL,
+	user_id int NOT NULL,
 	CONSTRAINT PK_farms PRIMARY KEY (farm_id),
 	CONSTRAINT FK_farms_users FOREIGN KEY (user_id) REFERENCES users(user_id)
-)
+);
 
 CREATE TABLE plots (
 	plot_id int IDENTITY (1,1) NOT NULL,
 	farm_id int NOT NULL,
 	plot_name varchar(50) NOT NULL,
-	plot_square_footage decimal NOT NULL,
-	sun_status varchar(15) NOT NULL, 
+	sun_status varchar(15) NOT NULL,
 	zone_id int NOT NULL,
 
 	CONSTRAINT PK_plots PRIMARY KEY (plot_id),
 	CONSTRAINT FK_plots_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id),
-	CONSTRAINT FK_plots_zones FOREIGN KEY (zone_id) REFERENCES zones(zone_id)
+	CONSTRAINT FK_plots_zones FOREIGN KEY (zone_id) REFERENCES hardiness
 );
 
-CREATE TABLE shopping_list (
-	list_id int IDENTITY (1,1) NOT NULL,
-	farm_id int NOT NULL,
-	--numbers of various amendments?
+CREATE TABLE plots_plants (
+	plot_id int,
+	plant_id int
+
+	CONSTRAINT PK_plots_plants PRIMARY KEY (plot_id, plant_id)
+	CONSTRAINT FK_plots_plants_plots FOREIGN KEY (plot_id) REFERENCES plots(plot_id),
+	CONSTRAINT FK_plots_plants_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 )
 
---populate default data
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+CREATE TABLE supplies (
+        supply_id int NOT NULL,
+		--farm_id int NOT NULL,
+        supply_name varchar(100) NOT NULL,
+        supply_cost decimal NOT NULL,
+        CONSTRAINT PK_supplies PRIMARY KEY (supply_id),
+		--CONSTRAINT FK_supplies_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id)
+);
 
+CREATE TABLE supplies_farms(
+	supply_id int,
+	farm_id int,
+
+	CONSTRAINT PK_supplies_farms PRIMARY KEY (supply_id, farm_id),
+	CONSTRAINT FK_supplies_farms_supplies FOREIGN KEY (supply_id) REFERENCES supplies(supply_id),
+	CONSTRAINT FK_supplies_farms_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id)
+);
+
+
+--default supply inserts
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('1', '2 cu ft. Bagged Brown Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('2', '2 cu ft. Bagged Red Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('3', '2 cu ft. Bagged Black Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('4', '2 cu ft. Bagged Cypress Mulch Blend', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('5', '2 cu ft. Bagged Pine Bark Nuggets', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('6', '16-Tine Rake', '20.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('9', 'Hand Trowel', '9.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('10', 'Bypass Pruner', '10.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('11', '48 in. Round Point Shovel', '26.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('12', 'Firm Grip Grain Pigskin Gloves', '12.25');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('13', 'Rose Embroidered mid-length Gloves', '14.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('14', 'Plastic Wheelbarrow', '80.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('15', '4-tined basic green cultivator', '18.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('16', '4- tined green hand rake', '9.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('17', 'Watering can', '45.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('18', 'Tomato Cage', '20.00');
+
+--default user inserts
+INSERT INTO users (username, password_hash, salt, user_role, zip) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 44406);
+INSERT INTO users (username, password_hash, salt, user_role, zip) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 44512);
+
+--default plant inserts
 INSERT INTO plants (common_name, square_area, cost, sun_requirements, image_url, temporary_usda_zones) VALUES
 ('Anise', 1, 3.00, 'sun', 'https://www.ufseeds.com/dw/image/v2/BFKV_PRD/on/demandware.static/-/Sites-master-urbanfarmer/default/dwe4f23339/images/products/Pimpinella-anisum_flower.jpg?sw=450&sh=450','3,4,5,6,7,8,9'), 
 ('Artichoke-Green Globe', 4, 3.00,'sun', 'https://www.ufseeds.com/dw/image/v2/BFKV_PRD/on/demandware.static/-/Sites-master-urbanfarmer/default/dwb8c5d6cf/images/products/Artichoke_Seed1.jpg?sw=450&sh=450', '3,4,5,6,7,8,9'),
