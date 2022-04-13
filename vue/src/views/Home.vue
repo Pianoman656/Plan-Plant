@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+    <p v-if="$store.state.token == ''">You must be authenticated to see this</p>
+    
   </div>
 </template>
 
@@ -10,5 +11,11 @@ export default {
   name: "home"
 };
 </script>
+<<<<<<< HEAD
 
 
+=======
+<style>
+  
+</style>
+>>>>>>> 37ed926d1343e5ae1617645113cadb25da95705d

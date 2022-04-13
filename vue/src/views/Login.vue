@@ -104,14 +104,15 @@ button[type='submit'] {
   box-shadow: 0 1px 8px rgba(61, 61, 61, 0.767);
 }
 .container {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    justify-content: space-around;
-    margin: 80px auto 0;
-    border: 0.7px solid #aaa;
-    padding: 60px;
-    border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  justify-content: space-around;
+  margin: 80px auto 0;
+  border: 0.7px solid #aaa;
+  padding: 60px;
+  border-radius: 5px;
+  background-color: white;
 }
 .container a {
   color: #0055c5;
