@@ -28,29 +28,84 @@ CREATE TABLE users (
 CREATE TABLE plants (
 	plant_id int IDENTITY (1,1) NOT NULL,
 	common_name varchar(50) NOT NULL,
-	sqare_area int NOT NULL,
+	description varchar(1000) NOT NULL,
+	region varchar(100) NOT NULL,
+	square_area int NOT NULL,
 	cost decimal NOT NULL,
 	sun_reqirements varchar(50) NOT NULL
 
 	CONSTRAINT PK_plants PRIMARY KEY (plant_id)
 );
 
-CREATE TABLE zones (
-	zone_id int IDENTITY (1,1) NOT NULL,
-	zone_name varchar(10) NOT NULL
-	
-	CONSTRAINT PK_zones PRIMARY KEY (zone_id)
+CREATE TABLE supplies (
+        supply_id int NOT NULL,
+        supply_name varchar(100) NOT NULL,
+        supply_cost decimal NOT NULL,
+        CONSTRAINT PK_supplies PRIMARY KEY (supply_id)
 );
 
-CREATE TABLE plant_zone (
-	plant_zone_id int IDENTITY (1,1) NOT NULL,
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('1', '2 cu ft. Bagged Brown Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('2', '2 cu ft. Bagged Red Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('3', '2 cu ft. Bagged Black Mulch', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('4', '2 cu ft. Bagged Cypress Mulch Blend', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('5', '2 cu ft. Bagged Pine Bark Nuggets', '4.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('6', '16-Tine Rake', '20.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('9', 'Hand Trowel', '9.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('10', 'Bypass Pruner', '10.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('11', '48 in. Round Point Shovel', '26.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('12', 'Firm Grip Grain Pigskin Gloves', '12.25');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('13', 'Rose Embroidered mid-length Gloves', '14.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('14', 'Plastic Wheelbarrow', '80.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('15', '4-tined basic green cultivator', '18.75');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('16', '4- tined green hand rake', '9.50');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('17', 'Watering can', '45.00');
+INSERT INTO supplies (supply_id, supply_name, supply_cost) VALUES ('18', 'Tomato Cage', '20.00');
+
+
+CREATE TABLE user_data(
+        user_id int NOT NULL, 
+		first_name varchar(100) NOT NULL,
+		last_name varchar(100) NOT NULL,
+        email varchar(100) NOT NULL,
+        region varchar(100),
+        city varchar(100),
+        state varchar(100),
+		zip varchar(20),
+CONSTRAINT PK_user_data PRIMARY KEY (user_id)        
+
+);
+
+CREATE TABLE hardiness (
+	zone_name varchar(10),
+	avg_last_frost_month varchar(10),
+	avg_last_frost_day int,
+	avg_first_frost_month varchar(10),
+	avg_first_frost_day int,
+	avg_growing_days int,
+        CONSTRAINT PK_zone_name PRIMARY KEY (zone_name)
+);
+
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('3', 'May', '15', 'September', '15', '123');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('4', 'May', '15', 'October', '1', '139');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('5', 'May', '1', 'October', '15', '168');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('6', 'Apr', '15', 'October', '15', '183');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('7', 'Apr', '1', 'October', '31', '213');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('8', 'March', '15', 'November', '15', '245');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('9', 'February', '15', 'November', '30', '290');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('10', 'January', '1', 'December', '31', '290');
+INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('11', 'January', '1', 'December', '31', '290');
+
+
+CREATE TABLE plant_hardiness (
+    zone_name varchar(10),
 	plant_id int,
-	zone_id int,
-
-	CONSTRAINT PK_plant_zone PRIMARY KEY (plant_zone_id),
-	CONSTRAINT FK_plant_zone_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id),
-	CONSTRAINT FK_plant_zone_zones FOREIGN KEY (zone_id) REFERENCES zones(zone_id)
+        
+        CONSTRAINT PK_plant_hardiness PRIMARY KEY (zone_name, plant_id)
 );
+
+
+
+
 
 CREATE TABLE farms (
 	farm_id int IDENTITY (1,1)
@@ -62,7 +117,8 @@ CREATE TABLE plots (
 	plot_id int IDENTITY (1,1) NOT NULL,
 	farm_id int NOT NULL,
 	plot_name varchar(50) NOT NULL,
-	sun_status varchar(15) NOT NULL, 
+	sun_status varchar(15) NOT NULL,
+	plant_id int,
 	zone_id int NOT NULL,
 
 	CONSTRAINT PK_plots PRIMARY KEY (plot_id),
