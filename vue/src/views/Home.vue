@@ -11,6 +11,11 @@ export default {
   name: "home"
 };
 </script>
+<<<<<<< HEAD
+
+
+=======
 <style>
   
 </style>
+>>>>>>> 37ed926d1343e5ae1617645113cadb25da95705d
