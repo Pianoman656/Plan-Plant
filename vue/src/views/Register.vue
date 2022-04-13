@@ -128,6 +128,7 @@ button[type='submit'] {
     border: 0.7px solid #aaa;
     padding: 60px;
     border-radius: 5px;
+    background-color: white;
 }
 .container a {
   color: #0055c5;
