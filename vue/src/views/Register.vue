@@ -32,6 +32,14 @@
         v-model="user.confirmPassword"
         required
       />
+      <input
+        type="zip"
+        id="zip"
+        class="form-control"
+        placeholder="Zipcode"
+        v-model="user.zip"
+        required
+      />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -52,6 +60,7 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        zipcode: null
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
