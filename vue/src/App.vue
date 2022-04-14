@@ -19,6 +19,7 @@
       <router-link v-bind:to="{ name: 'crop-gallery' }">
         Crop Gallery
       </router-link>
+      <router-link v-bind:to="{ name: 'account' }">  {{$store.state.token == "" ? "Account" : $store.state.username}} </router-link>
     </div>
     <router-view />
   </div>

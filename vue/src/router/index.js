@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import CropGallery from '../views/CropGallery.vue'
+import Account from '../views/Account.vue'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -59,7 +60,15 @@ const router = new Router({
       name: "crop-gallery",
       component: CropGallery,
       meta: {
-        requiresAuth: true,
+        requiresAuth: false,
+      }
+    },
+    {
+      path: "/account",
+      name: "account",
+      component: Account,
+      meta: {
+        requiresAuth: false
       }
     }
   ]
