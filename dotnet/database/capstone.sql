@@ -65,14 +65,6 @@ INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_
 INSERT INTO hardiness (zone_name, avg_last_frost_month, avg_last_frost_day, avg_first_frost_month, avg_first_frost_day, avg_growing_days) VALUES ('11', 'January', '1', 'December', '31', '290');
 
 
-CREATE TABLE plant_hardiness (
-    zone_id int,
-	plant_id int,
-    CONSTRAINT PK_plant_hardiness PRIMARY KEY (zone_id, plant_id),
-	CONSTRAINT FK_plant_hardiness_hardiness FOREIGN KEY (zone_id) REFERENCES hardiness(zone_id),
-	CONSTRAINT FK_plant_hardiness_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
-)
-
 CREATE TABLE farms (
 	farm_id int IDENTITY (1,1) NOT NULL,
 	user_id int NOT NULL,
