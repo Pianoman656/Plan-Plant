@@ -6,8 +6,8 @@ using Capstone.Models;
 
 namespace Capstone.DAO
 {
-    public class IHardinessDao
+    public interface IHardinessDao
     {
-
+        List<Hardiness> GetAllHardinessZones();
     }
 }

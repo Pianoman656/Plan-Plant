@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Capstone.DAO;
+using Capstone.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,27 @@ namespace Capstone.Controllers
     [ApiController]
     public class PlotController : ControllerBase
     {
+        private readonly IPlotDao PlotSqlDao;
+        public PlotController(IPlotDao plotDao)
+        {
+            PlotSqlDao = plotDao;
+        }
+
+        [HttpGet("{plot_id}")]
+        public ActionResult<Plot> GetPlot(int id)
+        {
+            Plot plot = PlotSqlDao.GetPlot(id);
+            if (plot != null)
+                return plot;
+            else
+                return NotFound();
+        }
+
+        [HttpGet()]
+        public ActionResult<List<Plot>> ListAllPlots()
+        {
+            return PlotSqlDao.GetAllPlots();
+        }
 
         public int GetUserIdFromToken()
         {

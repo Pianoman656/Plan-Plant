@@ -1,4 +1,5 @@
 ﻿using Capstone.DAO;
+using Capstone.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,12 @@ namespace Capstone.Controllers
         public HardinessController(IHardinessDao hardinessDao)
         {
             HardinessSqlDao = hardinessDao;
+        }
+
+        [HttpGet()]
+        public ActionResult<List<Hardiness>> ListAllZones()
+        {
+            return HardinessSqlDao.GetAllHardinessZones();
         }
 
         public int GetUserIdFromToken()

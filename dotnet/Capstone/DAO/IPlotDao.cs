@@ -6,8 +6,11 @@ using Capstone.Models;
 
 namespace Capstone.DAO
 {
-    interface IPlotDao
+    public interface IPlotDao
     {
-        
+        Plot GetPlot(int id);
+        List<Plot> GetAllPlots();
+        Plot AddPlot(Plot plot);
+
     }
 }
