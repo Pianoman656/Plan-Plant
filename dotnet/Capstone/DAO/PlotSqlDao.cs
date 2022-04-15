@@ -16,7 +16,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public Plot GetPlot(int id)
+        public Plot GetPlot(int plotId)
         {
             Plot returnPlot = new Plot();
             try
@@ -26,7 +26,7 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT * FROM plots WHERE plot_id = @id;", conn);
-                    cmd.Parameters.AddWithValue("@plot_id", id);
+                    cmd.Parameters.AddWithValue("@plot_id", plotId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -41,7 +41,7 @@ namespace Capstone.DAO
             }
             return returnPlot;
         }
-        public List<Plot> GetAllPlots()
+        public List<Plot> GetAllPlots(int farmId)
         {
             List<Plot> plots = new List<Plot>();
             try
@@ -51,7 +51,8 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                    "FROM plots", conn);
+                                                    "FROM plots " +
+                                                    "WHERE farm_id = @farm_id", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -68,7 +69,7 @@ namespace Capstone.DAO
             return plots;
         }
 
-        public Plot AddPlot(Plot plot)
+        public Plot AddPlot(Plot plot, int farmId)
         {
             int newPlotId;
             try
@@ -80,7 +81,7 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand("INSERT INTO plots (farm_id, plot_name, sun_status, plot_square_footage, zone_id) " +
                                                     "OUTPUT INSERTED.plot_id " +
                                                     "VALUES (@farm_id, @plot_name, @sun_status, @plot_square_footage, @zone_id)", conn);
-                    cmd.Parameters.AddWithValue("@farm_id", plot.FarmId);
+                    cmd.Parameters.AddWithValue("@farm_id", farmId); // attempting to use token in place of "farmId
                     cmd.Parameters.AddWithValue("@plot_name", plot.PlotName);
                     cmd.Parameters.AddWithValue("@sun_status", plot.SunStatus);
                     cmd.Parameters.AddWithValue("@plot_square_footage", plot.PlotSquareFootage);
