@@ -60,7 +60,11 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+<<<<<<< HEAD
         zip: null
+=======
+        zip: ''
+>>>>>>> 069e4a9723c17e2a8a94b3aceec6bfb49a2b9b34
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
