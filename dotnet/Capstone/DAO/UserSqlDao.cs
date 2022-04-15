@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Security;
 using Capstone.Security.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.DAO
 {

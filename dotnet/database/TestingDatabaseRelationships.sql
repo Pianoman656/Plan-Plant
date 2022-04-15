@@ -57,5 +57,10 @@ JOIN supplies s
 ON sf.supply_id = s.supply_id
 
 
+UPDATE users
+SET (first_name = 'Joe', last_name = 'Hille', email = 'email')
+WHERE username = user
+
+
 
 
