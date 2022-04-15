@@ -5,7 +5,8 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import CropGallery from '../views/CropGallery.vue'
-import Account from '../views/Account.vue'
+import UserAccount from '../views/UserAccount.vue'
+import AdminAccount from '../views/AdminAccount.vue'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -42,7 +43,7 @@ const router = new Router({
     {
       path: "/logout",
       name: "logout",
-      component: Logout,
+      component: Logout, 
       meta: {
         requiresAuth: false
       }
@@ -64,13 +65,22 @@ const router = new Router({
       }
     },
     {
-      path: "/account",
-      name: "account",
-      component: Account,
+      path: "/user-account",
+      name: "user-account",
+      component: UserAccount,
       meta: {
-        requiresAuth: false
+        requiresAuth: true,
       }
-    }
+    },
+    {
+      path: '/admin-account',
+      name: 'admin-account',
+      component: AdminAccount,
+      meta: {
+        requiresAuth: true
+      }
+    },
+ 
   ]
 })
 

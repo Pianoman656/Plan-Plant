@@ -61,6 +61,13 @@ export default {
             this.$store.commit('SET_AUTH_TOKEN', response.data.token)
             this.$store.commit('SET_USER', response.data.user)
             this.$router.push('/')
+            if (this.user.username === 'admin') {
+              this.$router.push('/admin-account')
+            } else {
+              this.$router.push('/user-account')
+            }
+
+            console.log(this.$store.state.user)
           }
         })
         .catch((error) => {
@@ -75,7 +82,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }

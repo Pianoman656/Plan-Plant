@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import crops from '../services/Crops';
+import crops from '../services/CropService';
 
 export default {
   name: "home",
