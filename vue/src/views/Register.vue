@@ -33,7 +33,7 @@
         required
       />
       <input
-        type="zip"
+        type="text"
         id="zip"
         class="form-control"
         placeholder="Zipcode"
@@ -60,7 +60,7 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
-        zipcode: null
+        zip: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',

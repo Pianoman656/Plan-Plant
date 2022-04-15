@@ -19,6 +19,13 @@ namespace Capstone.Controllers
             PlantSqlDao = plantDao;
         }
 
+        [HttpGet()]
+        public ActionResult<List<Plant>> ListAllPlants()
+        {   
+            return PlantSqlDao.GetAllPlants();
+        }
+
+
         public int GetUserIdFromToken()
         {
             int userId = -1;
