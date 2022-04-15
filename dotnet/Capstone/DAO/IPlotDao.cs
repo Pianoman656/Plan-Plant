@@ -8,9 +8,9 @@ namespace Capstone.DAO
 {
     public interface IPlotDao
     {
-        Plot GetPlot(int id);
-        List<Plot> GetAllPlots();
-        Plot AddPlot(Plot plot);
+        Plot GetPlot(int plotId);
+        List<Plot> GetAllPlots(int farmId);
+        Plot AddPlot(Plot plot, int v);
 
     }
 }
