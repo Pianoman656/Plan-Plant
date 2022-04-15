@@ -32,7 +32,7 @@ CREATE TABLE plants (
 	plant_id int IDENTITY (1,1) NOT NULL,
 	common_name varchar(50) NOT NULL,
 	description varchar(1000),
-	square_area int NOT NULL,
+	square_area decimal NOT NULL,
 	cost decimal NOT NULL,
 	sun_requirements varchar(50) NOT NULL,
 	image_url varchar(500),
@@ -77,7 +77,6 @@ CREATE TABLE plots (
 	farm_id int NOT NULL,
 	plot_name varchar(50) NOT NULL,
 	sun_status varchar(15) NOT NULL,
-	plant_id int,
 	plot_square_footage decimal NOT NULL,
 	zone_id int NOT NULL,
 

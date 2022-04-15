@@ -69,30 +69,5 @@ namespace Capstone.Controllers
 
             return result;
         }
-
-
-        [HttpGet("{username}")]
-        public ActionResult<User> GetUserInfo(string username)
-        {
-            User user = userDao.GetUser(username);
-            if (user != null)
-                return user;
-            else
-                return NotFound();
-
-        }
-
-        [HttpPut("{username}")]
-        public IActionResult EditProfileInfo(string username, User user)
-        {
-            User updatedUser = userDao.UpdateProfileInfo(username, user);
-
-            if (updatedUser.FirstName == user.FirstName && updatedUser.LastName == user.LastName)
-                return Ok();
-            else
-                return StatusCode(409);
-
-        }
-        
     }
 }
