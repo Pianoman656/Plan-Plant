@@ -1,6 +1,6 @@
 <!--     -->
 <template>
-  <div class="home">
+  <div class="admin-home">
     <h1>Admin Page</h1>
     <p v-if="$store.state.token == ''">You must be authenticated to see this</p>    
     <!--  <p v-if="$store.state.user.username == 'admin'">Let's put the Admin stuff here</p>   -->  
@@ -36,16 +36,30 @@
   </div>
 
 
-
-
-
-
-
 </template>
 
 <script>
+import plants from '../services/Plants'
+
+
 export default {
-  name: "admin-home",   
+  name: "admin-home",
+  data() {
+    return {
+      plants: []
+    };
+  },
+  methods: {
+    viewPlant(id) {
+      this.$router.push(`/plants/${id}`);
+    }
+   },
+   created() {
+     plants.list().then((response) => {
+       this.plants = response.data;
+     });
+   }
+    
 }
 
 
@@ -53,6 +67,14 @@ export default {
 
 
 <style>
+
+
+.admin-home h1 {
+  color: red;
+  color: #019875;
+  
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -65,11 +87,5 @@ th {
   font-weight: 500;
   text-align: left;
 }
-
-h1 {
-  color: rgb(33, 21, 138);
-}
-
-
 
 </style>
