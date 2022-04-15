@@ -8,6 +8,7 @@ namespace Capstone.DAO
 {
     public interface IPlantDao
     {
-        List<Plant> GetAllPlants(string sun_status);
+        List<Plant> GetAllPlants();
+        List<Plant> GetAllPlantsBySunRequirements(string sun_requirements);
     }
 }
