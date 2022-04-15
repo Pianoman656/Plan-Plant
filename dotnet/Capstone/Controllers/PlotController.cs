@@ -6,11 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
-{
+{   // route: /Plot/
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
+
+    //Authorized so that only a logged in user can access ??
+    //farm_id and user_id are currently the same ??
+    //
+
     public class PlotController : ControllerBase
     {
         private readonly IPlotDao PlotSqlDao;
@@ -19,7 +26,7 @@ namespace Capstone.Controllers
             PlotSqlDao = plotDao;
         }
 
-        [HttpGet("{plot_id}")]
+        [HttpGet("{id}")]
         public ActionResult<Plot> GetPlot(int id)
         {
             Plot plot = PlotSqlDao.GetPlot(id);
@@ -30,12 +37,28 @@ namespace Capstone.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<List<Plot>> ListAllPlots()
+        public ActionResult<List<Plot>> ListAllUserPlots()
         {
-            return PlotSqlDao.GetAllPlots();
+            List<Plot> userPlots = PlotSqlDao.GetAllPlots(GetFarmIdFromToken());
+
+            if (userPlots != null)
+                return userPlots;
+            else
+                return NotFound();
         }
 
-        public int GetUserIdFromToken()
+        [HttpPost()]
+         public IActionResult AddNewPlot(Plot plotToAdd)
+        {
+            Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetFarmIdFromToken());
+
+            if (addedPlot != null && addedPlot.PlotName == plotToAdd.PlotName)
+                return StatusCode(418);
+            else
+                return StatusCode(409);
+        }
+
+        public int GetFarmIdFromToken()
         {
             int userId = -1;
             try
