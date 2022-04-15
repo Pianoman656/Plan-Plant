@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Security;
 using Capstone.Security.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.DAO
 {
@@ -25,7 +26,9 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, password_hash, salt, user_role, zip FROM users WHERE username = @username", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, password_hash, salt, user_role, zip, first_name, last_name, email " +
+                                                    "FROM users " +
+                                                    "WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -70,6 +73,38 @@ namespace Capstone.DAO
 
             return GetUser(username);
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username">username to identify user in the data store</param>
+        /// <param name="user">partially built user object to complete user profile</param>
+        /// <returns>User complete with first name, last name, email</returns>
+        public User UpdateProfileInfo (string username, User user)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE users " +
+                                                    "SET first_name = @first_name, last_name = @last_name, email = @email " +
+                                                    "WHERE username = @username", conn);
+                    cmd.Parameters.AddWithValue("@first_name", user.FirstName);
+                    cmd.Parameters.AddWithValue("@last_name", user.LastName);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return GetUser(username);
+        }
 
         private User GetUserFromReader(SqlDataReader reader)
         {
@@ -80,7 +115,10 @@ namespace Capstone.DAO
                 PasswordHash = Convert.ToString(reader["password_hash"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["user_role"]),
-                Zip = Convert.ToInt32(reader["zip"])
+                Zip = Convert.ToString(reader["zip"]),
+                FirstName = Convert.ToString(reader["first_name"]),
+                LastName = Convert.ToString(reader["last_name"]),
+                Email = Convert.ToString(reader["email"])
             };
 
             return u;

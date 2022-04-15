@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Capstone.DAO;
+using Capstone.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,19 @@ namespace Capstone.Controllers
     [ApiController]
     public class SupplyController : ControllerBase
     {
+        private readonly ISupplyDao SupplySqlDao;
+
+        public SupplyController(ISupplyDao supplyDao)
+        {
+            SupplySqlDao = supplyDao;
+        }
+
+        [HttpGet()]
+        public ActionResult<List<Supply>> ListAllSupplies()
+        {
+            return SupplySqlDao.GetAllSupplies();
+        }
+
         public int GetUserIdFromToken()
         {
             int userId = -1;

@@ -8,6 +8,6 @@ namespace Capstone.DAO
 {
     public interface ISupplyDao
     {
-
+        List<Supply> GetAllSupplies();
     }
 }
