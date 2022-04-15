@@ -155,6 +155,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@description", plantToAdd.Description);
                     cmd.Parameters.AddWithValue("@square_area", plantToAdd.SquareArea);
                     cmd.Parameters.AddWithValue("@cost", plantToAdd.Cost);
+                    cmd.Parameters.AddWithValue("@sun_requirements", plantToAdd.SunRequirements);
                     cmd.Parameters.AddWithValue("@image_url", plantToAdd.ImageUrl);
                     cmd.Parameters.AddWithValue("@temporary_usda_zones", plantToAdd.TemporaryUsdaZones);
                     plantId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -207,8 +208,12 @@ namespace Capstone.DAO
             Plant plant = new Plant();
             plant.CommonName = Convert.ToString(reader["common_name"]);
             plant.Description = Convert.ToString(reader["description"]);
+            plant.SquareArea = Convert.ToDecimal(reader["square_area"]);
             plant.Cost = Convert.ToDecimal(reader["cost"]);
             plant.SunRequirements = Convert.ToString(reader["sun_requirements"]);
+            plant.ImageUrl = Convert.ToString(reader["image_url"]);
+            plant.TemporaryUsdaZones = Convert.ToString(reader["temporary_usda_zones"]);
+            
             return plant;
         }
     }
