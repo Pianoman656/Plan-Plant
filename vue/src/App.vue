@@ -1,7 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+      <router-link 
+      v-if="$store.state.user.username === 'admin'" 
+        v-bind:to="{ name: 'admin-home' }">
+        Home
+      </router-link>      
+
+      <router-link 
+      v-else-if="$store.state.user.username !== 'admin'" 
+        v-bind:to="{ name: 'user-home' }">
+        Home
+      </router-link>  
+
 
       <router-link
         v-bind:to="{ name: 'logout' }"
