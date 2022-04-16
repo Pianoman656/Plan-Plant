@@ -6,12 +6,12 @@ export default {
       return axios.get('/plant/');
     },
   
-    get(id) {
-      return axios.get(`/plant/${id}`)
-    },
+    //get(id) {
+    //  return axios.get(`/plant/${id}`)
+    //},
     
     create(plant) {
-      return axios.post('/plant/', plant);      
+      return axios.post(`/plant/`, plant);      
     },
 
     update(id, plant) {

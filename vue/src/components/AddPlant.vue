@@ -30,7 +30,7 @@
     </div>
     <div class="actions">
       <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
-      <button type="submit" v-on:click="saveDocument()">Save Document</button>
+      <button type="submit" v-on:click="savePlant()">Save Plant</button>
     </div>
   </form>
 </template>
@@ -44,12 +44,12 @@ export default {
     data() {
         return {
             plant: {
-                plantId: Math.floor(Math.random() * (1000 - 100) + 100),
+                Id: Math.floor(Math.random() * (1000 - 100) + 100),
                 imageUrl: "",
                 commonName: "",
                 description: "",
-                squareArea: null,
-                cost: null,
+                squareArea: "",
+                cost: "",
                 sunRequirements: "",
                 temporaryUsdaZones: ""
             }
@@ -76,9 +76,37 @@ export default {
 </script>
 
 
+
 <style>
 
-
+form {
+  padding: 20px;
+  font-size: 16px;
+  width: 500px;
+}
+form * {
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+}
+.field label {
+  margin: 4px 0;
+  font-weight: bold;
+}
+.field input,
+.field textarea {
+  padding: 8px;
+}
+.field textarea {
+  height: 300px;
+}
+.actions {
+  text-align: right;
+  padding: 10px 0;
+}
 
 
 </style>

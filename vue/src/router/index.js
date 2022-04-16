@@ -8,7 +8,10 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import CropGallery from '../views/CropGallery.vue'
 import Account from '../views/Account.vue'
+import Plant from '../views/Plant.vue'
+import CreatePlant from '../views/CreatePlant.vue'
 import store from '../store/index'
+import NotFound from '../views/NotFound.vue'
 
 
 Vue.use(Router)
@@ -57,7 +60,7 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    },
+    },    
     {
       path: "/logout",
       name: "logout",
@@ -89,6 +92,21 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: '/plant/create',
+      name: 'CreatePlant',
+      component: CreatePlant
+    },
+    {
+      path: '/plant/:plantId',
+      name: 'Plant',
+      component: Plant
+    },
+    {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
 })

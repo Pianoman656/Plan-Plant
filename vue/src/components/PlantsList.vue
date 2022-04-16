@@ -10,7 +10,7 @@
         <th>Cost</th>
         <th>Hardiness Zone</th>
         <th>Sun Requirements</th>
-        <th></th>        
+        <th>Actions</th>        
       </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
         <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
         <td class="sun-requirements">{{plant.sunRequirements}}</td>
         <td>
-            <button v-on:click="viewDocument(plant.id)">Edit</button>&nbsp;
+            <button v-on:click="viewPlant(plant.id)">Edit</button>&nbsp;
         </td>
       </tr>
     </tbody>  
@@ -62,7 +62,8 @@ export default {
     },
     computed: {
         sortedPlants() {
-            return this.$store.state.plants            
+            return this.$store.state.plants  
+            //don't know if sorted is really needed but it's here for later          
         }
     }
     
