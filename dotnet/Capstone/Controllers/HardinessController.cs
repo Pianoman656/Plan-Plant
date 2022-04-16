@@ -19,6 +19,7 @@ namespace Capstone.Controllers
             HardinessSqlDao = hardinessDao;
         }
 
+        //get list of all zones
         [HttpGet()]
         public ActionResult<List<Hardiness>> ListAllZones()
         {
