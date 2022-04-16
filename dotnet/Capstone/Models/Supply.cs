@@ -10,5 +10,6 @@ namespace Capstone.Models
         public int SupplyId { get; set; }
         public string SupplyName { get; set; }
         public decimal SupplyCost { get; set; }
+
     }
 }
