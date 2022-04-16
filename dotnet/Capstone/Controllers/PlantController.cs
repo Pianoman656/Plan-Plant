@@ -53,18 +53,20 @@ namespace Capstone.Controllers
                 return StatusCode(409);
         }
 
-        [HttpGet("{sun_requirements}")]
+        //get request for plants based on their sun exposure
+        [HttpGet("sun/{sun_requirements}")]
         public ActionResult<List<Plant>> ListAllPlantsBySunRequirements(string sun_requirements)
         {
             return PlantSqlDao.GetAllPlantsBySunRequirements(sun_requirements);
         }
 
-        /*[HttpGet()]
-        public ActionResult<List<Plant>> ListAllPlantsByPlot(int plot_id)
+        //get request for list of all plants based on owners id
+        [HttpGet("{plot_id}")]
+        public ActionResult<List<Plant>> ListAllPlantsByPlotId(int plot_id)
         {
             return PlantSqlDao.GetAllPlantsByPlot(plot_id);
         }
-*/
+
 
         public int GetUserIdFromToken()
         {

@@ -8,6 +8,8 @@ namespace Capstone.Models
     public class Supply
     {
         public int SupplyId { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
         public string SupplyName { get; set; }
         public decimal SupplyCost { get; set; }
 

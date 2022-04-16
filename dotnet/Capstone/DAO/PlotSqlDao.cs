@@ -25,7 +25,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM plots WHERE plot_id = @id;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM plots WHERE plot_id = @plot_id;", conn);
                     cmd.Parameters.AddWithValue("@plot_id", plotId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -53,6 +53,7 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand("SELECT * " +
                                                     "FROM plots " +
                                                     "WHERE farm_id = @farm_id", conn);
+                    cmd.Parameters.AddWithValue("@farm_id", farmId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -104,7 +105,6 @@ namespace Capstone.DAO
             plot.FarmId = Convert.ToInt32(reader["farm_id"]);
             plot.PlotName = Convert.ToString(reader["plot_name"]);
             plot.SunStatus = Convert.ToString(reader["sun_status"]);
-            plot.PlantId = Convert.ToInt32(reader["plant_id"]);
             plot.PlotSquareFootage = Convert.ToDecimal(reader["plot_square_footage"]);
             plot.ZoneId = Convert.ToInt32(reader["zone_id"]);
 
