@@ -9,7 +9,8 @@
         <th>Square Area</th>
         <th>Cost</th>
         <th>Hardiness Zone</th>
-        <th>Sun Requirements</th>        
+        <th>Sun Requirements</th>
+        <th></th>        
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
         <td class="cost">{{plant.cost}}</td>    
         <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
         <td class="sun-requirements">{{plant.sunRequirements}}</td>
+        <td></td>
       </tr>
     </tbody>  
   </table>
