@@ -30,6 +30,10 @@ INSERT INTO plots_plants (plot_id, plant_id) VALUES
 ((SELECT plot_id FROM plots WHERE plot_name = 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Cabbage')),
 ((SELECT plot_id FROM plots WHERE plot_name = 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
 
+INSERT INTO plots_plants (plot_id, plant_id) VALUES
+((SELECT plot_id FROM plots WHERE plot_name = 'First Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
+
+
 SELECT * FROM users
 SELECT * FROM plots
 SELECT * FROM farms
@@ -56,10 +60,27 @@ ON f.farm_id = sf.farm_id
 JOIN supplies s
 ON sf.supply_id = s.supply_id
 
+--for finding list of all farms plants
+SELECT p.common_name, pl.plot_name
+FROM plants p
+JOIN plots_plants pp 
+ON pp.plant_id = p.plant_id 
+JOIN plots pl 
+ON pl.plot_id = pp.plot_id 
+JOIN farms f
+ON f.farm_id = pl.farm_id
+JOIN users u
+ON f.farm_id = u.user_id
+JOIN hardiness h
+ON h.zone_id = pl.zone_id
+ORDER BY pl.plot_id;
+
 
 UPDATE users
 SET (first_name = 'Joe', last_name = 'Hille', email = 'email')
 WHERE username = user
+
+
 
 
 
