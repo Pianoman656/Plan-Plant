@@ -87,10 +87,10 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT common_name, description, cost, sun_requirements " +
-                                                    "FROM plants p " +
+                    SqlCommand cmd = new SqlCommand("SELECT * " +
+                                                    "FROM plants " +
                                                     "WHERE sun_requirements = @sun_requirements", conn);
-                    cmd.Parameters.AddWithValue("@sun_req", sun_requirements);
+                    cmd.Parameters.AddWithValue("@sun_requirements", sun_requirements);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
