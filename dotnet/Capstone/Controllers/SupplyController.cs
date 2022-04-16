@@ -20,6 +20,7 @@ namespace Capstone.Controllers
             SupplySqlDao = supplyDao;
         }
 
+        //get list of all supplies
         [HttpGet()]
         public ActionResult<List<Supply>> ListAllSupplies()
         {

@@ -117,9 +117,9 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones  " +
+                    SqlCommand cmd = new SqlCommand("SELECT p.plant_id, p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones  " +
                                                     "FROM plants p " +
-                                                    "JOIN plants_plots pp " +
+                                                    "JOIN plots_plants pp " +
                                                     "ON p.plant_id = pp.plant_id " +
                                                     "WHERE pp.plot_id = @plot_id", conn);
                     cmd.Parameters.AddWithValue("@plot_id", plot_id);
