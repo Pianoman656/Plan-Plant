@@ -60,14 +60,12 @@ export default {
           if (response.status == 200) {
             this.$store.commit('SET_AUTH_TOKEN', response.data.token)
             this.$store.commit('SET_USER', response.data.user)
-            this.$router.push('/')
             if (this.user.username === 'admin') {
-              this.$router.push('/admin-account')
-            } else {
-              this.$router.push('/user-account')
+              this.$router.push('/admin')
             }
-
-            console.log(this.$store.state.user)
+            else {
+            this.$router.push('/user')
+            }
           }
         })
         .catch((error) => {
