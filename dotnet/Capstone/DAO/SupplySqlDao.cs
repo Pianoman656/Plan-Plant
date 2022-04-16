@@ -25,7 +25,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT supply_id, supply_name, supply_cost " +
+                    SqlCommand cmd = new SqlCommand("SELECT * " +
                                                     "FROM supplies", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -45,6 +45,9 @@ namespace Capstone.DAO
         private Supply GetSupplyFromReader(SqlDataReader reader)
         {
             Supply supply = new Supply();
+            supply.SupplyId = Convert.ToInt32(reader["supply_id"]);
+            supply.Description = Convert.ToString(reader["description"]);
+            supply.ImageUrl = Convert.ToString(reader["image_url"]);
             supply.SupplyName = Convert.ToString(reader["supply_name"]);
             supply.SupplyCost = Convert.ToDecimal(reader["supply_cost"]);
             return supply;

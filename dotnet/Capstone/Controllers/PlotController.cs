@@ -26,6 +26,7 @@ namespace Capstone.Controllers
             PlotSqlDao = plotDao;
         }
 
+        //get individual plot based on id
         [HttpGet("{id}")]
         public ActionResult<Plot> GetPlot(int id)
         {
@@ -36,6 +37,7 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
+        //get a list of all plots
         [HttpGet()]
         public ActionResult<List<Plot>> ListAllUserPlots()
         {
@@ -47,6 +49,7 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
+        //post add a new plot
         [HttpPost()]
          public IActionResult AddNewPlot(Plot plotToAdd)
         {
