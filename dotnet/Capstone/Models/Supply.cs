@@ -12,5 +12,6 @@ namespace Capstone.Models
         public string ImageUrl { get; set; }
         public string SupplyName { get; set; }
         public decimal SupplyCost { get; set; }
+
     }
 }
