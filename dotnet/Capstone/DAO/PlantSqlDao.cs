@@ -17,8 +17,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        //This is currently just a helper method for Edit and Update methods in this class
-        private Plant GetPlantById(int plantId)
+        public Plant GetPlantById(int plantId)
         {
             Plant plant = new Plant();
 

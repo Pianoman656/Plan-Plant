@@ -27,6 +27,13 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlants();
         }
 
+        [HttpGet("id/{id}")]
+        public ActionResult<Plant> GetPlantById(int id)
+        {
+            return PlantSqlDao.GetPlantById(id);
+        }
+
+
         // post request to /Plant/ only admin can access
         [HttpPost()]
         [Authorize(Roles = "admin")]
