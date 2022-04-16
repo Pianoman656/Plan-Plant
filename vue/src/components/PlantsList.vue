@@ -4,7 +4,8 @@
     <thead>
       <tr>
         <!-- <th>&nbsp;</th>  -->
-        <th>Plant Name</th>
+         
+        <th></th>
         <th>Square Area</th>
         <th>Cost</th>
         <th>Hardiness Zone</th>
@@ -13,10 +14,14 @@
     </thead>
     <tbody>
       <tr v-for="plant in plants" :key="plant.id" v-on:click="viewPlant(plant.id)">        
-        <td class="name">{{ plant.commonName }}</td>        
+        <td> 
+            <img :src="plant.imageUrl" class="plant-image" />  
+            <span class="name"> {{ plant.commonName }}</span>                       
+        </td>
+        <!--  <td class="name">{{ plant.commonName }}</td>   -->      
         <td class="square-area">{{plant.squareArea}}</td>
         <td class="cost">{{plant.cost}}</td>    
-        <td class="hardiness-zone">{{plant.hardinessZone}}</td>
+        <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
         <td class="sun-requirements">{{plant.sunRequirements}}</td>
       </tr>
     </tbody>  
@@ -65,7 +70,12 @@ th {
   font-family: "Work Sans", sans-serif;
   font-weight: 500;
   text-align: left;
+  color: #019875;
 }
 
+.plant-image {
+    height: 4%;
+    width: 4%;
+}
 
 </style>
