@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plant in plants" :key="plant.id" v-on:click="viewPlant(plant.id)">        
+      <tr v-for="plant in sortedPlants" :key="plant.id" v-on:click="viewPlant(plant.id)">        
         <td> 
             <img :src="plant.imageUrl" class="plant-image" />  
             <span class="name"> {{ plant.commonName }}</span>                       
@@ -24,7 +24,9 @@
         <td class="cost">{{plant.cost}}</td>    
         <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
         <td class="sun-requirements">{{plant.sunRequirements}}</td>
-        <td></td>
+        <td>
+            <button v-on:click="viewDocument(plant.id)">Edit</button>&nbsp;
+        </td>
       </tr>
     </tbody>  
   </table>
@@ -33,26 +35,36 @@
 
 <script>
 
-import plants from '../services/PlantsService'
+import plantsService from '../services/PlantsService'
 
 export default {
 
     name: "plants-list",
-    data() {
-        return {
-        plants: []
-        };
-    },
+    // data() {
+    //     return {
+    //     plants: []
+    //     };
+    // },
     methods: {
         viewPlant(id) {
         this.$router.push(`/plant/${id}`);
+        },
+
+        getPlants() {
+            plantsService.list().then(response => {
+                this.$store.commit("SET_PLANTS", response.data);
+            });
         }
+
     },
     created() {
-        plants.list().then((response) => {
-        this.plants = response.data;
-        });
-   }
+        this.getPlants();
+    },
+    computed: {
+        sortedPlants() {
+            return this.$store.state.plants            
+        }
+    }
     
 }
 </script>

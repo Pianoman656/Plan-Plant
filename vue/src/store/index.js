@@ -19,7 +19,18 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    plants: [],
+    activePlant: {
+      plantId: null,
+      imageUrl: '',
+      commonName: '',
+      description: '',
+      squareArea: null,
+      cost: null,
+      sunRequirements: '',
+      temporaryUsdaZones: ''
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -37,6 +48,18 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_PLANTS(state, data) {
+      state.plants = data;
+    },
+    SET_ACTIVE_PLANT(state, data) {
+      state.activePlant = data;
     }
-  }
+  },
+  actions: {
+    
+  },
+  modules: {
+
+  },
 })
