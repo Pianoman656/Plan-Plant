@@ -2,36 +2,12 @@
 <template>
   <div class="admin-home">
     <h1>Admin Page</h1>
+    <router-link :to="{ name: 'create-plant' }"
+      >Add New Plant
+    </router-link>
     <p v-if="$store.state.token == ''">You must be authenticated to see this</p>    
-    <!--  <p v-if="$store.state.user.username == 'admin'">Let's put the Admin stuff here</p>   -->  
-
-  <table>
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Plant Name</th>
-        <th>Square Area</th>
-        <th>Cost</th>
-        <th>Hardiness Zone</th>
-        <th>Sun Requirements</th>        
-      </tr>
-    </thead>
-    <tbody>
-      <!--
-      <tr v-for="doc in docs" :key="doc.id" v-on:click="viewDocument(doc.id)">
-        <td class="docs-icon">
-          <img src="../assets/icons8-google-docs-48.png" />
-        </td>
-        <td class="name">{{ doc.name }}</td>
-        <td>
-          <img :src="doc.avatar" class="avatar" />
-          <span class="ownedby">{{ doc.author }}</span>
-        </td>
-        <td>{{ doc.lastOpened }}</td>
-      </tr>
-    -->
-    </tbody>    
-  </table>
+    <plants-list />
+   
 
   </div>
 
@@ -39,53 +15,38 @@
 </template>
 
 <script>
-import plants from '../services/Plants'
-
+import PlantsList from "../components/PlantsList.vue";
 
 export default {
-  name: "admin-home",
-  data() {
-    return {
-      plants: []
-    };
-  },
-  methods: {
-    viewPlant(id) {
-      this.$router.push(`/plants/${id}`);
-    }
-   },
-   created() {
-     plants.list().then((response) => {
-       this.plants = response.data;
-     });
-   }
-    
-}
-
+  components: {
+    PlantsList
+  }      
+};
 
 </script>
 
 
 <style>
 
+.admin-home h1 {  
+  color: #019875;  
+}
 
-.admin-home h1 {
-  color: red;
+.admin-home a {
+  float: right;
+}
+
+.admin-home a:link,
+.admin-home a:visited {
+  padding: 20px 20px 20px 0;
+  text-align: right;
   color: #019875;
-  
+  text-decoration: none;
+}
+.admin-home a:hover {
+  text-decoration: underline;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-}
 
-th {
-  font-family: "Work Sans", sans-serif;
-  font-weight: 500;
-  text-align: left;
-}
 
 </style>
