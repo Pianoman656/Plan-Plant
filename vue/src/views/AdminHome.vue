@@ -2,9 +2,9 @@
 <template>
   <div class="admin-home">
     <h1>Admin Page</h1>
-    <router-link :to="{ name: 'AddPlant' }"
-      >Add New Plant</router-link
-    >
+    <router-link :to="{ name: 'CreatePlant' }"
+      >Add New Plant
+    </router-link>
     <p v-if="$store.state.token == ''">You must be authenticated to see this</p>    
     <plants-list />
    

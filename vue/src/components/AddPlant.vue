@@ -2,7 +2,7 @@
   <form v-on:submit.prevent>
     <div class="field">
       <label for="plant-name">Plant Name</label>
-      <input type="text" v-model="document.name" />
+      <input type="text" v-model="plant.commonName" />
     </div>
     <div class="field">
       <label for="square-area">Square Area</label>
@@ -44,14 +44,14 @@ export default {
     data() {
         return {
             plant: {
-                Id: Math.floor(Math.random() * (1000 - 100) + 100),
-                imageUrl: "",
+                //plantId: Math.floor(Math.random() * (1000 - 100) + 100),
                 commonName: "",
-                description: "",
                 squareArea: "",
                 cost: "",
                 sunRequirements: "",
-                temporaryUsdaZones: ""
+                imageUrl: "",
+                temporaryUsdaZones: "",
+                description: ""
             }
         };
     },
@@ -60,16 +60,17 @@ export default {
             plantsService
                 .create(this.plant)
                 .then(response => {
-                if (response.status === 201) {
-                    this.$router.push("/admin-home");
+                if (response.status === 200 || response.status === 201 ) {
+                    this.$router.push("/admin");
                 }
                 })
                 .catch(error => {
                 console.error(error);
+                //put an error message on the UI
                 });
             },
         cancel() {
-            this.$router.push("/admin-home");
+            this.$router.push("/admin");
         }  
     }
 };

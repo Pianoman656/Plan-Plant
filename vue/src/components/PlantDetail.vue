@@ -2,6 +2,42 @@
   <div id="login" class="text-center">
         
         <h1 class="h3 mb-3 font-weight-normal">Edit Plant</h1>
+        <form v-on:submit.prevent>
+            <div class="field">
+                <label for="plant-name">Plant Name</label>
+                <input type="text" v-model="plant.name" />
+            </div>
+            <div class="field">
+                <label for="square-area">Square Area</label>
+                <input type="number" v-model="plant.squareArea" />
+            </div>
+            <div class="field">
+                <label for="cost">Cost</label>
+                <input type="number" v-model="plant.cost" />
+            </div>
+            <div class="field">
+                <label for="sun-requirements">Sun Requirements</label>
+                <input type="text" v-model="plant.sunRequirements" />
+            </div>
+            <div class="field">
+                <label for="image">Image</label>
+                <input type="text" v-model="plant.imageUrl" />
+            </div>
+            <div class="field">
+                <label for="hardiness-zones">Hardiness Zones</label>
+                <input type="text" v-model="plant.temporaryUsdaZones" />
+            </div>
+            <div class="field">
+                <label for="plant-description">Plant Description</label>
+                <textarea spellcheck="false" v-model="plant.description" />
+            </div>
+            <div class="actions">
+            <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
+            <button type="submit" v-on:click="savePlant()">Save Plant</button>
+            </div>
+        </form>
+
+
         <!--<div class="alert alert-danger" role="alert" v-if="invalidCredentials">
             Invalid username and password!   
         </div> -->
@@ -12,7 +48,7 @@
         >
             Thank you for registering, please sign in.
         </div>   -->
-        <label for="plant-name" class="plant-name">Plant Name</label>
+        <!-- <label for="plant-name" class="plant-name">Plant Name</label>
         <input
             type="text"
             id="plant-name"
@@ -27,7 +63,7 @@
             v-bind:value="this.$store.state.activePlant.description"
             v-on:input="description = $event.target.value"
             spellcheck="false"
-        />
+        /> -->
                
        
         <div>
@@ -47,8 +83,17 @@ export default {
 
   name: "plant-detail",
   data() {
-    return {
-      content: ""
+    return {     
+        plant: {
+            //plantId: Math.floor(Math.random() * (1000 - 100) + 100),
+            commonName: "",
+            squareArea: "",
+            cost: "",
+            sunRequirements: "",
+            imageUrl: "",
+            temporaryUsdaZones: "",
+            description: ""
+        }
     };
   },
   methods: {
@@ -60,7 +105,7 @@ export default {
         commonName: current.commonName,
         description: current.description,
         squareArea: current.squareArea,
-        cost: this.cost,
+        cost: current.cost,
         sunRequirements: current.sunRequirements,
         temporaryUsdaZones: current.temporaryUsdaZones
 
@@ -74,7 +119,7 @@ export default {
   },
   created() {
       plantsService
-        .get(this.$route.params.plantId)
+        .get(this.$route.params.id)
         .then(response => {
         this.$store.commit("SET_ACTIVE_PLANT", response.data);
       })

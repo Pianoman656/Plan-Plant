@@ -6,9 +6,9 @@ export default {
       return axios.get('/plant/');
     },
   
-    //get(id) {
-    //  return axios.get(`/plant/${id}`)
-    //},
+    get(id) {
+      return axios.get(`/plant/id/${id}`)
+    },
     
     create(plant) {
       return axios.post(`/plant/`, plant);      

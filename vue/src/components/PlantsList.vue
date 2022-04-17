@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plant in sortedPlants" :key="plant.id" v-on:click="viewPlant(plant.id)">        
+      <tr v-for="plant in sortedPlants" :key="plant.id">        
         <td> 
             <img :src="plant.imageUrl" class="plant-image" />  
             <span class="name"> {{ plant.commonName }}</span>                       
@@ -24,9 +24,18 @@
         <td class="cost">{{plant.cost}}</td>    
         <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
         <td class="sun-requirements">{{plant.sunRequirements}}</td>
+        <!-- 
         <td>
             <button v-on:click="viewPlant(plant.id)">Edit</button>&nbsp;
         </td>
+         -->
+        <td>
+        <router-link :to="{ name: 'Plant' }"
+        >Edit
+        </router-link>
+        </td>
+
+
       </tr>
     </tbody>  
   </table>
@@ -46,9 +55,12 @@ export default {
     //     };
     // },
     methods: {
-        viewPlant(id) {
-        this.$router.push(`/plant/${id}`);
-        },
+        //viewPlant(id) {
+        // plantsService.get(id).then(response => {
+        //     this.$store.commit("SET_ACTIVE_PLANT", response.data);
+        // });
+        //this.$router.push(`/plant/id/${id}`);
+        //},
 
         getPlants() {
             plantsService.list().then(response => {

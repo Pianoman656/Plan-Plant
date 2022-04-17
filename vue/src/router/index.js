@@ -99,7 +99,7 @@ const router = new Router({
       component: CreatePlant
     },
     {
-      path: '/plant/:plantId',
+      path: '/plant/:id',
       name: 'Plant',
       component: Plant
     },
