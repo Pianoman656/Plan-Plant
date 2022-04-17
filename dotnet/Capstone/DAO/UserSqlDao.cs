@@ -57,13 +57,23 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, password_hash, salt, user_role, zip) VALUES (@username, @password_hash, @salt, @user_role, @zip)", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, password_hash, salt, user_role, zip) " +
+                                                    "OUTPUT INSERTED.user_id " +
+                                                    "VALUES (@username, @password_hash, @salt, @user_role, @zip);", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password_hash", hash.Password);
                     cmd.Parameters.AddWithValue("@salt", hash.Salt);
                     cmd.Parameters.AddWithValue("@user_role", role);
                     cmd.Parameters.AddWithValue("@zip", zip);
-                    cmd.ExecuteNonQuery();
+                    int userId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    //this takes the outputed user_id from the insert statement above
+                    //it immediately creates a users "farm" at registration. 
+                    //farm and user_id will be tied everytime a new user registers
+                    //one and only one farm per user. 
+                    SqlCommand cmd1 = new SqlCommand("INSERT INTO farms (user_id) VALUES (@user_id);", conn);
+                    cmd1.Parameters.AddWithValue("@user_id", userId);
+                    cmd1.ExecuteNonQuery();
                 }
             }
             catch (SqlException)

@@ -37,11 +37,11 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
-        //get a list of all plots
+        //get a list of all user plots
         [HttpGet()]
         public ActionResult<List<Plot>> ListAllUserPlots()
         {
-            List<Plot> userPlots = PlotSqlDao.GetAllPlots(GetFarmIdFromToken());
+            List<Plot> userPlots = PlotSqlDao.GetAllPlotsByUser(GetUserIdFromToken());
 
             if (userPlots != null)
                 return userPlots;
@@ -53,7 +53,7 @@ namespace Capstone.Controllers
         [HttpPost()]
          public IActionResult AddNewPlot(Plot plotToAdd)
         {
-            Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetFarmIdFromToken());
+            Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetUserIdFromToken());
 
             if (addedPlot != null && addedPlot.PlotName == plotToAdd.PlotName)
                 return StatusCode(418);
@@ -61,7 +61,8 @@ namespace Capstone.Controllers
                 return StatusCode(409);
         }
 
-        public int GetFarmIdFromToken()
+
+        public int GetUserIdFromToken()
         {
             int userId = -1;
             try

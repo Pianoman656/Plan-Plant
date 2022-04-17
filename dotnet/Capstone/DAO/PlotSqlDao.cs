@@ -41,7 +41,7 @@ namespace Capstone.DAO
             }
             return returnPlot;
         }
-        public List<Plot> GetAllPlots(int farmId)
+        public List<Plot> GetAllPlotsByUser(int userId)
         {
             List<Plot> plots = new List<Plot>();
             try
@@ -50,10 +50,14 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                    "FROM plots " +
-                                                    "WHERE farm_id = @farm_id", conn);
-                    cmd.Parameters.AddWithValue("@farm_id", farmId);
+                    SqlCommand cmd = new SqlCommand("SELECT p.plot_id, p.farm_id, p.plot_name, p.sun_status, p.plot_square_footage, p.zone_id " +
+                                                    "FROM plots p " +
+                                                    "JOIN farms f " +
+                                                    "ON p.farm_id = f.farm_id " +
+                                                    "JOIN users u " +
+                                                    "ON u.user_id = f.user_id " +
+                                                    "WHERE u.user_id = @user_id", conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -70,7 +74,7 @@ namespace Capstone.DAO
             return plots;
         }
 
-        public Plot AddPlot(Plot plot, int farmId)
+        public Plot AddPlot(Plot plot, int userId)
         {
             int newPlotId;
             try
@@ -81,8 +85,8 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO plots (farm_id, plot_name, sun_status, plot_square_footage, zone_id) " +
                                                     "OUTPUT INSERTED.plot_id " +
-                                                    "VALUES (@farm_id, @plot_name, @sun_status, @plot_square_footage, @zone_id)", conn);
-                    cmd.Parameters.AddWithValue("@farm_id", farmId); // attempting to use token in place of "farmId
+                                                    "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_status, @plot_square_footage, @zone_id)", conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId); // using token and /\ this subquery to correctly pull the farm_id
                     cmd.Parameters.AddWithValue("@plot_name", plot.PlotName);
                     cmd.Parameters.AddWithValue("@sun_status", plot.SunStatus);
                     cmd.Parameters.AddWithValue("@plot_square_footage", plot.PlotSquareFootage);
