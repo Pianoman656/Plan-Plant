@@ -133,6 +133,7 @@ namespace Capstone.DAO
 
         }
 
+
         private Plot GetPlotFromReader(SqlDataReader reader)
         {
             Plot plot = new Plot();
