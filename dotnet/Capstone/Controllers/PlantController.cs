@@ -69,11 +69,24 @@ namespace Capstone.Controllers
 
         //get request for list of all plants based on owners id
         [HttpGet("{plot_id}")]
+        [Authorize]
         public ActionResult<List<Plant>> ListAllPlantsByPlotId(int plot_id)
         {
             return PlantSqlDao.GetAllPlantsByPlot(plot_id);
         }
 
+        //adds a plant to a plot. PlantedPlant obj/ect passed in from front must include target plot_id and target plant_id
+        [HttpPost("planting")]
+        [Authorize]
+        public IActionResult AddPlantToPlot(PlantedPlant plantToAdd)
+        {
+                bool isPlanted = PlantSqlDao.AddPlantToPlot(plantToAdd);
+
+            if (isPlanted)
+                return StatusCode(201, "Plant added to plot");
+            else
+                return StatusCode(409);
+        }
 
         public int GetUserIdFromToken()
         {

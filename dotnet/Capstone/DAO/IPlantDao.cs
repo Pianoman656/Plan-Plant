@@ -15,6 +15,9 @@ namespace Capstone.DAO
         Plant AddPlant(Plant plantToAdd);
         Plant UpdatePlant(int plantId, Plant updatedPlant);
         
+        //changed to bool return for shiz and gigz \/
+        bool AddPlantToPlot(PlantedPlant plantReadyForPlanting);
         
+        /*bool RemovePlantFromPlot(PlantedPlant plantToDigUp);*/
     }
 }
