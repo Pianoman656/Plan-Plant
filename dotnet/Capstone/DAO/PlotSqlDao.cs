@@ -50,7 +50,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT p.plot_id, p.farm_id, p.plot_name, p.sun_status, p.plot_square_footage, p.zone_id " +
+                    SqlCommand cmd = new SqlCommand("SELECT p.plot_id, p.farm_id, p.plot_name, p.sun_exposure, p.plot_square_footage, p.zone_id " +
                                                     "FROM plots p " +
                                                     "JOIN farms f " +
                                                     "ON p.farm_id = f.farm_id " +
@@ -83,12 +83,12 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO plots (farm_id, plot_name, sun_status, plot_square_footage, zone_id) " +
+                    SqlCommand cmd = new SqlCommand("INSERT INTO plots (farm_id, plot_name, sun_exposure, plot_square_footage, zone_id) " +
                                                     "OUTPUT INSERTED.plot_id " +
-                                                    "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_status, @plot_square_footage, @zone_id)", conn);
+                                                    "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_exposure, @plot_square_footage, @zone_id)", conn);
                     cmd.Parameters.AddWithValue("@user_id", userId); // using token and /\ this subquery to correctly pull the farm_id
                     cmd.Parameters.AddWithValue("@plot_name", plot.PlotName);
-                    cmd.Parameters.AddWithValue("@sun_status", plot.SunStatus);
+                    cmd.Parameters.AddWithValue("@sun_exposure", plot.SunExposure);
                     cmd.Parameters.AddWithValue("@plot_square_footage", plot.PlotSquareFootage);
                     cmd.Parameters.AddWithValue("@zone_id", plot.ZoneId);
                     newPlotId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -140,7 +140,7 @@ namespace Capstone.DAO
             plot.PlotId = Convert.ToInt32(reader["plot_id"]);
             plot.FarmId = Convert.ToInt32(reader["farm_id"]);
             plot.PlotName = Convert.ToString(reader["plot_name"]);
-            plot.SunStatus = Convert.ToString(reader["sun_status"]);
+            plot.SunExposure = Convert.ToString(reader["sun_exposure"]);
             plot.PlotSquareFootage = Convert.ToDecimal(reader["plot_square_footage"]);
             plot.ZoneId = Convert.ToInt32(reader["zone_id"]);
 

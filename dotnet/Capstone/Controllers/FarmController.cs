@@ -6,11 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Capstone.Models;
 using Capstone.DAO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class FarmController : ControllerBase
     {
         private readonly IFarmDAO FarmSqlDao;
@@ -19,7 +21,7 @@ namespace Capstone.Controllers
             FarmSqlDao = farmDao;
         }
 
-        [HttpGet]
+        [HttpGet()]
         public Farm GetFarm()
         {
             int userId = GetUserIdFromToken();
