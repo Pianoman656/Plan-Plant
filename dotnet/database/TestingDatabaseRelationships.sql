@@ -19,15 +19,6 @@ INSERT INTO plots_plants (plot_id, plant_id) VALUES
 ((SELECT plot_id FROM plots WHERE plot_name LIKE 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Cabbage')),
 ((SELECT plot_id FROM plots WHERE plot_name LIKE 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
 
---
--- I believe this should be done using plot and plant ids instead of common names.
--- Using plot_name creates problems if someone names two plots with the same name.
-
-
---ADD PLANTS TO PLOTS
---INSERT INTO plots_plants (plot_id, plant_id) 
---OUTPUT INSERTED.plots_plants_id
---VALUES(@plot_id, @plant_id)
 
 --REMOVE PLANTS FROM PLOTS
 --DELETE FROM plots_plants ???
@@ -53,10 +44,9 @@ SELECT * FROM plots
 SELECT * FROM farms
 SELECT * FROM supplies_farms
 SELECT * FROM plots_plants
-
+SELECT * FROM supplies
 SELECT * FROM users 
-JOIN farms 
-ON users.user_id = farms.farm_id
+SELECT * FROM plants
 
 SELECT * FROM plants p 
 JOIN plots_plants pp 
@@ -79,7 +69,7 @@ JOIN supplies_farms sf
 ON f.farm_id = sf.farm_id
 JOIN supplies s
 ON sf.supply_id = s.supply_id
-WHERE f.user_id = 3 -- this will give you ALL tools on user 1's farm
+WHERE f.user_id = 3; -- this will give you ALL tools on user 1's farm
 
 
 
@@ -101,10 +91,23 @@ ORDER BY pl.plot_id;
 
 UPDATE users
 SET first_name = 'Joe', last_name = 'Hille', email = 'email'
-WHERE username = user
+WHERE username = user;
+
+INSERT INTO supplies_farms (supply_id, farm_id) VALUES
+(1,1),(20,1),(20,1),(6,1),(8,1),(8,1),(13,1),
+(20,2),(50,2),(20,2);
+
+SELECT u.username, s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost 
+FROM users u 
+JOIN farms f 
+ON u.user_id = f.farm_id 
+JOIN supplies_farms sf 
+ON sf.farm_id = f.farm_id 
+JOIN supplies s 
+ON s.supply_id = sf.supply_id 
+WHERE u.user_id = 1;
 
 
 
-
-
-
+DELETE FROM supplies_farms
+WHERE supplies_farms_id = 4;

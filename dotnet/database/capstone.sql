@@ -106,9 +106,10 @@ CREATE TABLE supplies (
 );
 
 CREATE TABLE supplies_farms(
+	supplies_farms_id int IDENTITY (1,1),
 	supply_id int,
 	farm_id int,
-	CONSTRAINT PK_supplies_farms PRIMARY KEY (supply_id, farm_id),
+	CONSTRAINT PK_supplies_farms PRIMARY KEY (supplies_farms_id),
 	CONSTRAINT FK_supplies_farms_supplies FOREIGN KEY (supply_id) REFERENCES supplies(supply_id),
 	CONSTRAINT FK_supplies_farms_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id)
 );
