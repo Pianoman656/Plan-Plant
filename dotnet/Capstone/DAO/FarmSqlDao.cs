@@ -4,7 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Capstone.Models;
-
+//
+//
+//
+//A new user's farm is assigned at registration. - see usersqlDao line70
+//
+//
+//
 namespace Capstone.DAO
 {
     public class FarmSqlDao : IFarmDAO
@@ -14,6 +20,7 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
+
         public Farm GetFarm(int id)
         {
             Farm returnFarm = new Farm();

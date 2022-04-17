@@ -86,10 +86,11 @@ CREATE TABLE plots (
 );
 
 CREATE TABLE plots_plants (
+	plots_plants_id int IDENTITY (1,1),
 	plot_id int,
 	plant_id int
 
-	CONSTRAINT PK_plots_plants PRIMARY KEY (plot_id, plant_id)
+	CONSTRAINT PK_plots_plants_id PRIMARY KEY (plots_plants_id)
 	CONSTRAINT FK_plots_plants_plots FOREIGN KEY (plot_id) REFERENCES plots(plot_id),
 	CONSTRAINT FK_plots_plants_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 )
@@ -169,6 +170,9 @@ INSERT INTO supplies (supply_id, description, image_url, supply_name, supply_cos
 INSERT INTO users (username, password_hash, salt, user_role, zip) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 44406);
 INSERT INTO users (username, password_hash, salt, user_role, zip) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 44512);
 
+--because user's farm will be assigned at registration, these /\ /\ /\ default users are assigned their farms here\/ in the sql query.
+INSERT INTO farms (user_id) VALUES ((SELECT user_id FROM users WHERE username LIKE 'user'));                   -- < < <
+INSERT INTO farms (user_id) VALUES ((SELECT user_id FROM users WHERE username LIKE 'admin'));                  -- < < <
 
 INSERT INTO plants (common_name, description, square_area, cost, sun_requirements, image_url, temporary_usda_zones) VALUES
 ('Anise', 'Anise is an annual/biennial herb that produces little, dainty white flowers and seed that has a refreshing licorice flavor. The small 1.5-2 feet tall plants have feather like green leaflets that are great for making aromatic tea. Anise seed produced from the plants can be used whole or ground in doughs or fillings of baked goods or brewed to make a delicate licorice-flavored tea', 1, 3.00, 'sun', 'https://www.ufseeds.com/dw/image/v2/BFKV_PRD/on/demandware.static/-/Sites-master-urbanfarmer/default/dwe4f23339/images/products/Pimpinella-anisum_flower.jpg?sw=450&sh=450','3,4,5,6,7,8,9'), 
