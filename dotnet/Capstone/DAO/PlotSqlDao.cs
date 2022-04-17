@@ -88,7 +88,7 @@ namespace Capstone.DAO
                                                     "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_exposure, @plot_square_footage, @zone_id)", conn);
                     cmd.Parameters.AddWithValue("@user_id", userId); // using token and /\ this subquery to correctly pull the farm_id
                     cmd.Parameters.AddWithValue("@plot_name", plot.PlotName);
-                    cmd.Parameters.AddWithValue("@sun_exposure", plot.SunStatus);
+                    cmd.Parameters.AddWithValue("@sun_exposure", plot.SunExposure);
                     cmd.Parameters.AddWithValue("@plot_square_footage", plot.PlotSquareFootage);
                     cmd.Parameters.AddWithValue("@zone_id", plot.ZoneId);
                     newPlotId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -140,7 +140,7 @@ namespace Capstone.DAO
             plot.PlotId = Convert.ToInt32(reader["plot_id"]);
             plot.FarmId = Convert.ToInt32(reader["farm_id"]);
             plot.PlotName = Convert.ToString(reader["plot_name"]);
-            plot.SunStatus = Convert.ToString(reader["sun_exposure"]);
+            plot.SunExposure = Convert.ToString(reader["sun_exposure"]);
             plot.PlotSquareFootage = Convert.ToDecimal(reader["plot_square_footage"]);
             plot.ZoneId = Convert.ToInt32(reader["zone_id"]);
 
