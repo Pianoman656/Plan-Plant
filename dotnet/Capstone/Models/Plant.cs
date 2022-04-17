@@ -16,4 +16,11 @@ namespace Capstone.Models
         public string ImageUrl { get; set; }
         public string TemporaryUsdaZones { get; set; }
     }
+
+    public class PlantedPlant
+    {
+        public int PlotPlantId { get; set; }
+        public int PlantId { get; set; }
+        public int PlotId { get; set; }
+    }
 }

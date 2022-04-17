@@ -204,6 +204,42 @@ namespace Capstone.DAO
             return addedPlant;
         }
 
+        //
+        public bool AddPlantToPlot(PlantedPlant plantReadyForPlanting)
+        {
+            bool isPlanted = false;
+            int atPlanting;
+            int inTheGround;
+            
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO plots_plants (plot_id, plant_id) " +
+                                                    "OUTPUT INSERTED.plots_plants_id " +
+                                                    "VALUES(@plot_id, @plant_id)", conn);
+                    cmd.Parameters.AddWithValue("@plot_id", plantReadyForPlanting.PlotId);
+                    cmd.Parameters.AddWithValue("@plant_id", plantReadyForPlanting.PlantId);
+                    atPlanting = Convert.ToInt32(cmd.ExecuteScalar());
+                    // ???redundant but tests itself????
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM plots_plants WHERE plots_plants_id = @plots_plants_id", conn);
+                    cmd1.Parameters.AddWithValue("@plots_plants_id", atPlanting);
+                    inTheGround = Convert.ToInt32(cmd1.ExecuteScalar());
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            if (atPlanting == inTheGround)
+                isPlanted = true;
+
+            return isPlanted;
+        }
+
         private Plant GetPlantFromReader(SqlDataReader reader)
         {
             Plant plant = new Plant();

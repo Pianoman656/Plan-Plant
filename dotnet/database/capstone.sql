@@ -76,7 +76,7 @@ CREATE TABLE plots (
 	plot_id int IDENTITY (1,1) NOT NULL,
 	farm_id int NOT NULL,
 	plot_name varchar(50) NOT NULL,
-	sun_status varchar(15) NOT NULL,
+	sun_exposure varchar(15) NOT NULL,
 	plot_square_footage decimal NOT NULL,
 	zone_id int NOT NULL,
 
