@@ -17,8 +17,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        //This is currently just a helper method for Edit and Update methods in this class
-        private Plant GetPlantById(int plantId)
+        public Plant GetPlantById(int plantId)
         {
             Plant plant = new Plant();
 
@@ -30,7 +29,7 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("SELECT * " +
                                                     "FROM plants " +
-                                                    "WHERE plant_id = @ plant_id", conn);
+                                                    "WHERE plant_id = @plant_id", conn);
                     cmd.Parameters.AddWithValue("@plant_id", plantId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -87,10 +86,10 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT common_name, description, cost, sun_requirements " +
-                                                    "FROM plants p " +
+                    SqlCommand cmd = new SqlCommand("SELECT * " +
+                                                    "FROM plants " +
                                                     "WHERE sun_requirements = @sun_requirements", conn);
-                    cmd.Parameters.AddWithValue("@sun_req", sun_requirements);
+                    cmd.Parameters.AddWithValue("@sun_requirements", sun_requirements);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -117,9 +116,9 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones  " +
+                    SqlCommand cmd = new SqlCommand("SELECT p.plant_id, p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones  " +
                                                     "FROM plants p " +
-                                                    "JOIN plants_plots pp " +
+                                                    "JOIN plots_plants pp " +
                                                     "ON p.plant_id = pp.plant_id " +
                                                     "WHERE pp.plot_id = @plot_id", conn);
                     cmd.Parameters.AddWithValue("@plot_id", plot_id);
@@ -150,6 +149,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("INSERT INTO plants (common_name, description, square_area, cost, sun_requirements, image_url, temporary_usda_zones) " +
+                                                    "OUTPUT INSERTED.plant_id " +
                                                     "VALUES (@common_name, @description, @square_area, @cost, @sun_requirements, @image_url, @temporary_usda_zones);", conn);
                     cmd.Parameters.AddWithValue("@common_name", plantToAdd.CommonName);
                     cmd.Parameters.AddWithValue("@description", plantToAdd.Description);
@@ -188,6 +188,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@description", plantToUpdate.Description);
                     cmd.Parameters.AddWithValue("@square_area", plantToUpdate.SquareArea);
                     cmd.Parameters.AddWithValue("@cost", plantToUpdate.Cost);
+                    cmd.Parameters.AddWithValue("@sun_requirements", plantToUpdate.SunRequirements);
                     cmd.Parameters.AddWithValue("@image_url", plantToUpdate.ImageUrl);
                     cmd.Parameters.AddWithValue("@temporary_usda_zones", plantToUpdate.TemporaryUsdaZones);
                     cmd.Parameters.AddWithValue("@plant_id", plantId);
@@ -206,6 +207,7 @@ namespace Capstone.DAO
         private Plant GetPlantFromReader(SqlDataReader reader)
         {
             Plant plant = new Plant();
+            plant.PlantId = Convert.ToInt32(reader["plant_id"]);
             plant.CommonName = Convert.ToString(reader["common_name"]);
             plant.Description = Convert.ToString(reader["description"]);
             plant.SquareArea = Convert.ToDecimal(reader["square_area"]);

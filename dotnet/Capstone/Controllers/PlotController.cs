@@ -25,7 +25,19 @@ namespace Capstone.Controllers
         {
             PlotSqlDao = plotDao;
         }
+        
+        [HttpGet()]
+        public ActionResult<List<Plot>> ListAllUserPlots()
+        {
+            List<Plot> userPlots = PlotSqlDao.GetAllPlotsByUser(GetUserIdFromToken());
 
+            if (userPlots != null)
+                return userPlots;
+            else
+                return NotFound();
+        }
+
+        //get individual plot based on plotId
         [HttpGet("{id}")]
         public ActionResult<Plot> GetPlot(int id)
         {
@@ -36,29 +48,36 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
-        [HttpGet()]
-        public ActionResult<List<Plot>> ListAllUserPlots()
-        {
-            List<Plot> userPlots = PlotSqlDao.GetAllPlots(GetFarmIdFromToken());
+        //get a list of all user plots
 
-            if (userPlots != null)
-                return userPlots;
-            else
-                return NotFound();
-        }
 
+        //post add a new plot
         [HttpPost()]
-         public IActionResult AddNewPlot(Plot plotToAdd)
+        public IActionResult AddNewPlot(Plot plotToAdd)
         {
-            Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetFarmIdFromToken());
+            Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetUserIdFromToken());
 
             if (addedPlot != null && addedPlot.PlotName == plotToAdd.PlotName)
-                return StatusCode(418);
+                return StatusCode(200);
             else
                 return StatusCode(409);
         }
 
-        public int GetFarmIdFromToken()
+        //delete plot its planted plants from data store.
+        //plotToDelete.PlotId is needed to identify target plot
+        [HttpDelete()]
+        public IActionResult DeletePlot(Plot plotToDelete)
+        {
+            Plot emptyPlot = PlotSqlDao.DeletePlot(plotToDelete);
+
+            if (emptyPlot.PlotName == null)
+                return Ok("Your plot was deleted.");
+            else
+                return StatusCode(409, "Trouble deleting your plot");
+        }
+
+
+        public int GetUserIdFromToken()
         {
             int userId = -1;
             try

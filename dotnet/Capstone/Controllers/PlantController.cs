@@ -27,6 +27,13 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlants();
         }
 
+        [HttpGet("id/{id}")]
+        public ActionResult<Plant> GetPlantById(int id)
+        {
+            return PlantSqlDao.GetPlantById(id);
+        }
+
+
         // post request to /Plant/ only admin can access
         [HttpPost()]
         [Authorize(Roles = "admin")]
@@ -52,6 +59,21 @@ namespace Capstone.Controllers
             else
                 return StatusCode(409);
         }
+
+        //get request for plants based on their sun exposure
+        [HttpGet("sun/{sun_requirements}")]
+        public ActionResult<List<Plant>> ListAllPlantsBySunRequirements(string sun_requirements)
+        {
+            return PlantSqlDao.GetAllPlantsBySunRequirements(sun_requirements);
+        }
+
+        //get request for list of all plants based on owners id
+        [HttpGet("{plot_id}")]
+        public ActionResult<List<Plant>> ListAllPlantsByPlotId(int plot_id)
+        {
+            return PlantSqlDao.GetAllPlantsByPlot(plot_id);
+        }
+
 
         public int GetUserIdFromToken()
         {
