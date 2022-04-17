@@ -20,10 +20,29 @@ INSERT INTO plots_plants (plot_id, plant_id) VALUES
 ((SELECT plot_id FROM plots WHERE plot_name LIKE 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
 
 --
--- I believe this should be done using plot and plant ID subqueries from their respective tables instead of common names.
+-- I believe this should be done using plot and plant ids instead of common names.
 -- Using plot_name creates problems if someone names two plots with the same name.
---
 
+
+--ADD PLANTS TO PLOTS
+--INSERT INTO plots_plants (plot_id, plant_id) 
+--OUTPUT INSERTED.plots_plants_id
+--VALUES(@plot_id, @plant_id)
+
+--REMOVE PLANTS FROM PLOTS
+--DELETE FROM plots_plants ???
+--WHERE plots_plants_id = @plots_plants_id ???? plots_plants_id will identify ONE and only one plant in a plot.
+--Question is = how to easily access plots_plants_id for identification.
+
+--SEMANTICS
+--plants in the plots_plants table can be refered to as "planted plants" or "plants in the ground"
+--plots that exist in the plots_plants table can be referred to as "populated plots"
+--farms in the supplies_farms table can be referred to as "farms with supplies"
+--supplies in the supplies_farms table can be refferd to as "supplies on farms"
+
+--RESTRICTIONS 
+--plants can ONLY be added to the plots if the "populated plot" has room (ie square area of plant is less than or equal to remaining area in plot)
+--plants avaliable to become "planted plants" should only be shown to user when plot sun_status == plant sun_requirements
 
 INSERT INTO plots_plants (plot_id, plant_id) VALUES
 ((SELECT plot_id FROM plots WHERE plot_name = 'First Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
