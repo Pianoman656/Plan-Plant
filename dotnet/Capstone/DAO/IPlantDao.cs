@@ -15,8 +15,6 @@ namespace Capstone.DAO
         Plant AddPlant(Plant plantToAdd);
         Plant UpdatePlant(int plantId, Plant updatedPlant);
         
-        //void DeletePlant(int plantId);
-        
         
     }
 }

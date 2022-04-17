@@ -25,19 +25,7 @@ namespace Capstone.Controllers
         {
             PlotSqlDao = plotDao;
         }
-
-        //get individual plot based on id
-        [HttpGet("{id}")]
-        public ActionResult<Plot> GetPlot(int id)
-        {
-            Plot plot = PlotSqlDao.GetPlot(id);
-            if (plot != null)
-                return plot;
-            else
-                return NotFound();
-        }
-
-        //get a list of all user plots
+        
         [HttpGet()]
         public ActionResult<List<Plot>> ListAllUserPlots()
         {
@@ -49,16 +37,43 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
+        //get individual plot based on plotId
+        [HttpGet("{id}")]
+        public ActionResult<Plot> GetPlot(int id)
+        {
+            Plot plot = PlotSqlDao.GetPlot(id);
+            if (plot != null)
+                return plot;
+            else
+                return NotFound();
+        }
+
+        //get a list of all user plots
+
+
         //post add a new plot
         [HttpPost()]
-         public IActionResult AddNewPlot(Plot plotToAdd)
+        public IActionResult AddNewPlot(Plot plotToAdd)
         {
             Plot addedPlot = PlotSqlDao.AddPlot(plotToAdd, GetUserIdFromToken());
 
             if (addedPlot != null && addedPlot.PlotName == plotToAdd.PlotName)
-                return StatusCode(418);
+                return StatusCode(200);
             else
                 return StatusCode(409);
+        }
+
+        //delete plot its planted plants from data store.
+        //plotToDelete.PlotId is needed to identify target plot
+        [HttpDelete()]
+        public IActionResult DeletePlot(Plot plotToDelete)
+        {
+            Plot emptyPlot = PlotSqlDao.DeletePlot(plotToDelete);
+
+            if (emptyPlot.PlotName == null)
+                return Ok("Your plot was deleted.");
+            else
+                return StatusCode(409, "Trouble deleting your plot");
         }
 
 
