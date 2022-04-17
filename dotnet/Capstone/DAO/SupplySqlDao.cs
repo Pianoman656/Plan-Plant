@@ -42,6 +42,117 @@ namespace Capstone.DAO
             }
             return supplies;
         }
+        public List<Supply> GetAllSuppliesByUser(int userId)
+        {
+            List<Supply> userSupplies = new List<Supply>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost " +
+                                                    "FROM users u " +
+                                                    "JOIN farms f " +
+                                                    "ON u.user_id = f.farm_id " +
+                                                    "JOIN supplies_farms sf " +
+                                                    "ON sf.farm_id = f.farm_id " +
+                                                    "JOIN supplies s " +
+                                                    "ON s.supply_id = sf.supply_id " +
+                                                    "WHERE u.user_id = @user_id;", conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Supply supply = GetSupplyFromReader(reader);
+                        userSupplies.Add(supply);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return userSupplies;
+        }
+
+        public bool AddSupplyToFarmList(SupplyListItem supplyToAdd)
+        {
+            bool isAdded = false;
+            int atCheckout;
+            int onFarmList;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO supplies_farms (supply_id, farm_id) " +
+                                                    "OUTPUT INSERTED.supplies_farms_id " +
+                                                    "VALUES(@supply_id, @farm_id)", conn);
+                    cmd.Parameters.AddWithValue("@supply_id", supplyToAdd.SupplyId);
+                    cmd.Parameters.AddWithValue("@farm_id", supplyToAdd.FarmId);
+                    atCheckout = Convert.ToInt32(cmd.ExecuteScalar());
+                    // ???redundant but tests itself????
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms WHERE supplies_farms_id = @supplies_farms_id", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_id", atCheckout);
+                    onFarmList = Convert.ToInt32(cmd1.ExecuteScalar());
+                }
+            }
+            catch(SqlException)
+            {
+                throw;
+            }
+
+            if (onFarmList == atCheckout)
+                isAdded = true;
+
+            return isAdded;
+        }
+
+        public bool RemoveSupplyFromFarmList(SupplyListItem supplyToRemove)
+        {
+            bool isRemoved = false;
+            SupplyListItem test = new SupplyListItem();
+            
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("DELETE FROM supplies_farms " +
+                                                    "WHERE supplies_farms_id = @supplies_farms_id", conn);
+                    cmd.Parameters.AddWithValue("@supplies_farms_id", supplyToRemove.SuppliesFarmsId);
+                    cmd.ExecuteNonQuery();
+
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms " +
+                                                     "WHERE supplies_farms_id = @supplies_farms_id;", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_id", supplyToRemove.SuppliesFarmsId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        test.SuppliesFarmsId = Convert.ToInt32(reader["supplies_farms_id"]);
+                        test.SupplyId = Convert.ToInt32(reader["supply_id"]);
+                        test.FarmId = Convert.ToInt32(reader["farm_id"]);
+                    }
+                }
+            }
+            catch(SqlException)
+            {
+                throw;
+            }
+
+            if (test.SupplyId == 0)
+                isRemoved = true;
+
+            return isRemoved;
+        }
         private Supply GetSupplyFromReader(SqlDataReader reader)
         {
             Supply supply = new Supply();
