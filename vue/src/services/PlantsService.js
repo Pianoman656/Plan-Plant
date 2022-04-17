@@ -6,16 +6,16 @@ export default {
       return axios.get('/plant/');
     },
   
-    get(id) {
-      return axios.get(`/plant/id/${id}`)
+    get(plantId) {
+      return axios.get(`/plant/id/${plantId}`)
     },
     
     create(plant) {
-      return axios.post(`/plant/`, plant);      
+      return axios.post('/plant/', plant);      
     },
 
-    update(id, plant) {
-      return axios.put(`/plant/${id}`, plant);
+    update(plant) {
+      return axios.put(`/plant/${plant.Id}`, plant);
     }
 
   }

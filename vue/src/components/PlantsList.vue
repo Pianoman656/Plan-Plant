@@ -30,7 +30,12 @@
         </td>
          -->
         <td>
-        <router-link :to="{ name: 'edit-plant' }"
+        <router-link :to="{ name: 'plant' }"
+        >View
+        </router-link>
+        </td>
+        <td>
+        <router-link :to="{ name: 'edit-plant', params: {plantId: $route.params.plantId} }"
         >Edit
         </router-link>
         </td>
@@ -57,7 +62,7 @@ export default {
     methods: {
         //viewPlant(id) {
         // plantsService.get(id).then(response => {
-        //     this.$store.commit("SET_ACTIVE_PLANT", response.data);
+        //     this.$store.commit("SET_CURRENT_PLANT", response.data);
         // });
         //this.$router.push(`/plant/id/${id}`);
         //},
