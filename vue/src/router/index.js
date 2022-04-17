@@ -8,8 +8,9 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import CropGallery from '../views/CropGallery.vue'
 import Account from '../views/Account.vue'
-import Plant from '../views/Plant.vue'
+//import Plant from '../views/Plant.vue'
 import CreatePlant from '../views/CreatePlant.vue'
+import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
 
@@ -95,14 +96,21 @@ const router = new Router({
     },
     {
       path: '/plant/create',
-      name: 'CreatePlant',
+      name: 'create-plant',
       component: CreatePlant
     },
     {
-      path: '/plant/:id',
+      path: '/plant/:plantId/edit',
+      name: 'edit-plant',
+      component: EditPlant
+    },
+    /*
+    {
+      path: '/plant/:plantId',
       name: 'Plant',
       component: Plant
     },
+    */
     {
       path: '/404',
       name: 'NotFound',

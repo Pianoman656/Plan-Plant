@@ -30,7 +30,7 @@
         </td>
          -->
         <td>
-        <router-link :to="{ name: 'Plant' }"
+        <router-link :to="{ name: 'edit-plant' }"
         >Edit
         </router-link>
         </td>

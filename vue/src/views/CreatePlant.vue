@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h1>Add Plant</h1>
-    <add-plant />
+    <h1>Add Plant to Database</h1>
+    <plant-form />
   </div>
 </template>
 
 <script>
-import AddPlant from "../components/AddPlant";
+import PlantForm from "../components/AddPlant";
 
 export default {
   components: {
-    AddPlant
+    PlantForm
   }
 };
 </script>

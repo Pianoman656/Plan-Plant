@@ -2,7 +2,7 @@
 <template>
   <div class="admin-home">
     <h1>Admin Page</h1>
-    <router-link :to="{ name: 'CreatePlant' }"
+    <router-link :to="{ name: 'create-plant' }"
       >Add New Plant
     </router-link>
     <p v-if="$store.state.token == ''">You must be authenticated to see this</p>    
