@@ -102,6 +102,37 @@ namespace Capstone.DAO
             return GetPlot(newPlotId);
         }
 
+        public Plot DeletePlot (Plot plotToDelete)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("DELETE FROM plots_plants " +
+                                                    "WHERE plot_id = @plot_id", conn);
+                    cmd.Parameters.AddWithValue("@plot_id", plotToDelete.PlotId); 
+                    cmd.ExecuteNonQuery();
+                    
+                    
+                    //Two deletes needed due to FK restrictions. Delete planted plants first, and then delete respective plot. 
+                    SqlCommand cmd1 = new SqlCommand("DELETE FROM plots " +
+                                                     "WHERE plot_id = @plot_id", conn);
+                    cmd1.Parameters.AddWithValue("@plot_id", plotToDelete.PlotId);
+                    cmd1.ExecuteNonQuery();
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return GetPlot(plotToDelete.PlotId);
+
+        }
+
         private Plot GetPlotFromReader(SqlDataReader reader)
         {
             Plot plot = new Plot();
