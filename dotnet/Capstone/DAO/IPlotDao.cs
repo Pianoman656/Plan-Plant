@@ -11,6 +11,6 @@ namespace Capstone.DAO
         Plot GetPlot(int plotId);
         List<Plot> GetAllPlotsByUser(int farmId);
         Plot AddPlot(Plot plot, int v);
-
+        Plot DeletePlot(Plot plot);
     }
 }
