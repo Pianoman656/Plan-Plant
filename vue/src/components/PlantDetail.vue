@@ -33,7 +33,7 @@
             </div>
             <div class="actions">
             <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
-            <button type="submit" v-on:click="savePlant()">Save Plant</button>
+            <button type="submit" v-on:click="savePlant()">Update</button>
             </div>
         </form>
 
@@ -66,9 +66,6 @@
         /> -->
                
        
-        <div>
-        <button type="submit" v-on:click="savePlant()">Save Plant Details</button>
-        </div>
         
     </div>
 
@@ -115,8 +112,11 @@ export default {
           this.$router.push("/admin-home");
         }
       });
-    }
-  },
+    },
+    cancel() {
+            this.$router.push("/admin");
+        }
+  },  
   created() {
       plantsService
         .get(this.$route.params.id)
