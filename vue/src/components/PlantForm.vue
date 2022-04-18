@@ -39,7 +39,6 @@
 <script>
 import plantsService from "../services/PlantsService";
 
-
 export default {
     name: "plant-form",
     props: {
@@ -77,6 +76,10 @@ export default {
 
             if (this.plantId === 0) {
                 // add
+                this.newPlant.cost = parseInt(this.newPlant.cost)
+                this.newPlant.squareArea = parseInt(this.squareArea.cost)                
+                console.log("Plant Id is zero!");
+
                 plantsService
                 .create(this.newPlant)
                 .then(response => {
