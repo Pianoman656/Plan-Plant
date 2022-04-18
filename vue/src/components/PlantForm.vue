@@ -64,11 +64,7 @@ export default {
     methods: {
         savePlant() {
             const newPlant = {
-<<<<<<< HEAD
                 plantId: Number(this.$route.params.plantId),     //(this.$route.params.plantId)
-=======
-                plantId: Number(this.$route.params. plantId),
->>>>>>> 0195b5a2f62a6970ec4981184f08dbf9e079affe
                 commonName: this.plant.commonName,
                 squareArea: this.plant.squareArea,     // add Number(  )  back
                 cost: this.plant.cost,
