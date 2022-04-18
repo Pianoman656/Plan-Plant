@@ -22,7 +22,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     plants: [],
     plant: {
-      //plantId: '',      
+      plantId: '',      
       commonName: '',
       description: '',
       squareArea: '',
