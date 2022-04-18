@@ -32,6 +32,7 @@
         v-model="user.confirmPassword"
         required
       />
+      <label for="zip" class="sr-only">Zipcode</label>
       <input
         type="text"
         id="zip"
@@ -100,7 +101,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }
