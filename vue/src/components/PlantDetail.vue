@@ -1,7 +1,39 @@
 <template>
   <div id="login" class="text-center">
         
-        <h1 class="h3 mb-3 font-weight-normal">Edit Plant</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Plant Details</h1>
+        <!-- <form v-on:submit.prevent> -->
+          
+                <p>{{ plant.plantId}} </p>
+
+                <p>{{ plant.commonName}} </p>
+            
+            
+                <p>{{ plant.squareArea}} </p>
+                
+            
+            
+                <p>{{ plant.cost}} </p>
+                
+            
+                <p>{{ plant.sunRequirements}} </p>
+                
+            
+                <p>{{ plant.imageUrl}} </p>
+                
+            
+            
+                <p>{{ plant.temporaryUsdaZones}} </p>
+                
+            
+                <p>{{ plant.description}} </p>
+                
+            
+            
+        
+
+
+        <!-- <h1 class="h3 mb-3 font-weight-normal">Edit Plant</h1>
         <form v-on:submit.prevent>
             <div class="field">
                 <label for="plant-name">Plant Name</label>
@@ -35,36 +67,10 @@
             <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
             <button type="submit" v-on:click="savePlant()">Update</button>
             </div>
-        </form>
+        </form> -->
 
 
-        <!--<div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-            Invalid username and password!   
-        </div> -->
-        <!-- <div
-            class="alert alert-success"
-            role="alert"
-            v-if="this.$route.query.registration"
-        >
-            Thank you for registering, please sign in.
-        </div>   -->
-        <!-- <label for="plant-name" class="plant-name">Plant Name</label>
-        <input
-            type="text"
-            id="plant-name"
-            class="form-control"
-            placeholder="Plant Name"
-            v-model="plant.commonName"
-            required
-            autofocus
-        />
-        <label for="plant-description" class="plant-description">Plant Description</label>
-        <textarea
-            v-bind:value="this.$store.state.activePlant.description"
-            v-on:input="description = $event.target.value"
-            spellcheck="false"
-        /> -->
-               
+        
        
         
     </div>
@@ -81,58 +87,34 @@ export default {
   name: "plant-detail",
   data() {
     return {     
-        plant: {
-            //plantId: Math.floor(Math.random() * (1000 - 100) + 100),
-            commonName: "",
-            squareArea: "",
-            cost: "",
-            sunRequirements: "",
-            imageUrl: "",
-            temporaryUsdaZones: "",
-            description: ""
-        }
+       errorMsg: "",
     };
   },
   methods: {
-    savePlant() {
-      const current = this.$store.state.activePlant;
-      const plant = {
-        plantId: current.plantId,
-        imageUrl: current.imageUrl,
-        commonName: current.commonName,
-        description: current.description,
-        squareArea: current.squareArea,
-        cost: current.cost,
-        sunRequirements: current.sunRequirements,
-        temporaryUsdaZones: current.temporaryUsdaZones
-
-      };
-      plantsService.update(plant.id, plant).then(response => {
-        if (response.status === 200) {
-          this.$router.push("/admin-home");
-        }
-      });
-    },
-    cancel() {
-            this.$router.push("/admin");
-        }
-  },  
-  created() {
+    retrievePlant() {
       plantsService
-        .get(this.$route.params.id)
+        .get(this.$route.params.plantId)
         .then(response => {
-        this.$store.commit("SET_ACTIVE_PLANT", response.data);
+          this.$store.commit("SET_CURRENT_PLANT", response.data);          
+
       })
       .catch(error => {
-        if (error.response.status === 404) {
-          this.$router.push("/404");
-        } else {
-          console.error(error);
-        }
-      });
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Plant not available."
+            );
+            this.$router.push("/admin");
+          }
+        });
+      
+      
+    }    
+  },  
+  created() {
+      this.retrievePlant();
   }
-
 }
+
 </script>
 
 <style>

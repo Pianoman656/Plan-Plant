@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PlantForm from "../components/AddPlant";
+import PlantForm from "../components/PlantForm";
 
 export default {
   components: {

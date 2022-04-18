@@ -21,14 +21,14 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     plants: [],
-    activePlant: {
-      plantId: null,
-      imageUrl: '',
+    plant: {
+      plantId: '',      
       commonName: '',
       description: '',
-      squareArea: null,
-      cost: null,
+      squareArea: '',
+      cost: '',
       sunRequirements: '',
+      imageUrl: '',
       temporaryUsdaZones: ''
     }
   },
@@ -52,8 +52,8 @@ export default new Vuex.Store({
     SET_PLANTS(state, data) {
       state.plants = data;
     },
-    SET_ACTIVE_PLANT(state, data) {
-      state.activePlant = data;
+    SET_CURRENT_PLANT(state, data) {
+      state.plant = data;
     }
   },
   actions: {
