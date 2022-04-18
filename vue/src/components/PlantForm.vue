@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="submitForm" class="plantForm">
+  <form v-on:submit.prevent="savePlant" class="plantForm">
     <div class="status-message error" v-show="errorMsg != ''">{{errorMsg}}</div>
     <div class="field">
       <label for="plant-name">Plant Name</label>
@@ -66,8 +66,8 @@ export default {
             const newPlant = {
                 plantId: Number(this.$route.params.plantId),
                 commonName: this.plant.commonName,
-                squareArea: this.plant.squareArea,
-                cost: this.plant.cost,
+                squareArea: Number(this.plant.squareArea),
+                cost: Number(this.plant.cost),
                 sunRequirements: this.plant.sunRequirements,
                 imageUrl: this.plant.imageUrl,
                 temporaryUsdaZones: this.plant.temporaryUsdaZones,
@@ -76,12 +76,15 @@ export default {
 
             if (this.plantId === 0) {
                 // add
-                this.newPlant.cost = parseInt(this.newPlant.cost)
-                this.newPlant.squareArea = parseInt(this.squareArea.cost)                
+                //this.newPlant.cost = parseInt(this.newPlant.cost)
+                //this.newPlant.squareArea = parseInt(this.squareArea.cost)     
+                newPlant.plantId = 0;           
                 console.log("Plant Id is zero!");
+                console.log(newPlant);
+                //console.log(this.newPlant.cost);
 
                 plantsService
-                .createPlant(this.newPlant)
+                .createPlant(newPlant)
                 .then(response => {
                     if (response.status === 200 || response.status === 201 ) { 
                         this.$router.push("/admin");
