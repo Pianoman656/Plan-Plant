@@ -1,5 +1,5 @@
 <template>
-  
+  <div class="plants-list-table">
   <table>
     <thead>
       <tr>
@@ -44,6 +44,7 @@
       </tr>
     </tbody>  
   </table>
+  </div>
 </template>
 
 
@@ -108,6 +109,10 @@ th {
 .plant-image {
     height: 4%;
     width: 4%;
+}
+
+.plants-list-table {
+background-color: white;
 }
 
 </style>
