@@ -2,19 +2,19 @@ import axios from 'axios';
 
 
 export default {
-    list() {
+    listPlants() {
       return axios.get('/plant/');
     },
   
-    get(plantId) {
+    getPlant(plantId) {
       return axios.get(`/plant/id/${plantId}`)
     },
     
-    create(plant) {
+    createPlant(plant) {
       return axios.post('/plant/', plant);      
     },
 
-    update(plant) {
+    updatePlant(plant) {
       return axios.put(`/plant/${plant.Id}`, plant);
     }
 

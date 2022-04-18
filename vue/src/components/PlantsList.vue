@@ -68,7 +68,7 @@ export default {
         //},
 
         getPlants() {
-            plantsService.list().then(response => {
+            plantsService.listPlants().then(response => {
                 this.$store.commit("SET_PLANTS", response.data);
             });
         }
