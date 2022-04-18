@@ -8,6 +8,9 @@ export default {
 
   register(user) {
     return axios.post('/register', user)
-  }
+  },
 
+  updateAccount(id, user) {
+    return axios.put(`/account/${id}`, user)
+  },
 }

@@ -21,17 +21,17 @@
       >
         Logout
       </router-link>
-
-      <router-link
-      v-if="$store.state.token === ''"
-       v-bind:to="{ name: 'login' }">Login</router-link>
-
+      <router-link v-if="$store.state.token === ''" v-bind:to="{ name: 'login' }">Login</router-link>
       <router-link v-bind:to="{ name: 'register' }">Register</router-link>
-
-      <router-link v-bind:to="{ name: 'crop-gallery' }">
-        Crop Gallery
+      <router-link 
+        v-if="$store.state.user.username !== 'admin'"
+        v-bind:to="{ name: 'user-home' }"> 
+          {{$store.state.token == '' ? "Account Home" : $store.state.user.username + " Home"}} 
       </router-link>
-      <router-link v-bind:to="{ name: 'account' }">  {{$store.state.token == "" ? "Account" : $store.state.username}} </router-link>
+      <router-link v-if="$store.state.user.username === 'admin'" v-bind:to="{ name: 'admin-home' }">
+        Admin Home  
+      </router-link>      
+
     </div>
     <router-view />
     <body>
@@ -53,13 +53,16 @@ body {
   background-color: #fafafa;
   text-align: center;
 }
+ul {padding: 0;}
+ul li {
+  list-style: none;
+}
 #nav {
- color: #02020248;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
+  text-decoration: none;
+  color: #02020248;
     padding: 20px 0;
-    /* max-width: 456px; */
     background-color: white;
-    /* margin: 0 auto; */
-    /* width: 100%; */
     text-align: center;
     border: 1px solid lightgray;
 }
@@ -69,6 +72,7 @@ body {
   font-size: 16px;
   border-left: 0.7px solid lightgray;
   padding: 5px 15px;
+  text-decoration: none;
 }
 #nav > a:first-child {
   border-left: 0.7px solid transparent;

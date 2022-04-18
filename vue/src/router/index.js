@@ -6,8 +6,6 @@ import UserHome from '../views/UserHome.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
-import CropGallery from '../views/CropGallery.vue'
-import Account from '../views/Account.vue'
 import Plant from '../views/Plant.vue'
 import CreatePlant from '../views/CreatePlant.vue'
 import EditPlant from '../views/EditPlant.vue'
@@ -30,14 +28,6 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    /*{
-      path: '/',
-      name: 'home',
-      component: Home,
-      meta: {
-        requiresAuth: true
-      }
-    } */
     {
       path: '/admin',
       name: 'admin-home',
@@ -65,7 +55,7 @@ const router = new Router({
     {
       path: "/logout",
       name: "logout",
-      component: Logout,
+      component: Logout, 
       meta: {
         requiresAuth: false
       }
@@ -77,23 +67,7 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    },
-    {
-      path: "/crop-gallery",
-      name: "crop-gallery",
-      component: CropGallery,
-      meta: {
-        requiresAuth: false,
-      }
-    },
-    {
-      path: "/account",
-      name: "account",
-      component: Account,
-      meta: {
-        requiresAuth: false
-      }
-    },
+    },   
     {
       path: '/plant/create',
       name: 'create-plant',
