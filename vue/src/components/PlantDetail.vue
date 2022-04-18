@@ -10,12 +10,9 @@
             
             
                 <p>{{ plant.squareArea}} </p>
-                
-            
-            
+
                 <p>{{ plant.cost}} </p>
                 
-            
                 <p>{{ plant.sunRequirements}} </p>
                 
             
