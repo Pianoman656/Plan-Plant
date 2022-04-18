@@ -1,5 +1,5 @@
 <template>
-  
+  <div class="plants-list-table">
   <table>
     <thead>
       <tr>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plant in sortedPlants" :key="plant.id">        
+      <tr v-for="plant in sortedPlants" :key="plant.plantId">        <!--  plantId could've been anything here-->
         <td> 
             <img :src="plant.imageUrl" class="plant-image" />  
             <span class="name"> {{ plant.commonName }}</span>                       
@@ -30,12 +30,13 @@
         </td>
          -->
         <td>
-        <router-link :to="{ name: 'plant' }"
+        <!-- <router-link :to="{ name: 'plant' }"
         >View
-        </router-link>
+        </router-link> -->
         </td>
         <td>
-        <router-link :to="{ name: 'edit-plant', params: {plantId: $route.params.plantId} }"
+          <!--  plantId is the param so it had to be written out as plant.plantId (or object.property) -->
+        <router-link v-bind:to="{ name: 'edit-plant', params: {plantId: plant.plantId} }"   
         >Edit
         </router-link>
         </td>
@@ -44,6 +45,7 @@
       </tr>
     </tbody>  
   </table>
+  </div>
 </template>
 
 
@@ -108,6 +110,10 @@ th {
 .plant-image {
     height: 4%;
     width: 4%;
+}
+
+.plants-list-table {
+background-color: white;
 }
 
 </style>
