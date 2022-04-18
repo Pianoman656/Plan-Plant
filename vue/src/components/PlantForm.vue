@@ -7,11 +7,11 @@
     </div>
     <div class="field">
       <label for="square-area">Square Area</label>
-      <input type="number" v-model="plant.squareArea" />
+      <input type="number" v-model.number="plant.squareArea" />
     </div>
     <div class="field">
       <label for="cost">Cost</label>
-      <input type="number" v-model="plant.cost" />
+      <input type="number" v-model.number="plant.cost" />
     </div>
     <div class="field">
       <label for="sun-requirements">Sun Requirements</label>
@@ -64,17 +64,22 @@ export default {
     methods: {
         savePlant() {
             const newPlant = {
-                plantId: Number(this.$route.params.plantId),
+                plantId: Number(this.$route.params.plantId),     //(this.$route.params.plantId)
                 commonName: this.plant.commonName,
-                squareArea: Number(this.plant.squareArea),
-                cost: Number(this.plant.cost),
+                squareArea: this.plant.squareArea,     // add Number(  )  back
+                cost: this.plant.cost,
                 sunRequirements: this.plant.sunRequirements,
                 imageUrl: this.plant.imageUrl,
                 temporaryUsdaZones: this.plant.temporaryUsdaZones,
                 description: this.plant.description
             }
+            
 
-            if (this.plantId === 0) {
+            //newPlant.plantId = 0;
+            console.log(newPlant);
+
+            if (isNaN(newPlant.plantId)) {
+            //if (this.plantId === 0) {
                 // add
                 //this.newPlant.cost = parseInt(this.newPlant.cost)
                 //this.newPlant.squareArea = parseInt(this.squareArea.cost)     
@@ -95,7 +100,9 @@ export default {
                 });
             } else {
                 // update
-                newPlant.plantId = this.plantId;
+                console.log("In the Else!");
+                console.log(newPlant);
+                newPlant.plantId = this.plant.plantId;
                 newPlant.commonName = this.plant.commonName;
                 newPlant.squareArea = this.plant.squareArea;
                 newPlant.cost = this.plant.cost;
