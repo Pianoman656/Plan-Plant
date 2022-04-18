@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="savePlant" class="plantForm">
+  <form v-on:submit.prevent="submitForm" class="plantForm">
     <div class="status-message error" v-show="errorMsg != ''">{{errorMsg}}</div>
     <div class="field">
       <label for="plant-name">Plant Name</label>
@@ -39,7 +39,6 @@
 <script>
 import plantsService from "../services/PlantsService";
 
-
 export default {
     name: "plant-form",
     props: {
@@ -77,6 +76,10 @@ export default {
 
             if (this.plantId === 0) {
                 // add
+                this.newPlant.cost = parseInt(this.newPlant.cost)
+                this.newPlant.squareArea = parseInt(this.squareArea.cost)                
+                console.log("Plant Id is zero!");
+
                 plantsService
                 .createPlant(this.newPlant)
                 .then(response => {
