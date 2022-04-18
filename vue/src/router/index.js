@@ -89,6 +89,10 @@ const router = new Router({
       path: '/404',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/suggestions',
+      name: 'Suggestions'
     }
   ]
 })
