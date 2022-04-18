@@ -1,7 +1,9 @@
 <template>
+<div>
   <div id="app">
-    <div id="nav">
-      <img id="logo" src="../img/PPlogo.jpeg" >
+    <!-- <div class=""> -->
+    <nav id="router-links">
+      <img id="logo" src="../img/Plan&PlantLogo.jpeg">
       <router-link 
       v-if="$store.state.user.username === 'admin'" 
         v-bind:to="{ name: 'admin-home' }">
@@ -31,18 +33,16 @@
       <router-link v-if="$store.state.user.username === 'admin'" v-bind:to="{ name: 'admin-home' }">
         Admin Home  
       </router-link>      
-
-    </div>
+    </nav>
     <router-view />
-    <body>
-      <h1 id="tagline">A Growing Guide for the Greener Gardener</h1>
-    </body>
   </div>
+      <h1 id="tagline">A Growing Guide for the Greener Gardener</h1>
+</div>
 </template>
 
 <style>
 :root {
-  --main-green: #019875;
+  --main-green: #77bc3f;
 }
 body {
   background: #ebeff0 no-repeat fixed center;
@@ -57,7 +57,7 @@ ul {padding: 0;}
 ul li {
   list-style: none;
 }
-#nav {
+nav#router-links {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
   text-decoration: none;
   color: #02020248;
@@ -66,7 +66,7 @@ ul li {
     text-align: center;
     border: 1px solid lightgray;
 }
-#nav > a {
+nav#router-links > a {
   color: var(--main-green);
   font-weight: 400;
   font-size: 16px;
@@ -74,15 +74,17 @@ ul li {
   padding: 5px 15px;
   text-decoration: none;
 }
-#nav > a:first-child {
+nav#router-links > a:first-child {
   border-left: 0.7px solid transparent;
 }
 #logo {
-  width: 150px;
+  width: 80px;
 }
 #tagline {
   font-size:xx-large;
   font-weight: 400;
-  color: var(--main-green);
+  color: #fff;
+  text-shadow: 0px 0px 25px black, 0 0 5px black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }
 </style>

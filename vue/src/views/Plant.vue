@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Plant Detail</h1>
     <plant-detail />
   </div>
@@ -14,3 +14,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .container {
+    padding: 0 30px;
+  }
+</style>
