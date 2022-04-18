@@ -31,7 +31,8 @@
     </div>
     <div class="actions">
       <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
-      <button type="submit" v-on:click="savePlant()">Save Plant</button>
+      <button class="btn btn-submit">Save Plant</button>
+      <!-- <button type="submit" v-on:click="savePlant()">Save Plant</button> -->
     </div>
   </form>
 </template>
@@ -64,9 +65,9 @@ export default {
     methods: {
         savePlant() {
             const newPlant = {
-                plantId: Number(this.$route.params.plantId),     //(this.$route.params.plantId)
+                plantId: Number(this.$route.params.plantId),     
                 commonName: this.plant.commonName,
-                squareArea: this.plant.squareArea,     // add Number(  )  back
+                squareArea: this.plant.squareArea,     
                 cost: this.plant.cost,
                 sunRequirements: this.plant.sunRequirements,
                 imageUrl: this.plant.imageUrl,
@@ -75,18 +76,9 @@ export default {
             }
             
 
-            //newPlant.plantId = 0;
-            console.log(newPlant);
-
             if (isNaN(newPlant.plantId)) {
-            //if (this.plantId === 0) {
-                // add
-                //this.newPlant.cost = parseInt(this.newPlant.cost)
-                //this.newPlant.squareArea = parseInt(this.squareArea.cost)     
-                newPlant.plantId = 0;           
-                console.log("Plant Id is zero!");
-                console.log(newPlant);
-                //console.log(this.newPlant.cost);
+
+                newPlant.plantId = 0;                           
 
                 plantsService
                 .createPlant(newPlant)
@@ -99,9 +91,8 @@ export default {
                     this.handleErrorResponse(error, "adding");
                 });
             } else {
-                // update
-                console.log("In the Else!");
-                console.log(newPlant);
+                
+                // update                
                 newPlant.plantId = this.plant.plantId;
                 newPlant.commonName = this.plant.commonName;
                 newPlant.squareArea = this.plant.squareArea;
