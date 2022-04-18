@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <img id="logo" src="../img/PPlogo.jpeg" >
       <router-link 
       v-if="$store.state.user.username === 'admin'" 
         v-bind:to="{ name: 'admin-home' }">
@@ -33,6 +34,9 @@
       <router-link v-bind:to="{ name: 'account' }">  {{$store.state.token == "" ? "Account" : $store.state.username}} </router-link>
     </div>
     <router-view />
+    <body>
+      <h1 id="tagline">A Growing Guide for the Greener Gardener</h1>
+    </body>
   </div>
 </template>
 
@@ -47,6 +51,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #fafafa;
+  text-align: center;
 }
 #nav {
  color: #02020248;
@@ -67,5 +72,13 @@ body {
 }
 #nav > a:first-child {
   border-left: 0.7px solid transparent;
+}
+#logo {
+  width: 150px;
+}
+#tagline {
+  font-size:xx-large;
+  font-weight: 400;
+  color: var(--main-green);
 }
 </style>
