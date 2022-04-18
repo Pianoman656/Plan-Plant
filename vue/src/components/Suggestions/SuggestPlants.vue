@@ -1,25 +1,21 @@
 <template>
   <div>
     <h1>Plant Suggestions for Your Farm</h1>
-    <div class="container">
-        <div class="suggested_plants">
-
-        </div>
-    </div>    
+    <ul class="container">
+        <li class="suggested_plants" v-for="plant in sortedPlants" :key="plant.plantId">
+            <img :src="plant.imageUrl" class="plant-image" /> 
+        </li>
+    </ul>    
   </div>
 </template>
 
 <script>
-import plantsService from '../services/PlantsService'
-import suggestService from '../services/SuggestService'
+import plantsService from '../../services/PlantsService'
+import suggestService from '../../services/SuggestService'
 
 export default {
-    name: "suggest-plants",
-        data() {
-            return {     
-            errorMsg: "",
-            }   
-        },
+    name: "suggested-plants",
+        
         methods: {
             getPlants() {
             plantsService.listPlants().then(response => {
@@ -31,8 +27,14 @@ export default {
                 this.$store.commit("SET_PLANTS", response.data);
             });
         },
-
-                
+        created(){
+            this.getPlants();
+        },
+        computed: {
+            sortedPlants() {
+                return this.$store.state.plants
+            }
+        }         
     }
 }
   
@@ -40,6 +42,8 @@ export default {
 
 </script>
 
-<style>
-
+<style scoped>
+div{
+    display: flex;
+}
 </style>

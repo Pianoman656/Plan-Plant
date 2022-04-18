@@ -18,3 +18,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+div{
+  display: grid;
+}
+</style>
