@@ -93,7 +93,7 @@ export default {
   methods: {
     retrievePlant() {
       plantsService
-        .get(this.$route.params.plantId)
+        .getPlant(this.$route.params.plantId)
         .then(response => {
           this.$store.commit("SET_CURRENT_PLANT", response.data);          
 

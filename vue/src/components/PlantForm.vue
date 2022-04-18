@@ -78,7 +78,7 @@ export default {
             if (this.plantId === 0) {
                 // add
                 plantsService
-                .create(this.newPlant)
+                .createPlant(this.newPlant)
                 .then(response => {
                     if (response.status === 200 || response.status === 201 ) { 
                         this.$router.push("/admin");
@@ -98,7 +98,7 @@ export default {
                 newPlant.temporaryUsdaZones = this.plant.temporaryUsdaZones;
                 newPlant.description = this.plant.description;
                 plantsService
-                    .update(newPlant)
+                    .updatePlant(newPlant)
                     .then(response => {
                         if (response.status === 200 || response.status === 201) {
                             this.$router.push("/admin");
@@ -129,7 +129,7 @@ export default {
     created() {
         if (this.plantId != 0) {
         plantsService
-            .get(this.plantId)
+            .getPlant(this.plantId)
             .then(response => {
             this.plant = response.data;
             })
