@@ -1,6 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
+      <img id="logo" src="../img/PPlogo.jpeg" >
+      <router-link 
+      v-if="$store.state.user.username === 'admin'" 
+        v-bind:to="{ name: 'admin-home' }">
+        Home
+      </router-link>      
+
+      <router-link 
+      v-else-if="$store.state.user.username !== 'admin'" 
+        v-bind:to="{ name: 'user-home' }">
+        Home
+      </router-link>  
+
+
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
@@ -20,6 +34,9 @@
 
     </div>
     <router-view />
+    <body>
+      <h1 id="tagline">A Growing Guide for the Greener Gardener</h1>
+    </body>
   </div>
 </template>
 
@@ -34,6 +51,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #fafafa;
+  text-align: center;
 }
 ul {padding: 0;}
 ul li {
@@ -58,5 +76,13 @@ ul li {
 }
 #nav > a:first-child {
   border-left: 0.7px solid transparent;
+}
+#logo {
+  width: 150px;
+}
+#tagline {
+  font-size:xx-large;
+  font-weight: 400;
+  color: var(--main-green);
 }
 </style>
