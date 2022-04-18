@@ -27,13 +27,13 @@ export default {
 
 
 <style>
-
 .admin-home h1 {  
   color: #019875;  
 }
 
 .admin-home a {
   float: right;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }
 
 .admin-home a:link,

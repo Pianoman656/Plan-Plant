@@ -91,8 +91,15 @@ export default {
 
 <style>
 
-
-
+.plants-list-table {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
+}
+.plant-image {
+  min-width: 50px;
+}
+tbody tr td:nth-child(0n+1) {
+  width: 300px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
