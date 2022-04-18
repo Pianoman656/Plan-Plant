@@ -1,19 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link 
-      v-if="$store.state.user.username === 'admin'" 
-        v-bind:to="{ name: 'admin-home' }">
-        Home
-      </router-link>      
-
-      <router-link 
-      v-else-if="$store.state.user.username !== 'admin'" 
-        v-bind:to="{ name: 'user-home' }">
-        Home
-      </router-link>  
-
-
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
@@ -22,14 +9,13 @@
       </router-link>
       <router-link v-if="$store.state.token === ''" v-bind:to="{ name: 'login' }">Login</router-link>
       <router-link v-bind:to="{ name: 'register' }">Register</router-link>
-      <router-link v-bind:to="{ name: 'crop-gallery' }">Crop Gallery</router-link>
       <router-link 
         v-if="$store.state.user.username !== 'admin'"
-        v-bind:to="{ name: 'user-account' }"> 
-          {{$store.state.token == '' ? "Account" : $store.state.user.username}} 
+        v-bind:to="{ name: 'user-home' }"> 
+          {{$store.state.token == '' ? "Account Home" : $store.state.user.username + " Home"}} 
       </router-link>
-      <router-link v-if="$store.state.user.username === 'admin'" v-bind:to="{ name: 'admin-account' }">
-        Admin
+      <router-link v-if="$store.state.user.username === 'admin'" v-bind:to="{ name: 'admin-home' }">
+        Admin Home  
       </router-link>      
 
     </div>

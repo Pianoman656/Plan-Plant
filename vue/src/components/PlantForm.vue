@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="savePlant" class="plantForm">
+  <form v-on:submit.prevent="submitForm" class="plantForm">
     <div class="status-message error" v-show="errorMsg != ''">{{errorMsg}}</div>
     <div class="field">
       <label for="plant-name">Plant Name</label>
