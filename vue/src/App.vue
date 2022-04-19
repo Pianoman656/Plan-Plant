@@ -16,6 +16,8 @@
         
       <router-link v-bind:to="{ name: 'suggestions'}">Suggestions</router-link>
 
+      <router-link v-bind:to="{ name: 'shop'}">Shop</router-link>
+
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
