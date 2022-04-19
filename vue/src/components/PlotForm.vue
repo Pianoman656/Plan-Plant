@@ -15,7 +15,7 @@
     </div>
     <div class="field">
       <label for="zone-id">Zone ID</label>
-      <input type="text" v-model="plot.zoneId" />
+      <input type="number" v-model.number="plot.zoneId" />
     </div>
     <div class="actions">
       <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
@@ -50,18 +50,17 @@ export default {
     methods: {
         savePlot() {
             const newPlot = {
-                //plotId: Number(this.$route.params.plotId),
-                //farmId: Number(this.$route.params.farmId),
+                plotId: Number(this.$route.params.plotId),
+                farmId: this.plot.farmId,
                 plotName: this.plot.plotName,
                 sunExposure: this.plot.sunExposure,
                 plotSquareFootage: this.plot.plotSquareFootage,
-                zoneId: this.plot.zoneId                   
-            }
-            
+                zoneId: this.plot.zoneId
+            }                        
 
             if (isNaN(newPlot.plotId)) {
 
-                newPlot.plotId = 0;                           
+                newPlot.plotId = 0;                                         
 
                 plotsService
                 .createPlot(newPlot)
@@ -95,6 +94,8 @@ export default {
                     });
             }
         },
+
+
         cancel() {
             this.$router.push("/farm");
         },
