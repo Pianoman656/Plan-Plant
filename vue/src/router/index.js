@@ -12,6 +12,7 @@ import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
 import Suggestions from '../views/Suggestions.vue'
+import Shop from '../views/Shop.vue'
 import Farm from '../views/Farm.vue'
 
 
@@ -96,6 +97,11 @@ const router = new Router({
       path: '/suggestions',
       name: 'suggestions',
       component: Suggestions
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: Shop
     },
     {
       path: '/farm',
