@@ -15,7 +15,7 @@ export default {
     },
 
     updatePlant(plant) {
-      return axios.put(`/plant/${plant.Id}`, plant);
+      return axios.put(`/plant/${plant.plantId}`, plant);
     }
 
   }
