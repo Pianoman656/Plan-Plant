@@ -65,11 +65,7 @@ h2.plots-list {
 }
 
 
-.board {
-  background-color: #f7fafc;
-  border-radius: 10px;
-  padding: 0 20px 20px 20px;
-}
+
 .card {
   background: #fff;
   border-radius: 0.25rem;
@@ -90,35 +86,8 @@ h2.plots-list {
   display: flex;
   justify-content: space-between;
 }
-.card .header img {
-  border-radius: 9999px;
-  width: 32px;
-  align-self: flex-start;
-}
-.card .footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 20px 0 10px 0;
-  font-size: 0.75rem;
-}
-.pill {
-  padding: 8px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-}
-.design {
-  background-color: #faf5ff;
-  color: #6b46c1;
-}
-.qa {
-  background-color: #f0fff4;
-  color: #2c7a7b;
-}
 
-.feature {
-  background-color: #e6fffa;
-  color: #2c7a7b;
-}
+
+
 
 </style>
