@@ -14,6 +14,7 @@ import NotFound from '../views/NotFound.vue'
 import Suggestions from '../views/Suggestions.vue'
 import Shop from '../views/Shop.vue'
 import Farm from '../views/Farm.vue'
+import EditPlot from '../views/EditPlot.vue'
 
 
 Vue.use(Router)
@@ -107,6 +108,11 @@ const router = new Router({
       path: '/farm',
       name: 'farm',
       component: Farm
+    },
+    {
+      path: '/plot/:plotId/edit',
+      name: 'edit-plot',
+      component: EditPlot
     }
   ]
 })

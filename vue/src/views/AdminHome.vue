@@ -47,6 +47,8 @@ export default {
   text-decoration: underline;
 }
 
-
+.admin-home a {
+  float: right;
+}
 
 </style>

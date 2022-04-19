@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Edit Plot</h1>
-    <plot-form v-bind:plotId="parseInt($route.params.plotId)" />      <!-- should this be Number( )  -->    
+    <h1>Add Plot to Database</h1>
+    <plot-form />
   </div>
 </template>
 

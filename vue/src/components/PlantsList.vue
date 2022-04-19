@@ -54,20 +54,8 @@ import plantsService from '../services/PlantsService'
 
 export default {
 
-    name: "plants-list",
-    // data() {
-    //     return {
-    //     plants: []
-    //     };
-    // },
+    name: "plants-list",    
     methods: {
-        //viewPlant(id) {
-        // plantsService.get(id).then(response => {
-        //     this.$store.commit("SET_CURRENT_PLANT", response.data);
-        // });
-        //this.$router.push(`/plant/id/${id}`);
-        //},
-
         getPlants() {
             plantsService.listPlants().then(response => {
                 this.$store.commit("SET_PLANTS", response.data);
