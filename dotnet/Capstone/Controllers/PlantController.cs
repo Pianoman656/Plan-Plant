@@ -88,6 +88,34 @@ namespace Capstone.Controllers
                 return StatusCode(409);
         }
 
+        [HttpGet("shoppingList")]
+        public ActionResult<List<Plant>> AllPlantsOnShoppingList(int plot_id)
+        {
+            return PlantSqlDao.GetAllPlantsOnFarmList(plot_id);
+        }
+
+        [HttpPost("shoppingList")]
+        public IActionResult AddPlantToShoppingList(SupplyListItem plant)
+        {
+            bool isAdded = PlantSqlDao.AddPlantToFarmList(plant);
+
+            if (isAdded)
+                return StatusCode(201, "Plant added to plot");
+            else
+                return StatusCode(409);
+        }
+
+        [HttpDelete("shoppingList")]
+        public IActionResult RemovePlantFromShoppingList(SupplyListItem plant)
+        {
+            bool isRemoved = PlantSqlDao.RemovePlantFromFarmList(plant);
+
+            if (isRemoved)
+                return StatusCode(201, "Plant added to plot");
+            else
+                return StatusCode(409);
+        }
+
         public int GetUserIdFromToken()
         {
             int userId = -1;

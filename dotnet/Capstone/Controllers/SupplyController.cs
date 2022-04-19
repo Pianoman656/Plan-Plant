@@ -35,10 +35,10 @@ namespace Capstone.Controllers
         }
 
         //get list of all supplies currently on the farm list. Filter using token
-        [HttpGet("mySupplies")]
+        [HttpGet("shoppingList")]
         public ActionResult<List<Supply>> SuppliesOnFarmList()
         {
-            List<Supply> supplies = SupplySqlDao.GetAllSuppliesByUser(GetUserIdFromToken());
+            List<Supply> supplies = SupplySqlDao.GetAllSuppliesOnFarmList(GetUserIdFromToken());
             
             if (supplies != null)
                 return supplies;
@@ -48,7 +48,7 @@ namespace Capstone.Controllers
 
 
         //must have FarmId and SupplyId properties of SupplyListItem
-        [HttpPost("mySupplies")]
+        [HttpPost("shoppingList")]
         public IActionResult AddSupplyToFarmList(SupplyListItem supplyToAdd)
         {
             bool isAdded = SupplySqlDao.AddSupplyToFarmList(supplyToAdd);       
@@ -59,7 +59,7 @@ namespace Capstone.Controllers
         }
 
         //must have SuppliesFarmsId property of SupplyListItem
-        [HttpDelete("mySupplies")]
+        [HttpDelete("shoppingList")]
         public IActionResult RemoveSupplyFromFarmList(SupplyListItem supplyToRemove)
         {
             bool isRemoved = SupplySqlDao.RemoveSupplyFromFarmList(supplyToRemove);

@@ -42,7 +42,7 @@ INSERT INTO plots_plants (plot_id, plant_id) VALUES
 SELECT * FROM users
 SELECT * FROM plots
 SELECT * FROM farms
-SELECT * FROM supplies_farms
+SELECT * FROM supplies_farms_plants --shopping list
 SELECT * FROM plots_plants
 SELECT * FROM supplies
 SELECT * FROM users 
@@ -65,10 +65,10 @@ ORDER BY pl.plot_id;
 
 
 SELECT * FROM farms f
-JOIN supplies_farms sf
-ON f.farm_id = sf.farm_id
+JOIN supplies_farms_plants sfp
+ON f.farm_id = sfp.farm_id
 JOIN supplies s
-ON sf.supply_id = s.supply_id
+ON sfp.supply_id = s.supply_id
 WHERE f.user_id = 3; -- this will give you ALL tools on user 1's farm
 
 
@@ -93,21 +93,21 @@ UPDATE users
 SET first_name = 'Joe', last_name = 'Hille', email = 'email'
 WHERE username = user;
 
-INSERT INTO supplies_farms (supply_id, farm_id) VALUES
-(1,1),(20,1),(20,1),(6,1),(8,1),(8,1),(13,1),
-(20,2),(50,2),(20,2);
+INSERT INTO supplies_farms_plants (supply_id, farm_id, plant_id) VALUES
+(1,1,10),(20,1,20),(20,1,30),(6,1,40),(8,1,50),(8,1,60),(13,1,70),
+(20,2,80),(50,2,21),(20,2,23);
 
 SELECT u.username, s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost 
 FROM users u 
 JOIN farms f 
 ON u.user_id = f.farm_id 
-JOIN supplies_farms sf 
-ON sf.farm_id = f.farm_id 
+JOIN supplies_farms_plants sfp 
+ON sfp.farm_id = f.farm_id 
 JOIN supplies s 
-ON s.supply_id = sf.supply_id 
+ON s.supply_id = sfp.supply_id 
 WHERE u.user_id = 1;
 
 
 
-DELETE FROM supplies_farms
-WHERE supplies_farms_id = 4;
+DELETE FROM supplies_farms_plants
+WHERE supplies_farms_plants_id = 4;

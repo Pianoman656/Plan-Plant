@@ -240,6 +240,118 @@ namespace Capstone.DAO
             return isPlanted;
         }
 
+        public List<Plant> GetAllPlantsOnFarmList(int userId)
+        {
+            List<Plant> shoppingPlants = new List<Plant>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost " +
+                                                    "FROM users u " +
+                                                    "JOIN farms f " +
+                                                    "ON u.user_id = f.farm_id " +
+                                                    "JOIN supplies_farms_plants sfp " +
+                                                    "ON sfp.farm_id = f.farm_id " +
+                                                    "JOIN plants p " +
+                                                    "ON p.plant_id = sfp.plant_id " +
+                                                    "WHERE u.user_id = @user_id;", conn);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Plant plant = GetPlantFromReader(reader);
+                        shoppingPlants.Add(plant);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return shoppingPlants;
+        }
+        public bool AddPlantToFarmList(SupplyListItem plantToAdd)
+        {
+            bool isAdded = false;
+            int atCheckout;
+            int onFarmList;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO supplies_farms_plants (plant_id, farm_id) " +
+                                                    "OUTPUT INSERTED.supplies_farms_plants_id " +
+                                                    "VALUES(@plant_id, @farm_id)", conn);
+                    cmd.Parameters.AddWithValue("@plant_id", plantToAdd.PlantId);
+                    cmd.Parameters.AddWithValue("@farm_id", plantToAdd.FarmId);
+                    atCheckout = Convert.ToInt32(cmd.ExecuteScalar());
+                    // ???redundant but tests itself????
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", atCheckout);
+                    onFarmList = Convert.ToInt32(cmd1.ExecuteScalar());
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            if (onFarmList == atCheckout)
+                isAdded = true;
+
+            return isAdded;
+        }
+
+        public bool RemovePlantFromFarmList(SupplyListItem plantToRemove)
+        {
+            bool isRemoved = false;
+            SupplyListItem test = new SupplyListItem();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("DELETE FROM supplies_farms_plants " +
+                                                    "WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
+                    cmd.Parameters.AddWithValue("@supplies_farms_plants_id", plantToRemove.SuppliesFarmsPlantsId);
+                    cmd.ExecuteNonQuery();
+
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants " +
+                                                     "WHERE supplies_farms_plants_id = @supplies_farms_plants_id;", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", plantToRemove.SuppliesFarmsPlantsId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        test.SuppliesFarmsPlantsId = Convert.ToInt32(reader["supplies_farms_plants_id"]);
+                        test.SupplyId = Convert.ToInt32(reader["supply_id"]);
+                        test.FarmId = Convert.ToInt32(reader["farm_id"]);
+                        test.PlantId = Convert.ToInt32(reader["plant_id"]);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            if (test.SupplyId == 0)
+                isRemoved = true;
+
+            return isRemoved;
+        }
+
         private Plant GetPlantFromReader(SqlDataReader reader)
         {
             Plant plant = new Plant();

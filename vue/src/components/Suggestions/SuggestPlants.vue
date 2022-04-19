@@ -28,8 +28,7 @@ export default {
         },
         methods: {
             addPlantToShoppingList(){
-                if(confirm("Are you sure you want to add this to your list?"))
-                    suggestedService.
+
             }
         },
         created(){

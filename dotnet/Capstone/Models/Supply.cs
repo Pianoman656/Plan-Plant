@@ -17,8 +17,9 @@ namespace Capstone.Models
 
     public class SupplyListItem
     {
-        public int SuppliesFarmsId { get; set; }
+        public int SuppliesFarmsPlantsId { get; set; }
         public int SupplyId { get; set; }
         public int FarmId { get; set; }
+        public int PlantId { get; set; }
     }
 }

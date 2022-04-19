@@ -14,9 +14,10 @@ namespace Capstone.DAO
         List<Plant> GetAllPlantsByPlot(int plotId);
         Plant AddPlant(Plant plantToAdd);
         Plant UpdatePlant(int plantId, Plant updatedPlant);
-        
-        //changed to bool return for shiz and gigz \/
         bool AddPlantToPlot(PlantedPlant plantReadyForPlanting);
+        List<Plant> GetAllPlantsOnFarmList(int userId);
+        bool AddPlantToFarmList(SupplyListItem plant);
+        bool RemovePlantFromFarmList(SupplyListItem plant);
         
         /*bool RemovePlantFromPlot(PlantedPlant plantToDigUp);*/
     }
