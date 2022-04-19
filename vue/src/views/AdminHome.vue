@@ -42,4 +42,9 @@ export default {
 .admin-home a:hover {
   text-decoration: underline;
 }
+
+.admin-home a {
+  float: right;
+}
+
 </style>
