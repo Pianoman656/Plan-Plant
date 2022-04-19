@@ -18,11 +18,11 @@ namespace Capstone.Controllers
             userDao = _userDao;
         }
 
-        //  get request to    /User/{username}
-        [HttpGet("{username}")]
-        public ActionResult<User> GetUserInfo(string username)
+        //  get request to /User/
+        [HttpGet()]
+        public ActionResult<User> GetUserInfo()
         {
-            User user = userDao.GetUser(username);
+            User user = userDao.GetUserById(GetUserIdFromToken());
             if (user != null)
                 return user;
             else
@@ -30,17 +30,31 @@ namespace Capstone.Controllers
 
         }
 
-        // put request to    /User/{username}
-        [HttpPut("{username}")]
-        public IActionResult EditProfileInfo(string username, User user)
+        // put request to /User/
+        [HttpPut()]
+        public IActionResult EditProfileInfo(User user)
         {
-            User updatedUser = userDao.UpdateProfileInfo(username, user);
+            User updatedUser = userDao.UpdateProfileInfo(GetUserIdFromToken(), user);
 
-            if (updatedUser != null && updatedUser.LastName == user.LastName)
+            if (updatedUser != null)
                 return Ok();
             else
                 return StatusCode(409);
 
+        }
+
+        public int GetUserIdFromToken()
+        {
+            int userId = -1;
+            try
+            {
+                userId = int.Parse(User.FindFirst("sub")?.Value);
+            }
+            catch
+            {
+
+            }
+            return userId;
         }
     }
 }
