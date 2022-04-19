@@ -14,10 +14,6 @@ namespace Capstone.Controllers
     [ApiController]
     [Authorize]
 
-    //Authorized so that only a logged in user can access ??
-    //farm_id and user_id are currently the same ??
-    //
-
     public class PlotController : ControllerBase
     {
         private readonly IPlotDao PlotSqlDao;
@@ -25,7 +21,7 @@ namespace Capstone.Controllers
         {
             PlotSqlDao = plotDao;
         }
-        
+
         //get a list of all user-specific plots based on token
         [HttpGet()]
         public ActionResult<List<Plot>> ListAllUserPlots()
@@ -34,6 +30,18 @@ namespace Capstone.Controllers
 
             if (userPlots != null)
                 return userPlots;
+            else
+                return NotFound();
+        }
+
+        //get a list of all farm-specific plots
+        [HttpGet("{farmId}/byfarm")]
+        public ActionResult<List<Plot>> ListAllFarmPlots(int farmId)
+        {
+            List<Plot> farmPlots = PlotSqlDao.GetAllPlotsByFarm(farmId);
+
+            if (farmPlots != null)
+                return farmPlots;
             else
                 return NotFound();
         }
@@ -49,7 +57,7 @@ namespace Capstone.Controllers
                 return NotFound();
         }
 
-        //post add a new plot
+        //add a new plot
         [HttpPost()]
         public IActionResult AddNewPlot(Plot plotToAdd)
         {

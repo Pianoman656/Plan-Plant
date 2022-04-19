@@ -74,6 +74,35 @@ namespace Capstone.DAO
             return plots;
         }
 
+        public List<Plot> GetAllPlotsByFarm(int farmId)
+        {
+            List<Plot> plots = new List<Plot>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT *" +
+                                                    "FROM plots p " +
+                                                    "WHERE farm_id = @farm_id", conn);
+                    cmd.Parameters.AddWithValue("@farm_id", farmId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Plot plot = GetPlotFromReader(reader);
+                        plots.Add(plot);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return plots;
+        }
+
         public Plot AddPlot(Plot plot, int userId)
         {
             int newPlotId;
