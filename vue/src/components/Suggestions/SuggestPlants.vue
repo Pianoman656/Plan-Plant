@@ -17,21 +17,14 @@
 
 <script>
 import plantsService from '../../services/PlantsService'
-import suggestService from '../../services/SuggestService'
+//import suggestService from '../../services/SuggestService'
 
 export default {
         name: "suggested-plants",
         methods: {
-            getPlants() {
-            plantsService.listPlants().then(response => {
-                this.$store.commit("SET_PLANTS", response.data);
-                });
-            },
-            getPlantsBySunRequirements() { //<--- sun/part-shade/shade passed in as argument
-            suggestService.listPlantsBySunRequirements().then(response => {
-                this.$store.commit("SET_PLANTS", response.data);
-                });
-            },
+            addPlantToShoppingList(){
+
+            }
         },
         created(){
             plantsService.listPlants().then(response => {
@@ -40,12 +33,22 @@ export default {
         },
         computed: {
             //will filter plants based on users "needs" - sun of plot, size of plot, plants that user doesn't currently have
-             sortedPlants() {
+            sortedPlants() {
                 return this.$store.state.plants.filter((plant) => {
-                    return plant; // 
+                return plant; // --always returning true right now
                 });
+            },
+            plantsByTotalPlotSize(){
+                return null;
+            },
+            plantsNotOnList(){
+                return null;
+            },
+             plantsBySunRequirements() { //<--- sun/part-shade/shade passed in as argument
+                return true;
+            }       
         }
-    }         
+      
 }
 
 </script>
