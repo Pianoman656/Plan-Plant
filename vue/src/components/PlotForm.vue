@@ -50,8 +50,8 @@ export default {
     methods: {
         savePlot() {
             const newPlot = {
-                plotId: Number(this.$route.params.plotId),
-                farmId: Number(this.$route.params.farmId),
+                //plotId: Number(this.$route.params.plotId),
+                //farmId: Number(this.$route.params.farmId),
                 plotName: this.plot.plotName,
                 sunExposure: this.plot.sunExposure,
                 plotSquareFootage: this.plot.plotSquareFootage,

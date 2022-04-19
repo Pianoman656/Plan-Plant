@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Edit Plot</h1>
+    <h1>Add Plot</h1>
     <plot-form v-bind:plotId="parseInt($route.params.plotId)" />      <!-- should this be Number( )  -->    
   </div>
 </template>
