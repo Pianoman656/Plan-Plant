@@ -9,40 +9,20 @@
         <!-- <th>&nbsp;</th>  -->
         <th>Plot Name</th>
         <th>Square Footage</th>
-        <th>Sun Exposure</th>        
-        <th></th>     
+        <th>Sun Exposure</th>                 
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plot in sortedPlots" :key="plot.plotId">        
-        
+      <tr v-for="plot in sortedPlots" :key="plot.plotId">               
         <td class="name">{{ plot.plotName }}</td>      
         <td class="square-area">{{plot.plotSquareFootage}}</td>        
-        <td class="sun-requirements">{{plot.sunExposure}}</td>        
-       
-        <td>          
-        <router-link v-bind:to="{ name: 'edit-plot', params: {plotId: plot.plotId} }"   
-        >Edit Plot
-        </router-link>
-        </td>
+        <td class="sun-requirements">{{plot.sunExposure}}</td>          
       </tr>
     </tbody>  
   </table>
-  </div>
- 
+  </div> 
   
 </template>
-
-
-
-
-
-
-
- <!-- v-for="plot in this.$store.state.plots"  :key="plot.plotId" -->
-       
- <!-- v-bind:style="{ 'background-color': plot.backgroundColor }"/> -->
-
 
 
 <script>
