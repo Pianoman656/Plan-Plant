@@ -25,7 +25,6 @@ export default {
   grid-template-columns: 1fr 1fr;
 }
 
-
 @media only screen and (max-width: 768px) {
 .suggest{
   grid-template-columns: 1fr;
