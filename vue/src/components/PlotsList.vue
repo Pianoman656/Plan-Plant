@@ -1,31 +1,43 @@
 <template>
   
- 
-   <div class="farm">
-    <h2>My Plots</h2>
-    <div class="plots">
-      <div
-        class="plot"
-        v-for="plot in sortedPlots"
-        v-bind:key="plot.plotId"
-        v-on:click="viewPlotDetails(plot.plotId)"          
-      >
-        <div class="header">
-          <h3>{{ plot.plotName }}</h3>
-          <!-- <img :src="plot.avatar" class="avatar" />      maybe implement something later-->
-        </div>
-        <div class="plot-summary"> 
-            <ul id="summary-list">
-                <li>Sun Requirements: {{ plot.sunExposure }}</li>
-                <li>Square Footage: {{ plot.plotSquareFootage }}</li>                
-            </ul>
-        </div>
+  
+   <div class="plots-list-table">
+       <h2>Plots</h2>
+        <table>
+        <thead>
+        <tr>
+        <!-- <th>&nbsp;</th>  -->
+        <th>Plot Name</th>
+        <th>Square Footage</th>
+        <th>Sun Exposure</th>        
+        <th></th>     
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="plot in sortedPlots" :key="plot.plotId">        
+        
+        <td class="name">{{ plot.plotName }}</td>      
+        <td class="square-area">{{plot.plotSquareFootage}}</td>        
+        <td class="sun-requirements">{{plot.sunExposure}}</td>        
        
-      </div>
-    </div>
+        <td>          
+        <router-link v-bind:to="{ name: 'edit-plot', params: {plotId: plot.plotId} }"   
+        >Edit Plot
+        </router-link>
+        </td>
+      </tr>
+    </tbody>  
+  </table>
   </div>
+ 
   
 </template>
+
+
+
+
+
+
 
  <!-- v-for="plot in this.$store.state.plots"  :key="plot.plotId" -->
        
@@ -43,14 +55,14 @@ export default {
             plotsService.listPlots().then(response => {
                 this.$store.commit("SET_PLOTS", response.data);
             });
-        }
+        },       
     },
      created() {
         this.getPlots();
     },    
     computed: {
         sortedPlots() {
-            return this.$store.state.plants  
+            return this.$store.state.plots 
             //don't know if sorted is really needed but it's here for later          
         }
 }
@@ -59,35 +71,31 @@ export default {
 
 <style>
 
-h2.plots-list {
+h2 {
     color: white;
     text-shadow: 1px 1px 3px #000000;
 }
 
-
-
-.card {
-  background: #fff;
-  border-radius: 0.25rem;
-  padding: 10px;
-  border: 1px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-.card:last-child {
-  margin-bottom: 0px;
-}
-.card h3 {
-  margin-top: 0px;
-  font-size: 0.875rem;
-}
-.card .header {
-  display: flex;
-  justify-content: space-between;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
 }
 
+th {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;  
+  text-align: left;
+  color: #019875;
+}
 
+td {
+    text-align: left;
+}
 
+.plots-list-table {
+background-color: white;
+}
 
 </style>

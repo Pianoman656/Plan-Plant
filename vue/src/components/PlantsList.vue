@@ -1,5 +1,6 @@
 <template>
-  <div class="plants-list-table">
+
+  <div class="plants-list-table">    
   <table>
     <thead>
       <tr>
