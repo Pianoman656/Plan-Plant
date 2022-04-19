@@ -3,7 +3,7 @@
   <h1>Plants and Supplies for your Garden</h1>
   <div id="supply-page">
         <div class="container" v-for="supply in sortedSupplies" :key="supply.supplyId">
-          <a href="#"> 
+          <a href="https://www.ruralking.com"> 
             <img :src="supply.imageUrl" class="supply-image"/>
           </a>
            <div> 
@@ -14,7 +14,7 @@
            </div>
         </div>
         <div class="container" v-for="plant in sortedPlants" :key="plant.plantId">
-          <a href="#"> 
+          <a href="https://www.ufseeds.com"> 
             <img :src="plant.imageUrl" class="plant-image"/>
           </a>
            <div> 
