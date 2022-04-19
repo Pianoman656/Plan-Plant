@@ -1,17 +1,14 @@
-<!--     -->
 <template>
   <div class="admin-home">
     <h1>Admin Page</h1>
     <router-link :to="{ name: 'create-plant' }"
       >Add New Plant
     </router-link>
-    <p v-if="$store.state.token == ''">You must be authenticated to see this</p>    
+    <p v-if="$store.state.token == ''">
+      You must be authenticated to see this
+    </p>    
     <plants-list />
-   
-
   </div>
-
-
 </template>
 
 <script>
@@ -22,18 +19,16 @@ export default {
     PlantsList
   }      
 };
-
 </script>
 
-
 <style>
-
 .admin-home h1 {  
   color: #019875;  
 }
 
 .admin-home a {
   float: right;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }
 
 .admin-home a:link,
@@ -43,6 +38,7 @@ export default {
   color: #019875;
   text-decoration: none;
 }
+
 .admin-home a:hover {
   text-decoration: underline;
 }
