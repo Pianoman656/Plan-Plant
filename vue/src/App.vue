@@ -20,6 +20,8 @@
 
       <router-link v-bind:to="{ name: 'shop'}">Shop</router-link>
 
+      <router-link v-bind:to="{ name: 'cart'}">Cart</router-link>
+
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
