@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="suggest">
     <suggest-plants />
     <suggest-supplies />
   </div>
@@ -19,8 +19,17 @@ export default {
 };
 </script>
 
-<style scoped>
-div{
+<style>
+.suggest{ 
   display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+@media only screen and (max-width: 768px) {
+.suggest{
+  grid-template-columns: 1fr;
+}
+
 }
 </style>

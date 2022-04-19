@@ -7,11 +7,11 @@
     </div>
     <div class="field">
       <label for="square-area">Square Area</label>
-      <input type="number" v-model="plant.squareArea" />
+      <input type="number" v-model.number="plant.squareArea" />
     </div>
     <div class="field">
       <label for="cost">Cost</label>
-      <input type="number" v-model="plant.cost" />
+      <input type="number" v-model.number="plant.cost" />
     </div>
     <div class="field">
       <label for="sun-requirements">Sun Requirements</label>
@@ -31,7 +31,8 @@
     </div>
     <div class="actions">
       <button type="button" v-on:click="cancel()">Cancel</button>&nbsp;
-      <button type="submit" v-on:click="savePlant()">Save Plant</button>
+      <button class="btn btn-submit">Save Plant</button>
+      <!-- <button type="submit" v-on:click="savePlant()">Save Plant</button> -->
     </div>
   </form>
 </template>
@@ -64,24 +65,20 @@ export default {
     methods: {
         savePlant() {
             const newPlant = {
-                plantId: Number(this.$route.params. plantId),
+                plantId: Number(this.$route.params.plantId),     
                 commonName: this.plant.commonName,
-                squareArea: Number(this.plant.squareArea),
-                cost: Number(this.plant.cost),
+                squareArea: this.plant.squareArea,     
+                cost: this.plant.cost,
                 sunRequirements: this.plant.sunRequirements,
                 imageUrl: this.plant.imageUrl,
                 temporaryUsdaZones: this.plant.temporaryUsdaZones,
                 description: this.plant.description
             }
+            
 
-            if (this.plantId === 0) {
-                // add
-                //this.newPlant.cost = parseInt(this.newPlant.cost)
-                //this.newPlant.squareArea = parseInt(this.squareArea.cost)     
-                newPlant.plantId = 0;           
-                console.log("Plant Id is zero!");
-                console.log(newPlant);
-                //console.log(this.newPlant.cost);
+            if (isNaN(newPlant.plantId)) {
+
+                newPlant.plantId = 0;                           
 
                 plantsService
                 .createPlant(newPlant)
@@ -94,8 +91,9 @@ export default {
                     this.handleErrorResponse(error, "adding");
                 });
             } else {
-                // update
-                newPlant.plantId = this.plantId;
+                
+                // update                
+                newPlant.plantId = this.plant.plantId;
                 newPlant.commonName = this.plant.commonName;
                 newPlant.squareArea = this.plant.squareArea;
                 newPlant.cost = this.plant.cost;
