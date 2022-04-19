@@ -78,7 +78,7 @@ namespace Capstone.DAO
             return userSupplies;
         }
 
-        public bool AddSupplyToFarmList(SupplyListItem supplyToAdd)
+        public bool AddSupplyToFarmList(ShoppingListItem supplyToAdd)
         {
             bool isAdded = false;
             int atCheckout;
@@ -113,10 +113,10 @@ namespace Capstone.DAO
             return isAdded;
         }
 
-        public bool RemoveSupplyFromFarmList(SupplyListItem supplyToRemove)
+        public bool RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove)
         {
             bool isRemoved = false;
-            SupplyListItem test = new SupplyListItem();
+            ShoppingListItem test = new ShoppingListItem();
             
             try
             {

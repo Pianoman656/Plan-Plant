@@ -20,16 +20,15 @@ INSERT INTO plots_plants (plot_id, plant_id) VALUES
 ((SELECT plot_id FROM plots WHERE plot_name LIKE 'Fifth Plot'), (SELECT plant_id FROM plants WHERE common_name LIKE 'Corn'))
 
 
---REMOVE PLANTS FROM PLOTS
---DELETE FROM plots_plants ???
---WHERE plots_plants_id = @plots_plants_id ???? plots_plants_id will identify ONE and only one plant in a plot.
---Question is = how to easily access plots_plants_id for identification.
-
 --SEMANTICS
+
+--the plots_plants_id references a specific plant in a specific plot
 --plants in the plots_plants table can be refered to as "planted plants" or "plants in the ground"
 --plots that exist in the plots_plants table can be referred to as "populated plots"
---farms in the supplies_farms table can be referred to as "farms with supplies"
---supplies in the supplies_farms table can be refferd to as "supplies on farms"
+
+--farms in the supplies_farms_plants table can be referred to as "the farm that the shopping list belongs to"
+--supplies in the supplies_farms_plants table can be refferd to as "supplies in shopping list"
+--plants in the supplies_farms_plants table can be reffered to as "plants in shopping list"
 
 --RESTRICTIONS 
 --plants can ONLY be added to the plots if the "populated plot" has room (ie square area of plant is less than or equal to remaining area in plot)
@@ -43,7 +42,7 @@ SELECT * FROM users
 SELECT * FROM plots
 SELECT * FROM farms
 SELECT * FROM supplies_farms_plants --shopping list
-SELECT * FROM plots_plants
+SELECT * FROM plots_plants --planted plants 
 SELECT * FROM supplies
 SELECT * FROM users 
 SELECT * FROM plants
@@ -97,7 +96,7 @@ INSERT INTO supplies_farms_plants (supply_id, farm_id, plant_id) VALUES
 (1,1,10),(20,1,20),(20,1,30),(6,1,40),(8,1,50),(8,1,60),(13,1,70),
 (20,2,80),(50,2,21),(20,2,23);
 
-SELECT u.username, s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost 
+SELECT u.username, s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost, p.common_name
 FROM users u 
 JOIN farms f 
 ON u.user_id = f.farm_id 
@@ -105,9 +104,6 @@ JOIN supplies_farms_plants sfp
 ON sfp.farm_id = f.farm_id 
 JOIN supplies s 
 ON s.supply_id = sfp.supply_id 
+JOIN plants p
+ON sfp.plant_id = p.plant_id
 WHERE u.user_id = 1;
-
-
-
-DELETE FROM supplies_farms_plants
-WHERE supplies_farms_plants_id = 4;

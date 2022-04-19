@@ -249,7 +249,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT s.supply_id, s.description, s.image_url, s.supply_name, s.supply_cost " +
+                    SqlCommand cmd = new SqlCommand("SELECT p.plant_id, p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones " +
                                                     "FROM users u " +
                                                     "JOIN farms f " +
                                                     "ON u.user_id = f.farm_id " +
@@ -275,7 +275,7 @@ namespace Capstone.DAO
 
             return shoppingPlants;
         }
-        public bool AddPlantToFarmList(SupplyListItem plantToAdd)
+        public bool AddPlantToFarmList(ShoppingListItem plantToAdd)
         {
             bool isAdded = false;
             int atCheckout;
@@ -310,10 +310,10 @@ namespace Capstone.DAO
             return isAdded;
         }
 
-        public bool RemovePlantFromFarmList(SupplyListItem plantToRemove)
+        public bool RemovePlantFromFarmList(ShoppingListItem plantToRemove)
         {
             bool isRemoved = false;
-            SupplyListItem test = new SupplyListItem();
+            ShoppingListItem test = new ShoppingListItem();
 
             try
             {

@@ -14,12 +14,4 @@ namespace Capstone.Models
         public decimal SupplyCost { get; set; }
 
     }
-
-    public class SupplyListItem
-    {
-        public int SuppliesFarmsPlantsId { get; set; }
-        public int SupplyId { get; set; }
-        public int FarmId { get; set; }
-        public int PlantId { get; set; }
-    }
 }

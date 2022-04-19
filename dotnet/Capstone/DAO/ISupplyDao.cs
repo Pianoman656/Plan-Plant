@@ -10,8 +10,8 @@ namespace Capstone.DAO
     {
         List<Supply> GetAllSupplies();
         List<Supply> GetAllSuppliesOnFarmList(int userId);
-        bool AddSupplyToFarmList(SupplyListItem supplyToAdd);
-        bool RemoveSupplyFromFarmList(SupplyListItem supplyToRemove);
+        bool AddSupplyToFarmList(ShoppingListItem supplyToAdd);
+        bool RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove);
 
         /* 
          * bool AddSupplyToDatabase();

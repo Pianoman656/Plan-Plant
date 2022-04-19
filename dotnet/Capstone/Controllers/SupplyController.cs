@@ -49,7 +49,7 @@ namespace Capstone.Controllers
 
         //must have FarmId and SupplyId properties of SupplyListItem
         [HttpPost("shoppingList")]
-        public IActionResult AddSupplyToFarmList(SupplyListItem supplyToAdd)
+        public IActionResult AddSupplyToFarmList(ShoppingListItem supplyToAdd)
         {
             bool isAdded = SupplySqlDao.AddSupplyToFarmList(supplyToAdd);       
             if (isAdded)
@@ -58,9 +58,9 @@ namespace Capstone.Controllers
                 return StatusCode(409, "Supply could not be added to the farm list.");
         }
 
-        //must have SuppliesFarmsId property of SupplyListItem
+        //must have SuppliesFarmsPlantsId property of SupplyListItem
         [HttpDelete("shoppingList")]
-        public IActionResult RemoveSupplyFromFarmList(SupplyListItem supplyToRemove)
+        public IActionResult RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove)
         {
             bool isRemoved = SupplySqlDao.RemoveSupplyFromFarmList(supplyToRemove);
             if (isRemoved)
