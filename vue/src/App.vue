@@ -14,7 +14,11 @@
       v-else-if="$store.state.user.username !== 'admin'" 
         v-bind:to="{ name: 'user-home' }">
         Home
-      </router-link>  
+      </router-link>
+        
+      <router-link v-bind:to="{ name: 'suggestions'}">Suggestions</router-link>
+
+      <router-link v-bind:to="{ name: 'shop'}">Shop</router-link>
 
       <router-link
         v-bind:to="{ name: 'logout' }"

@@ -30,6 +30,23 @@ export default new Vuex.Store({
       sunRequirements: '',
       imageUrl: '',
       temporaryUsdaZones: ''
+    },
+    plots: [],
+    plot: {
+      plotId: '',
+      farmId: '',
+      plotName: '',
+      sunExposure: '',
+      plotSquareFootage: '',
+      zoneId: ''
+    },
+    supplies: [],
+    supply: {
+      supplyId: '',
+      description: '',
+      imageUrl: '',
+      supplyName: '',
+      supplyCost: ''
     }
   },
   mutations: {
@@ -54,6 +71,18 @@ export default new Vuex.Store({
     },
     SET_CURRENT_PLANT(state, data) {
       state.plant = data;
+    },
+    SET_PLOTS(state, data) {
+      state.plots = data;
+    },
+    SET_CURRENT_PLOT(state, data) {
+      state.plot = data;
+    },
+    SET_SUPPLIES(state,data) {
+      state.supplies = data;
+    },
+    SET_CURRENT_SUPPLY(state, data) {
+      state.supply = data;
     }
   },
   actions: {

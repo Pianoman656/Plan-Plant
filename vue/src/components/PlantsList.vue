@@ -40,8 +40,6 @@
         >Edit
         </router-link>
         </td>
-
-
       </tr>
     </tbody>  
   </table>
@@ -74,7 +72,6 @@ export default {
                 this.$store.commit("SET_PLANTS", response.data);
             });
         }
-
     },
     created() {
         this.getPlants();
@@ -85,21 +82,11 @@ export default {
             //don't know if sorted is really needed but it's here for later          
         }
     }
-    
 }
 </script>
 
 <style>
 
-.plants-list-table {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
-}
-.plant-image {
-  min-width: 50px;
-}
-tbody tr td:nth-child(0n+1) {
-  width: 300px;
-}
 table {
   width: 100%;
   border-collapse: collapse;
