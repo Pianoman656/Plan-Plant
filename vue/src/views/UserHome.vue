@@ -19,6 +19,7 @@
         v-model="user.zip"
         required
       />
+      <button type="submit">Save</button>
       <ul id="plots">
         <li>
           <button v-on:click="deletePlots">
@@ -39,7 +40,6 @@
           Plot 3
         </li>
       </ul>
-      <button type="submit">Save</button>
     </form>
   </div>
 </template>
@@ -99,7 +99,7 @@ button[type='submit'] {
   padding: 10px 0;
   color: white;
   border-radius: 2px;
-  margin: 20px auto;
+  margin: 0px 0 20px auto;
   font-size: 16px;
   box-shadow: 0 1px 8px rgba(61, 61, 61, 0.767);
 }
@@ -131,11 +131,18 @@ input {
   min-height: 120px;
 }
 #plots li {
-  border: 0.7px solid #aaa;
   padding: 5px 2px;
   width: 50%;
+  border: 0.7px solid transparent;
   border-radius: 3px;
+  transition: border 0.3s;
 }
+#plots li:hover {
+  border: 0.7px solid #aaa;
+}
+#plots li button:hover {
+
+} 
 #plots li button {
   background-color: transparent;
   color: rgb(185, 0, 0);
