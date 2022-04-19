@@ -40,8 +40,6 @@
         >Edit
         </router-link>
         </td>
-
-
       </tr>
     </tbody>  
   </table>
@@ -74,7 +72,6 @@ export default {
                 this.$store.commit("SET_PLANTS", response.data);
             });
         }
-
     },
     created() {
         this.getPlants();
@@ -85,13 +82,10 @@ export default {
             //don't know if sorted is really needed but it's here for later          
         }
     }
-    
 }
 </script>
 
 <style>
-
-
 
 table {
   width: 100%;

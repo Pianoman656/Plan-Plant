@@ -39,6 +39,14 @@ export default new Vuex.Store({
       sunExposure: '',
       plotSquareFootage: '',
       zoneId: ''
+    },
+    supplies: [],
+    supply: {
+      supplyId: '',
+      description: '',
+      imageUrl: '',
+      supplyName: '',
+      supplyCost: ''
     }
   },
   mutations: {
@@ -69,6 +77,12 @@ export default new Vuex.Store({
     },
     SET_CURRENT_PLOT(state, data) {
       state.plot = data;
+    },
+    SET_SUPPLIES(state,data) {
+      state.supplies = data;
+    },
+    SET_CURRENT_SUPPLY(state, data) {
+      state.supply = data;
     }
   },
   actions: {
