@@ -21,9 +21,15 @@ import plantsService from '../../services/PlantsService'
 
 export default {
         name: "suggested-plants",
+        data(){
+            return {
+                
+            }
+        },
         methods: {
             addPlantToShoppingList(){
-
+                if(confirm("Are you sure you want to add this to your list?"))
+                    suggestedService.
             }
         },
         created(){
@@ -34,21 +40,27 @@ export default {
         computed: {
             //will filter plants based on users "needs" - sun of plot, size of plot, plants that user doesn't currently have
             sortedPlants() {
-                return this.$store.state.plants.filter((plant) => {
-                return plant; // --always returning true right now
+                return this.$store.state.plants.filter(() => {
+                return true; 
+                // --always returning true right now
+                //populate list of plants based on plants not already on current user's farm
+                //return false if target plant in join table
                 });
-            },
-            plantsByTotalPlotSize(){
-                return null;
             },
             plantsNotOnList(){
                 return null;
+                //populate list of plants based on plants not already on current user's farm
+                //return false if target plant in join table
             },
              plantsBySunRequirements() { //<--- sun/part-shade/shade passed in as argument
                 return true;
+                //populate list of plants - filter by sun exposure of plot(s)
+            },
+            plantsByFarmSize() {
+                return true;
+                //populate list of plants - add by sq foot in loop,
             }       
         }
-      
 }
 
 </script>
