@@ -15,6 +15,7 @@ import Suggestions from '../views/Suggestions.vue'
 import Shop from '../views/Shop.vue'
 import Farm from '../views/Farm.vue'
 import Cart from '../views/Cart.vue'
+import CreatePlot from '../views/CreatePlot.vue'
 
 
 Vue.use(Router)
@@ -113,6 +114,11 @@ const router = new Router({
       path: '/cart',
       name: 'cart',
       component: Cart
+    },
+    {
+      path: '/plot/create',
+      name: 'create-plot',
+      component: CreatePlot
     }
   ]
 })

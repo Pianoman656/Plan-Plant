@@ -1,8 +1,15 @@
 <template>
   <div id="user-home">
-    <form class="container" @submit.prevent="update">
+    <form class="container">
       <h1 class="h3 mb-3 font-weight-normal">Edit User Account</h1>
+      
+      <div class="user-info">
+        <div>Current User Email: <em>{{ currentUserInfo.email }}</em></div>
+        <div>Current User Zipcode: <em>{{ currentUserInfo.zip }}</em></div>
+      </div>
+      <label for="email">Email</label>
       <input
+        name="email"
         type="text"
         id="email"
         class="form-control"
@@ -11,6 +18,7 @@
         required
         autofocus
       />
+      <label for="zip">Zip</label>
       <input
         type="text"
         id="zip"
@@ -19,27 +27,32 @@
         v-model="user.zip"
         required
       />
+      <small class="alert">
+        <span v-if="successful">Email & Zip Updated!</span>
+        </small>
+      <button id="save" @click.prevent="update()">
+        Save
+      </button>
       <ul id="plots">
         <li>
           <button v-on:click="deletePlots">
             Delete
           </button>
-          Plot 1
+          Plot Name #1
         </li>
         <li>
           <button v-on:click="deletePlots">
             Delete
           </button>
-          Plot 2
+          Plot Name #2
         </li>
         <li>
           <button v-on:click="deletePlots">
             Delete
           </button>
-          Plot 3
+          Plot Name #3
         </li>
       </ul>
-      <button type="submit">Save</button>
     </form>
   </div>
 </template>
@@ -54,16 +67,29 @@ export default {
   data() {
     return {
       user: {
-        username: '',
         email: '',
-        role: 'user',
-        zip: null,
+        zip: '',
       },
+      currentUserInfo: {
+        email: '',
+        zip: ''
+      },
+      successful: false,
     }
   },
   methods: {
     update() {
-      authService.updateAccount(this.$store.state.userId, this.user)
+        console.log('user: ', this.user)
+        authService.updateAccount(this.user).then((res) => {
+          if (res.status) { 
+            this.successful = true
+          }
+        authService.getUserInfo().then((res) => {
+          this.currentUserInfo.email = res.data.email
+          this.currentUserInfo.zip = res.data.zip
+          console.log(res.data)
+        })
+      })
     },
     deletePlots() {
       cropService.deletePlots(this.$store.state.userId)
@@ -72,6 +98,13 @@ export default {
       this.plots = this.getPlots()
     },
   },
+  created() {
+    authService.getUserInfo().then((res) => {
+      this.currentUserInfo.email = res.data.email
+      this.currentUserInfo.zip = res.data.zip
+      console.log(res.data)
+    })
+  },
 }
 </script>
 
@@ -79,9 +112,7 @@ export default {
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
 }
-:root {
-  --main-green: #019875;
-}
+label,
 h1,
 h2,
 h3 {
@@ -92,16 +123,21 @@ a {
   margin: 0 auto;
   color: #444444;
 }
-button[type='submit'] {
-  width: 50%;
+button#save {
+  width: 100%;
   background-color: var(--main-green);
-  border: 1px solid var(--main-green);
-  padding: 10px 0;
-  color: white;
+  border: 0.7px solid #aaa;
+  border-radius: 5px;
+  padding: 8px 0;
+  color: #fff;
   border-radius: 2px;
-  margin: 20px auto;
+  margin: 10px auto;
   font-size: 16px;
-  box-shadow: 0 1px 8px rgba(61, 61, 61, 0.767);
+  transition: color 0.3s, background-color 0.3s;
+}
+button#save:hover {
+  background-color: #6aa33c;
+  color: white;
 }
 .container {
   display: flex;
@@ -123,23 +159,48 @@ input {
   border: 0.7px solid gray;
   border-radius: 2px;
 }
+.user-info {
+  margin: 30px 0;
+  font: 14px 'san-serif'; 
+}
+.user-info em {
+  margin-left: 5px;
+  color: #888
+}
+.alert {
+  height: 10px;
+  text-align: center;
+  color: #777;
+}
 #plots {
-  margin: 20px 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-top: 0.7px solid #dcdcdc;
   min-height: 120px;
 }
 #plots li {
-  border: 0.7px solid #aaa;
   padding: 5px 2px;
   width: 50%;
+  border: 0.7px solid transparent;
   border-radius: 3px;
+  transition: border 0.3s;
+}
+#plots li:hover {
+  border: 0.7px solid #aaa;
+}
+#plots li button:hover {
+  cursor: pointer;
+  border: 0.7px solid #ddd;
 }
 #plots li button {
   background-color: transparent;
   color: rgb(185, 0, 0);
   border: none;
   font-size: 10px;
+  border: 0.7px solid #fff;
+  transition: border 0.4s;
+  margin-left: 5px;
 }
 </style>
