@@ -22,10 +22,13 @@ export default {
         name: "suggested-supplies",
         data() {
           return {
+            suggestedSupplies:[],
           }
         },
         methods: {
+          addSupplyToShoppingList() {
 
+          },
         },
         created(){
             suggestService.getSupplyStore().then(response => {
@@ -38,9 +41,16 @@ export default {
             return this.$store.state.supplies.filter(() => {
               return true;
             });
+          },
+          suppliesByTotalPlotSize(){
+            return null;
+          },
+          suppliesNotOnList(){
+            return null;
+          }
         }
     }         
-}
+
 </script>
 
 
