@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import SuggestService from '../services/SuggestService';
 export default {
     name: 'supply-card',
     props: {
@@ -23,13 +24,25 @@ export default {
         }
     },
     methods: {
+        getSupplies() {
+            SuggestService.getSupplyList().then(response => {
+                this.$store.commit("SET_SUPPLY", response.data);
+                });
+            },
+        
         setBuy(value) {
             this.$store.commit('SET_BUY_STATUS', {supply: this.supply, value: value});
         },
         addToShoppingList(supply) {
             let addedSupply = Object.assign({ read: false }, supply);
             this.$store.commit('BUY_SUPPLY', addedSupply);
-        }
+        },
+        created(){
+            SuggestService.getSupplyList().then(response => {
+                this.$store.commit("SET_SUPPLY", response.data);
+            });
+        },
+        
     }
 }
 </script>
