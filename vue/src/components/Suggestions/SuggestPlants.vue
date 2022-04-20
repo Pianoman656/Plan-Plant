@@ -70,7 +70,7 @@ export default {
             //will filter plants based on users "needs" - sun of plot, size of plot, plants that user doesn't currently have
             sortedPlants() {
                 return this.$store.state.plants.filter((plant) => {
-                return plant.squareArea == 2; 
+                return plant.squareArea <= 1; 
                 //returning plants with only an area of 2sq ft
                 //populate list of plants based on plants not already on current user's farm
                 //return false if target plant in join table

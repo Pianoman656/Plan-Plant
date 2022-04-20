@@ -138,6 +138,47 @@ namespace Capstone.DAO
             return plants;
         }
 
+        //returns the identifier for a specific "planting" 
+        public List<PlantedPlant> GetAllPlantingsByPlot(int plot_id)
+        {
+            List<PlantedPlant> plants = new List<PlantedPlant>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT pp.plots_plants_id, p.plant_id, p.common_name, p.description, p.square_area, p.cost, p.sun_requirements, p.image_url, p.temporary_usda_zones  " +
+                                                    "FROM plants p " +
+                                                    "JOIN plots_plants pp " +
+                                                    "ON p.plant_id = pp.plant_id " +
+                                                    "WHERE pp.plot_id = @plot_id", conn);
+                    cmd.Parameters.AddWithValue("@plot_id", plot_id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        PlantedPlant plant = new PlantedPlant();
+                        plant.PlotPlantId = Convert.ToInt32(reader["plots_plants_id"]);
+                        plant.PlantId = Convert.ToInt32(reader["plant_id"]);
+                        plant.CommonName = Convert.ToString(reader["common_name"]);
+                        plant.Description = Convert.ToString(reader["description"]);
+                        plant.SquareArea = Convert.ToDecimal(reader["square_area"]);
+                        plant.Cost = Convert.ToDecimal(reader["cost"]);
+                        plant.SunRequirements = Convert.ToString(reader["sun_requirements"]);
+                        plant.ImageUrl = Convert.ToString(reader["image_url"]);
+                        plant.TemporaryUsdaZones = Convert.ToString(reader["temporary_usda_zones"]);
+                        plants.Add(plant);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return plants;
+        }
+
         //add plant to data store. returns added plant
         public Plant AddPlant(Plant plantToAdd)
         {
@@ -205,7 +246,7 @@ namespace Capstone.DAO
         }
 
         //
-        public bool AddPlantToPlot(PlantedPlant plantReadyForPlanting)
+        public bool AddPlantToPlot(PlantingPlant plantReadyForPlanting)
         {
             bool isPlanted = false;
             int atPlanting;

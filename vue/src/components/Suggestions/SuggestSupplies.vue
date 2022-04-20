@@ -51,8 +51,8 @@ export default {
         computed: {
           //will sort supplies to display to user based on plot dimensions(mulch) and supplies NOT already on the shopping list
           sortedSupplies() {
-            return this.$store.state.supplies.filter(() => {
-              return true;
+            return this.$store.state.supplies.filter((supply) => {
+              return supply.supplyCost <= 10;
             });
           },
           suppliesByTotalPlotSize(){
