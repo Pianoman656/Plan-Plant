@@ -105,13 +105,15 @@ CREATE TABLE supplies (
 		--CONSTRAINT FK_supplies_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id)
 );
 
-CREATE TABLE supplies_farms(
-	supplies_farms_id int IDENTITY (1,1),
+CREATE TABLE supplies_farms_plants( --shopping list
+	supplies_farms_plants_id int IDENTITY (1,1),
 	supply_id int,
 	farm_id int,
-	CONSTRAINT PK_supplies_farms PRIMARY KEY (supplies_farms_id),
-	CONSTRAINT FK_supplies_farms_supplies FOREIGN KEY (supply_id) REFERENCES supplies(supply_id),
-	CONSTRAINT FK_supplies_farms_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id)
+	plant_id int
+	CONSTRAINT PK_supplies_farms_plants PRIMARY KEY (supplies_farms_plants_id),
+	CONSTRAINT FK_supplies_farms_plants_supplies FOREIGN KEY (supply_id) REFERENCES supplies(supply_id),
+	CONSTRAINT FK_supplies_farms_plants_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id),
+	CONSTRAINT FK_supplies_farms_plants FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 );
 
 --default supply inserts

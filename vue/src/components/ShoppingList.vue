@@ -10,14 +10,7 @@
             <h2>{{ supply.supplyName }}</h2>
             <p>{{supply.description}}</p>
             <h2>${{supply.supplyCost}}</h2>
-            <button
-            class="btn"
-            :class="{
-            'btn-danger': isInCart,
-            'btn-primary': !isInCart
-            }"
-            @click="isInCart ? removeFromCart(id) : addToCart(id)"
-            >{{isInCart ? 'Remove' : 'Add to cart'}}</button> 
+            <button @click='addToCart(product)' class='button is-info'>Add to cart</button> 
            </div>
         </div>
         <div class="container" v-for="plant in sortedPlants" :key="plant.plantId">
@@ -28,14 +21,7 @@
             <h2>{{plant.commonName}}</h2>
             <p>{{plant.description}}</p>
             <h2>${{plant.cost}}</h2>
-            <button
-            class="btn"
-            :class="{
-            'btn-danger': isInCart,
-            'btn-primary': !isInCart
-            }"
-            @click="isInCart ? removeFromCart(id) : addToCart(id)"
-            >{{isInCart ? 'Remove' : 'Add to cart'}}</button> 
+            <button @click='addToCart(product)' class='button is-info'>Add to cart</button>
            </div>
         </div>
   </div>
@@ -45,6 +31,7 @@
 <script>
 import suggestService from '../services/SuggestService'
 import plantsService from '../services/PlantsService'
+//import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'shopping-list',
@@ -78,7 +65,14 @@ export default {
                 return this.$store.state.plants.filter((plant) => {
                     return plant; // 
                 });
-        }
+        },
+  //       mapGetters({
+  //   products: 'allProducts',
+  //   length: 'getNumberOfProducts'
+  // }),
+  // methods: mapActions([
+  //   'addToCart'
+  // ])
     }    
 }
 </script>

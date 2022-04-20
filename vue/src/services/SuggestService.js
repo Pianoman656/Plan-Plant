@@ -9,7 +9,6 @@ export default {
       return axios.get(`/plant/sun/${sunExposure}`);
     },
 
-    
     //get list of all supplies that you can add to your shopping list
     //use this list to suggest items
     getSupplyStore() {
@@ -22,6 +21,50 @@ export default {
     //to determine which suggestions are made to user
     getSupplyList() {
       return axios.get('/Supply/mySupplies');
-    }
+    },
 
-  }
+    //add supply to shopping list
+    //this method takes a partially built "supply" object
+    //supplyToAdd MUST include farmId property in json object
+    addSupplyToShoppingList(supplyToAdd) {
+      return axios.post('/Supply/mySupplies', supplyToAdd)
+    },
+
+    //remove supply from shopping list
+    //this method takes a partially built "supply" object
+    //supplyToRemove MUST include farmId property in json object
+    removeSupplyFromShoppingList(supplyToRemove) {
+      return axios.delete('/Supply/mySupplies', supplyToRemove)
+    },
+
+    //get list of all of user's plots based on token
+    getAllUserPlots() {
+      return axios.get(`/Plot`)
+    },
+
+    //get list of all plots based on farmId (not currently in use)
+    getAllFarmPlots(farmId) {
+      return axios.get(`/Plot/${farmId}/byFarm`)
+    },
+
+    //returns single plot based on plot ID in URL
+    getPlotByPlotId(plotId) {
+      return axios.get(`/Plot/${plotId}`)
+    }, 
+
+    //takes a partially built plot object and adds a new plot to user's list of plots. 
+    //Farm ID is assigned with user token on the back-end 
+    addNewPlot(plotToAdd) {
+      return axios.post('/Plot', plotToAdd)
+    },
+    
+    
+    //delete plot and its "planted plants" from data store.
+    //plotToDelete.PlotId is needed to identify target plot
+    deletePlot(plotToDelete) {
+      return axios.delete('/Plot', plotToDelete)
+    },
+
+    
+
+}

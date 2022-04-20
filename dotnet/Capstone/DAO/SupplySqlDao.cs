@@ -42,7 +42,7 @@ namespace Capstone.DAO
             }
             return supplies;
         }
-        public List<Supply> GetAllSuppliesByUser(int userId)
+        public List<Supply> GetAllSuppliesOnFarmList(int userId)
         {
             List<Supply> userSupplies = new List<Supply>();
             try
@@ -55,10 +55,10 @@ namespace Capstone.DAO
                                                     "FROM users u " +
                                                     "JOIN farms f " +
                                                     "ON u.user_id = f.farm_id " +
-                                                    "JOIN supplies_farms sf " +
-                                                    "ON sf.farm_id = f.farm_id " +
+                                                    "JOIN supplies_farms_plants sfp " +
+                                                    "ON sfp.farm_id = f.farm_id " +
                                                     "JOIN supplies s " +
-                                                    "ON s.supply_id = sf.supply_id " +
+                                                    "ON s.supply_id = sfp.supply_id " +
                                                     "WHERE u.user_id = @user_id;", conn);
                     cmd.Parameters.AddWithValue("@user_id", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -78,7 +78,7 @@ namespace Capstone.DAO
             return userSupplies;
         }
 
-        public bool AddSupplyToFarmList(SupplyListItem supplyToAdd)
+        public bool AddSupplyToFarmList(ShoppingListItem supplyToAdd)
         {
             bool isAdded = false;
             int atCheckout;
@@ -90,15 +90,15 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO supplies_farms (supply_id, farm_id) " +
-                                                    "OUTPUT INSERTED.supplies_farms_id " +
+                    SqlCommand cmd = new SqlCommand("INSERT INTO supplies_farms_plants (supply_id, farm_id) " +
+                                                    "OUTPUT INSERTED.supplies_farms_plants_id " +
                                                     "VALUES(@supply_id, @farm_id)", conn);
                     cmd.Parameters.AddWithValue("@supply_id", supplyToAdd.SupplyId);
                     cmd.Parameters.AddWithValue("@farm_id", supplyToAdd.FarmId);
                     atCheckout = Convert.ToInt32(cmd.ExecuteScalar());
                     // ???redundant but tests itself????
-                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms WHERE supplies_farms_id = @supplies_farms_id", conn);
-                    cmd1.Parameters.AddWithValue("@supplies_farms_id", atCheckout);
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", atCheckout);
                     onFarmList = Convert.ToInt32(cmd1.ExecuteScalar());
                 }
             }
@@ -113,10 +113,10 @@ namespace Capstone.DAO
             return isAdded;
         }
 
-        public bool RemoveSupplyFromFarmList(SupplyListItem supplyToRemove)
+        public bool RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove)
         {
             bool isRemoved = false;
-            SupplyListItem test = new SupplyListItem();
+            ShoppingListItem test = new ShoppingListItem();
             
             try
             {
@@ -124,22 +124,23 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("DELETE FROM supplies_farms " +
-                                                    "WHERE supplies_farms_id = @supplies_farms_id", conn);
-                    cmd.Parameters.AddWithValue("@supplies_farms_id", supplyToRemove.SuppliesFarmsId);
+                    SqlCommand cmd = new SqlCommand("DELETE FROM supplies_farms_plants " +
+                                                    "WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
+                    cmd.Parameters.AddWithValue("@supplies_farms_plants_id", supplyToRemove.SuppliesFarmsPlantsId);
                     cmd.ExecuteNonQuery();
 
-                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms " +
-                                                     "WHERE supplies_farms_id = @supplies_farms_id;", conn);
-                    cmd1.Parameters.AddWithValue("@supplies_farms_id", supplyToRemove.SuppliesFarmsId);
+                    SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants " +
+                                                     "WHERE supplies_farms_plants_id = @supplies_farms_plants_id;", conn);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", supplyToRemove.SuppliesFarmsPlantsId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        test.SuppliesFarmsId = Convert.ToInt32(reader["supplies_farms_id"]);
+                        test.SuppliesFarmsPlantsId = Convert.ToInt32(reader["supplies_farms_plants_id"]);
                         test.SupplyId = Convert.ToInt32(reader["supply_id"]);
                         test.FarmId = Convert.ToInt32(reader["farm_id"]);
+                        test.PlantId = Convert.ToInt32(reader["plant_id"]);
                     }
                 }
             }
