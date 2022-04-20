@@ -69,7 +69,7 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlantsBySunRequirements(sun_requirements);
         }
 
-        //get request for list of all plants based on plot id
+        
         [HttpGet("{plot_id}")]
         [Authorize]
         public ActionResult<List<Plant>> ListAllPlantsByPlotId(int plot_id)
@@ -77,10 +77,17 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlantsByPlot(plot_id);
         }
 
+
+        [HttpGet("{plot_id}/planted")]
+        public ActionResult<List<PlantedPlant>> ListAllPlantingsByPlotId(int plot_id)
+        {
+            return PlantSqlDao.GetAllPlantingsByPlot(plot_id);
+        }
+
         //adds a plant to a plot. PlantedPlant object passed in from front must include target plot_id and target plant_id
         [HttpPost("planting")]
         [Authorize]
-        public IActionResult AddPlantToPlot(PlantedPlant plantToAdd)
+        public IActionResult AddPlantToPlot(PlantingPlant plantToAdd)
         {
                 bool isPlanted = PlantSqlDao.AddPlantToPlot(plantToAdd);
 

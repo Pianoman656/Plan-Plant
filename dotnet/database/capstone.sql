@@ -82,7 +82,7 @@ CREATE TABLE plots (
 
 	CONSTRAINT PK_plots PRIMARY KEY (plot_id),
 	CONSTRAINT FK_plots_farms FOREIGN KEY (farm_id) REFERENCES farms(farm_id),
-	CONSTRAINT FK_plots_zones FOREIGN KEY (zone_id) REFERENCES hardiness
+	CONSTRAINT FK_plots_zones FOREIGN KEY (zone_id) REFERENCES hardiness(zone_id)
 );
 
 CREATE TABLE plots_plants (
