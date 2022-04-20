@@ -14,6 +14,7 @@ namespace Capstone.Controllers
     [ApiController]
     public class PlantController : ControllerBase
     {
+
         private readonly IPlantDao PlantSqlDao;
         public PlantController(IPlantDao plantDao)
         {
@@ -27,6 +28,7 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlants();
         }
 
+        //gets a specific plant by plant_id
         [HttpGet("id/{id}")]
         public ActionResult<Plant> GetPlantById(int id)
         {
@@ -84,6 +86,37 @@ namespace Capstone.Controllers
 
             if (isPlanted)
                 return StatusCode(201, "Plant added to plot");
+            else
+                return StatusCode(409);
+        }
+
+        //returns the list of all plants on a users shopping list
+        [HttpGet("shoppingList")]
+        public ActionResult<List<Plant>> AllPlantsOnShoppingList()
+        { 
+            return PlantSqlDao.GetAllPlantsOnFarmList(GetUserIdFromToken());
+        }
+
+        //adds a plant to shopping list. the "SupplyListItem" object needs farm_id, plant_id... refactoring needed
+        [HttpPost("shoppingList")]
+        public IActionResult AddPlantToShoppingList(ShoppingListItem plant)
+        {
+            bool isAdded = PlantSqlDao.AddPlantToFarmList(plant);
+
+            if (isAdded)
+                return StatusCode(201, "Plant added to shopping list");
+            else
+                return StatusCode(409);
+        }
+        
+        //deletes a plant from the shopping list. "SupplyListItem" object passed in needs SupplysFarmsPlantsId...ugh... refactoring needed
+        [HttpDelete("shoppingList")]
+        public IActionResult RemovePlantFromShoppingList(ShoppingListItem plant)
+        {
+            bool isRemoved = PlantSqlDao.RemovePlantFromFarmList(plant);
+
+            if (isRemoved)
+                return StatusCode(201, "Plant removed from shopping list");
             else
                 return StatusCode(409);
         }
