@@ -10,7 +10,7 @@
             <h2>{{ supply.supplyName }}</h2>
             <p>{{supply.description}}</p>
             <h2>${{supply.supplyCost}}</h2>
-            <button @click='addToCart(product)' class='button is-info'>Add to cart</button> 
+            <button @click='addToCart(product)' class='button is-info'>Remove from Cart</button> 
            </div>
         </div>
         <div class="container" v-for="plant in sortedPlants" :key="plant.plantId">
@@ -21,7 +21,7 @@
             <h2>{{plant.commonName}}</h2>
             <p>{{plant.description}}</p>
             <h2>${{plant.cost}}</h2>
-            <button @click='addToCart(product)' class='button is-info'>Add to cart</button>
+            <button @click='addToCart(product)' class='button is-info'>Remove from cart</button>
            </div>
         </div>
   </div>
@@ -36,11 +36,7 @@ import plantsService from '../services/PlantsService'
 export default {
     name: 'shopping-list',
     methods: {
-      getPlants() {
-            plantsService.listPlants().then(response => {
-                this.$store.commit("SET_PLANTS", response.data);
-                });
-            },
+
         getSupplyStore() {
         suggestService.getSupplyStore().then(response => {
             this.$store.commit("SET_SUPPLIES", response.data);
