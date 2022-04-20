@@ -5,8 +5,10 @@
     <thead>
       <tr>
         <!-- <th>&nbsp;</th>  -->
-         
+
+        
         <th></th>
+        <!-- <th>Plot Plant ID</th>  -->
         <th>Square Area</th>
         <th>Cost</th>
         <th>Hardiness Zone</th>
@@ -15,12 +17,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plant in sortedPlants" :key="plant.plantId">        <!--  plantId could've been anything here-->
+      <tr v-for="plant in sortedPlants" :key="plant.plantId">        <!--  need to make it the plot_plants_id -->
+        
         <td> 
             <img :src="plant.imageUrl" class="plant-image" />  
             <span class="name"> {{ plant.commonName }}</span>                       
         </td>
-        <!--  <td class="name">{{ plant.commonName }}</td>   -->      
+        <!-- <td class="name">{{ plant.plots_plant_id }}</td>         it's plots_plant_id in the database -->
         <td class="square-area">{{plant.squareArea}}</td>
         <td class="cost">{{plant.cost}}</td>    
         <td class="hardiness-zone">{{plant.temporaryUsdaZones}}</td>
@@ -58,7 +61,7 @@ export default {
     methods: {
         getPlotPlants() {
             plotsService.getPlantsByPlot(this.$route.params.plotId).then(response => {
-                this.$store.commit("SET_PLANTS", response.data);
+                this.$store.commit("SET_PLANTS", response.data);    //SET_PLOT_PLANTS
             });
         }
     },
@@ -68,7 +71,8 @@ export default {
     },
     computed: {
         sortedPlants() {
-            return this.$store.state.plants  
+            return this.$store.state.plants       //plot_plants
+
             //don't know if sorted is really needed but it's here for later          
         }
     }
