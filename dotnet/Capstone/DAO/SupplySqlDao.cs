@@ -78,8 +78,8 @@ namespace Capstone.DAO
             return userSupplies;
         }
 
-        public bool AddSupplyToFarmList(ShoppingListItem supplyToAdd)
-        {
+        public bool AddSupplyToFarmList(ShoppingListItem supplyToAdd, int userId)
+        { 
             bool isAdded = false;
             int atCheckout;
             int onFarmList;
@@ -92,9 +92,9 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO supplies_farms_plants (supply_id, farm_id) " +
                                                     "OUTPUT INSERTED.supplies_farms_plants_id " +
-                                                    "VALUES(@supply_id, @farm_id)", conn);
+                                                    "VALUES(@supply_id, (SELECT farm_id FROM farms WHERE @user_id = user_id))", conn);
                     cmd.Parameters.AddWithValue("@supply_id", supplyToAdd.SupplyId);
-                    cmd.Parameters.AddWithValue("@farm_id", supplyToAdd.FarmId);
+                    cmd.Parameters.AddWithValue("@user_id", userId);
                     atCheckout = Convert.ToInt32(cmd.ExecuteScalar());
                     // ???redundant but tests itself????
                     SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
