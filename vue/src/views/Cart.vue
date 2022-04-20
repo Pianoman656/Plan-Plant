@@ -1,58 +1,53 @@
 <template>
-  <div>
-    <h3>Shopping Cart</h3>
-    <div class="cart">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="cart__body" v-if="items.length > 0">
-            <!-- <CartItem
-              v-for="item in items"
-              :key="item.id"
-              :id="item.id"
-              :name="item.name"
-              :price="item.price"
-              :currency="item.currency"
-            /> -->
-          </div>
-          <div class="alert alert-info" v-if="items.length === 0">
-            Cart is empty
-          </div>
-          <div class="cart__total">Total: {{total}} {{currency}}</div>
-        </div>
-      </div>
-    </div>
+  <div class="cart">
+    <h1 class="title">Your Cart</h1>
+    <p v-show="!products.length">
+    <i>Your cart is empty!</i>
+    <router-link to="/">Go shopping</router-link>
+    </p>
+    <table class="table is-striped" v-show="products.length">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Price</td>
+          <td>Quantity</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <td>{{ p.name }}</td>
+          <td>${{ p.price }}</td>
+          <td>{{ p.quantity }}</td>
+        </tr>
+        <tr>
+          <td><b>Total:</b></td>
+          <td></td>
+          <td><b>${{ total }}</b></td>
+        </tr>
+      </tbody>
+
+    </table>
+    <p><button v-show="products.length" class='button is-primary' @click='checkout'>Checkout</button></p>
   </div>
 </template>
 
 <script>
-// import CartItem from "./CartItem.vue";
+import { mapGetters } from 'vuex'
 export default {
-  name: "Cart",
-  components: {
-    // CartItem
-  },
   computed: {
-    items() {
-      return this.$store.state.cart;
-    },
-    total() {
-      return this.$store.getters.getTotal;
-    },
-    currency() {
-      return this.$store.state.currency;
+    ...mapGetters({
+      products: 'cartProducts'
+    }),
+    total () {
+      return this.products.reduce((total, p) => {
+        return total + p.price * p.quantity
+      }, 0)
+    }
+  },
+  methods: {
+    checkout(){
+    alert('Pay us $' + this.total)
     }
   }
-};
+}
 </script>
-
-<style scoped>
-.cart__body {
-  margin-bottom: 0.7em;
-}
-.cart__total {
-  font-weight: bold;
-  font-size: 1.5em;
-  line-height: 1.1em;
-  text-align: right;
-}
-</style>
