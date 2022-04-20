@@ -12,10 +12,10 @@ import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
 import Suggestions from '../views/Suggestions.vue'
-import Shop from '../views/Shop.vue'
+import MyCart from '../views/MyCart.vue'
 import Farm from '../views/Farm.vue'
-import Cart from '../views/Cart.vue'
 import CreatePlot from '../views/CreatePlot.vue'
+import ViewPlot from '../views/ViewPlot.vue'
 
 
 Vue.use(Router)
@@ -101,9 +101,9 @@ const router = new Router({
       component: Suggestions
     },
     {
-      path: '/shop',
-      name: 'shop',
-      component: Shop
+      path: '/mycart',
+      name: 'mycart',
+      component: MyCart
     },
     {
       path: '/farm',
@@ -111,14 +111,14 @@ const router = new Router({
       component: Farm
     },
     {
-      path: '/cart',
-      name: 'cart',
-      component: Cart
-    },
-    {
       path: '/plot/create',
       name: 'create-plot',
       component: CreatePlot
+    },
+    {
+      path: '/plot/:plotId',
+      name: 'view-plot',
+      component: ViewPlot
     }
   ]
 })

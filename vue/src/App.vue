@@ -18,9 +18,7 @@
         
       <router-link v-bind:to="{ name: 'suggestions'}">Suggestions</router-link>
 
-      <router-link v-bind:to="{ name: 'shop'}">Shop</router-link>
-
-      <router-link v-bind:to="{ name: 'cart'}">Cart</router-link>
+      <router-link v-bind:to="{ name: 'mycart'}">My Cart</router-link>
 
       <router-link
         v-bind:to="{ name: 'logout' }"
@@ -43,6 +41,7 @@
     <router-view />
   </div>
       <h1 id="tagline">A Growing Guide for the Greener Gardener</h1>
+      
 </div>
 </template>
 

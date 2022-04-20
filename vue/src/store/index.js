@@ -31,6 +31,7 @@ export default new Vuex.Store({
       imageUrl: '',
       temporaryUsdaZones: ''
     },
+    plot_plants: [],
     plots: [],
     plot: {
       plotId: '',
@@ -39,7 +40,7 @@ export default new Vuex.Store({
       sunExposure: '',
       plotSquareFootage: '',
       zoneId: ''
-    },
+    },    
     supplies: [],
     supply: {
       supplyId: '',
@@ -47,7 +48,8 @@ export default new Vuex.Store({
       imageUrl: '',
       supplyName: '',
       supplyCost: ''
-    }
+    },
+    
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -77,6 +79,9 @@ export default new Vuex.Store({
     },
     SET_CURRENT_PLOT(state, data) {
       state.plot = data;
+    },
+    SET_PLOT_PLANTS(state, data) {    //no idea if this will work
+      state.plot_plants = data;
     },
     SET_SUPPLIES(state,data) {
       state.supplies = data;
