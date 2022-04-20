@@ -16,7 +16,7 @@ namespace Capstone.DAO
         Plant UpdatePlant(int plantId, Plant updatedPlant);
         bool AddPlantToPlot(PlantedPlant plantReadyForPlanting);
         List<Plant> GetAllPlantsOnFarmList(int userId);
-        bool AddPlantToFarmList(ShoppingListItem plant);
+        bool AddPlantToFarmList(Plant plant, int userId);
         bool RemovePlantFromFarmList(ShoppingListItem plant);
         
         /*bool RemovePlantFromPlot(PlantedPlant plantToDigUp);*/
