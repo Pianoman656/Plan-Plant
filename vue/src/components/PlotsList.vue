@@ -9,14 +9,19 @@
         <!-- <th>&nbsp;</th>  -->
         <th>Plot Name</th>
         <th>Square Footage</th>
-        <th>Sun Exposure</th>                 
+        <th>Sun Exposure</th>   
+        <th>Actions</th>                 
       </tr>
     </thead>
     <tbody>
       <tr v-for="plot in sortedPlots" :key="plot.plotId">               
         <td class="name">{{ plot.plotName }}</td>      
         <td class="square-area">{{plot.plotSquareFootage}}</td>        
-        <td class="sun-requirements">{{plot.sunExposure}}</td>          
+        <td class="sun-requirements">{{plot.sunExposure}}</td>   
+        <td>
+           <router-link v-bind:to="{ name: 'view-plot', params: {plotId: plot.plotId} }"   
+          >Edit</router-link>
+        </td>       
       </tr>
     </tbody>  
   </table>
@@ -30,6 +35,7 @@ import plotsService from "../services/PlotsService"
 
 export default {
     name: "plots-list",
+    
     methods: {
         getPlots() {
             plotsService.listPlots().then(response => {

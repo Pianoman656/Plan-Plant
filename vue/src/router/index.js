@@ -16,6 +16,7 @@ import Shop from '../views/Shop.vue'
 import Farm from '../views/Farm.vue'
 import Cart from '../views/Cart.vue'
 import CreatePlot from '../views/CreatePlot.vue'
+import ViewPlot from '../views/ViewPlot.vue'
 
 
 Vue.use(Router)
@@ -123,7 +124,7 @@ const router = new Router({
     {
       path: '/plot/:plotId',
       name: 'view-plot',
-      component: CreatePlot
+      component: ViewPlot
     }
   ]
 })
