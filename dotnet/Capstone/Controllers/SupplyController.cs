@@ -51,7 +51,7 @@ namespace Capstone.Controllers
         [HttpPost("shoppingList")]
         public IActionResult AddSupplyToFarmList(ShoppingListItem supplyToAdd)
         {
-            bool isAdded = SupplySqlDao.AddSupplyToFarmList(supplyToAdd);       
+            bool isAdded = SupplySqlDao.AddSupplyToFarmList(supplyToAdd, GetUserIdFromToken());       
             if (isAdded)
                 return StatusCode(201,"Supply added to the farm list.");
             else
