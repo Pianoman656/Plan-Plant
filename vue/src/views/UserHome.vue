@@ -34,23 +34,11 @@
         Save
       </button>
       <ul id="plots">
-        <li>
+        <li v-for="plot in plots" v-bind:key="plot.plotId">
           <button v-on:click="deletePlots">
             Delete
-          </button>
-          Plot Name #1
-        </li>
-        <li>
-          <button v-on:click="deletePlots">
-            Delete
-          </button>
-          Plot Name #2
-        </li>
-        <li>
-          <button v-on:click="deletePlots">
-            Delete
-          </button>
-          Plot Name #3
+          </button>          
+          {{ plot.name }}
         </li>
       </ul>
     </form>
@@ -60,10 +48,10 @@
 <script>
 import authService from '../services/AuthService'
 import cropService from '../services/CropService'
+import plotsService from '../services/PlotsService'
 
 export default {
-  name: 'user-home',
-  plots: [],
+  name: 'user-home',  
   data() {
     return {
       user: {
@@ -74,12 +62,12 @@ export default {
         email: '',
         zip: ''
       },
+      plots: [],
       successful: false,
     }
   },
   methods: {
     update() {
-        console.log('user: ', this.user)
         authService.updateAccount(this.user).then((res) => {
           if (res.status) { 
             this.successful = true
@@ -87,18 +75,23 @@ export default {
         authService.getUserInfo().then((res) => {
           this.currentUserInfo.email = res.data.email
           this.currentUserInfo.zip = res.data.zip
-          console.log(res.data)
         })
       })
     },
     deletePlots() {
       cropService.deletePlots(this.$store.state.userId)
     },
-    async mounted() {
-      this.plots = this.getPlots()
-    },
   },
+  async mounted() {
+    
+    },
   created() {
+    plotsService.listPlots().then((res) => {
+      this.plots = res.data
+      console.log("Plots: ", this.plots[0])
+      console.log("Res.Data: ", res.data)
+    })
+
     authService.getUserInfo().then((res) => {
       this.currentUserInfo.email = res.data.email
       this.currentUserInfo.zip = res.data.zip

@@ -114,7 +114,7 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO plots (farm_id, plot_name, sun_exposure, plot_square_footage, zone_id) " +
                                                     "OUTPUT INSERTED.plot_id " +
-                                                    "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_exposure, @plot_square_footage, @zone_id)", conn);
+                                                    "VALUES ((SELECT farm_id FROM farms WHERE user_id = @user_id), @plot_name, @sun_exposure, @plot_square_footage, (SELECT zone_id FROM hardiness WHERE zone_id = @zone_id))", conn);
                     cmd.Parameters.AddWithValue("@user_id", userId); // using token and /\ this subquery to correctly pull the farm_id
                     cmd.Parameters.AddWithValue("@plot_name", plot.PlotName);
                     cmd.Parameters.AddWithValue("@sun_exposure", plot.SunExposure);

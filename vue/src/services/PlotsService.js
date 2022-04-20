@@ -22,5 +22,4 @@ export default {
     deletePlot(plot) {
       return axios.delete(`/plot/${plot.plotID}`);
     }
-
   }
