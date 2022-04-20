@@ -119,6 +119,11 @@ const router = new Router({
       path: '/plot/create',
       name: 'create-plot',
       component: CreatePlot
+    },
+    {
+      path: '/plot/:plotId',
+      name: 'view-plot',
+      component: CreatePlot
     }
   ]
 })
