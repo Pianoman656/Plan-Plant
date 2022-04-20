@@ -13,7 +13,7 @@
         <th>Cost</th>
         <th>Hardiness Zone</th>
         <th>Sun Requirements</th>
-        <!-- <th>Actions</th>         -->
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -100,7 +100,7 @@ th {
     width: 4%;
 }
 
-.plants-list-table {
+.plot-plants-list-table {
 background-color: white;
 }
 
