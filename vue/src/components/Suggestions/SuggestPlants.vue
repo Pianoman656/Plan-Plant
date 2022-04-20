@@ -4,10 +4,13 @@
     <ul class="container">
         <div class="suggested_plants" v-for="plant in sortedPlants" :key="plant.plantId">
           <a href="#"> 
-            <img :src="plant.imageUrl" class="plant-image"/>
+            <img :src="plant.imageUrl" class="plant_image"/>
           </a>
            <div> 
+             <div class="plant_button">
             <h2>{{plant.commonName}}</h2>
+            <button v-on:click="addPlantToShoppingList(plant)">Add to shopping list</button>
+             </div>
             <p>{{plant.description}}</p> 
            </div>
         </div>
@@ -17,6 +20,7 @@
 
 <script>
 import plantsService from '../../services/PlantsService'
+import SuggestService from '../../services/SuggestService'
 //import suggestService from '../../services/SuggestService'
 
 export default {
@@ -27,10 +31,33 @@ export default {
             }
         },
         methods: {
-            addPlantToShoppingList(){
+            addPlantToShoppingList(plant){
+                SuggestService
+                    .addPlantToShoppingList(plant)
+                    .then(response => {
+                        if (response.status === 201) {
+                        this.$router.push("/Shop");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+            },
+            addSupplyToShoppingList(supply){ //not yet working 
+                SuggestService
+                    .addSupplyToShoppingList(supply)
+                    .then(response => {
+                        if (response.status === 201) {
+                        this.$router.push("/Shop");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });                
 
-            }
-        },
+            },
+        
         created(){
             plantsService.listPlants().then(response => {
                 this.$store.commit("SET_PLANTS", response.data);
@@ -65,6 +92,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .suggested_plants{
     flex-basis:50%;
     display:flex;

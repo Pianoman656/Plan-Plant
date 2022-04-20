@@ -20,21 +20,21 @@ export default {
     //potentially use this for comparison 
     //to determine which suggestions are made to user
     getSupplyList() {
-      return axios.get('/Supply/mySupplies');
+      return axios.get('/Supply/shoppingList');
     },
 
     //add supply to shopping list
     //this method takes a partially built "supply" object
     //supplyToAdd MUST include farmId property in json object
     addSupplyToShoppingList(supplyToAdd) {
-      return axios.post('/Supply/mySupplies', supplyToAdd)
+      return axios.post('/Supply/shoppingList', supplyToAdd)
     },
 
     //remove supply from shopping list
     //this method takes a partially built "supply" object
     //supplyToRemove MUST include farmId property in json object
     removeSupplyFromShoppingList(supplyToRemove) {
-      return axios.delete('/Supply/mySupplies', supplyToRemove)
+      return axios.delete('/Supply/shoppingList', supplyToRemove)
     },
 
     //get list of all of user's plots based on token
@@ -57,14 +57,20 @@ export default {
     addNewPlot(plotToAdd) {
       return axios.post('/Plot', plotToAdd)
     },
-    
-    
+
     //delete plot and its "planted plants" from data store.
     //plotToDelete.PlotId is needed to identify target plot
     deletePlot(plotToDelete) {
       return axios.delete('/Plot', plotToDelete)
     },
 
-    
+    //plantToAdd must contain target plant_id and farm_id.. should refactor..
+    addPlantToShoppingList(plantToAdd) {
+      return axios.post('/Plant/shoppingList', plantToAdd)
+    },
 
+    //plantToRemove must contain supply_farms_plants_id.. must refactor...
+    removePlantFromShoppingList(plantToRemove) {
+      return axios.delete('/Plant/shoppingList', plantToRemove)
+    }
 }

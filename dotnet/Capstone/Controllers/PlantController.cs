@@ -99,9 +99,9 @@ namespace Capstone.Controllers
 
         //adds a plant to shopping list. the "SupplyListItem" object needs farm_id, plant_id... refactoring needed
         [HttpPost("shoppingList")]
-        public IActionResult AddPlantToShoppingList(ShoppingListItem plant)
+        public IActionResult AddPlantToShoppingList(Plant plant)
         {
-            bool isAdded = PlantSqlDao.AddPlantToFarmList(plant);
+            bool isAdded = PlantSqlDao.AddPlantToFarmList(plant, GetUserIdFromToken());
 
             if (isAdded)
                 return StatusCode(201, "Plant added to shopping list");
