@@ -57,26 +57,26 @@ export default {
 
 <style>
 
-h2 {
+.plots-list-table h2 {
     color: white;
     text-shadow: 1px 1px 3px #000000;
 }
 
-table {
+.plots-list-table table {
   width: 100%;
   border-collapse: collapse;
   margin: 0;
   padding: 0;
 }
 
-th {
+.plots-list-table th {
   font-family: "Work Sans", sans-serif;
   font-weight: 500;  
   text-align: left;
   color: #019875;
 }
 
-td {
+.plots-list-table td {
     text-align: left;
 }
 

@@ -1,11 +1,17 @@
 <template>
   <div id="user-home">
-    <form class="container">
+    <form class="container" @submit.prevent>
       <h1 class="h3 mb-3 font-weight-normal">Edit User Account</h1>
-      
+
       <div class="user-info">
-        <div>Current User Email: <em>{{ currentUserInfo.email }}</em></div>
-        <div>Current User Zipcode: <em>{{ currentUserInfo.zip }}</em></div>
+        <div>
+          Current User Email:
+          <em>{{ currentUserInfo.email }}</em>
+        </div>
+        <div>
+          Current User Zipcode:
+          <em>{{ currentUserInfo.zip }}</em>
+        </div>
       </div>
       <label for="email">Email</label>
       <input
@@ -29,28 +35,16 @@
       />
       <small class="alert">
         <span v-if="successful">Email & Zip Updated!</span>
-        </small>
+      </small>
       <button id="save" @click.prevent="update()">
         Save
       </button>
       <ul id="plots">
-        <li>
-          <button v-on:click="deletePlots">
+        <li v-for="plot in plots" v-bind:key="plot.plotId">
+          <button @click="deletePlot(plot.plotId)">
             Delete
           </button>
-          Plot Name #1
-        </li>
-        <li>
-          <button v-on:click="deletePlots">
-            Delete
-          </button>
-          Plot Name #2
-        </li>
-        <li>
-          <button v-on:click="deletePlots">
-            Delete
-          </button>
-          Plot Name #3
+          {{ plot['plotName'] }}
         </li>
       </ul>
     </form>
@@ -59,51 +53,67 @@
 
 <script>
 import authService from '../services/AuthService'
-import cropService from '../services/CropService'
+import plotsService from '../services/PlotsService'
 
 export default {
   name: 'user-home',
-  plots: [],
   data() {
     return {
+      plots: [],
       user: {
         email: '',
         zip: '',
       },
       currentUserInfo: {
         email: '',
-        zip: ''
+        zip: '',
       },
       successful: false,
     }
   },
   methods: {
     update() {
-        console.log('user: ', this.user)
-        authService.updateAccount(this.user).then((res) => {
-          if (res.status) { 
-            this.successful = true
-          }
+      authService.updateAccount(this.user).then((res) => {
+        if (res.status) {
+          this.successful = true
+        }
         authService.getUserInfo().then((res) => {
           this.currentUserInfo.email = res.data.email
           this.currentUserInfo.zip = res.data.zip
-          console.log(res.data)
         })
       })
     },
-    deletePlots() {
-      cropService.deletePlots(this.$store.state.userId)
+    async deletePlot(id) {
+      // console.log("Plot delete: ", id)
+      // plotsService.deletePlot(parseInt(id))
+      // .catch(err => console.log("Error!: ", err))
+      console.log("Passed in id value: ", id)
+      await fetch(`https://localhost:44315/plot/${id}`, 
+      {
+        method: "delete"
+      })
+      .then(res => console.log(res))
+      // .then(result => console.log("Result: ",result))
+      .catch(err => console.log("Fetch Error!: ", err))
     },
-    async mounted() {
-      this.plots = this.getPlots()
+    async getPlots() {
+      plotsService.listPlots().then((res) => {
+        this.plots = res.data
+        // console.log('Plots[0]: ', this.plots[0])
+        console.log('Res.Data: ', res.data)
+      })
+      .catch((err) => console.log(err))
     },
   },
+  async mounted() {},
+  computed: {},
   created() {
     authService.getUserInfo().then((res) => {
       this.currentUserInfo.email = res.data.email
       this.currentUserInfo.zip = res.data.zip
-      console.log(res.data)
-    })
+      // console.log(res.data)
+    }),
+  this.getPlots()
   },
 }
 </script>
@@ -161,11 +171,11 @@ input {
 }
 .user-info {
   margin: 30px 0;
-  font: 14px 'san-serif'; 
+  font: 14px 'san-serif';
 }
 .user-info em {
   margin-left: 5px;
-  color: #888
+  color: #888;
 }
 .alert {
   height: 10px;
