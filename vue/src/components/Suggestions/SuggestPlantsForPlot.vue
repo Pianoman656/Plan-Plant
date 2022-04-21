@@ -14,12 +14,12 @@
 
 <script>
 import plantsService from '../../services/PlantsService'
-import SuggestService from '../../services/SuggestService'
+import suggestService from '../../services/SuggestService'
+import plotsService from '../../services/PlotsService'
 //import suggestService from '../../services/SuggestService'
 
 export default {
         name: "suggested-plants",
-        props: ['plotId'],
         data(){
             return {
             }
@@ -27,23 +27,23 @@ export default {
         methods: {
             addPlantToPlot(targetPlantId){
                 let plantToAdd = {
-                    plotId: this.PlotId,
+                    plotId: parseInt(this.$store.state.plot_id),
                     plantId: targetPlantId
-                };
-                SuggestService
-                    .addPlantToPlot(plantToAdd)
+                  };
+                suggestService.addPlantToPlot(plantToAdd)
                     .then(response => {
                         if(response.status === 201) {
-                        this.$router.push(`/Plot/${this.PlotId}`)
-                        }
-                    })
+                         plotsService.getPlantsByPlot(this.$route.params.plotId).then(response => {
+                         this.$store.commit("SET_PLOT_PLANTS", response.data);
+                        })}})
                     .catch(error => {
                         console.error(error);
                     });
-            }  
+                    plantsService.listPlants().then(response => {
+                    this.$store.commit("SET_PLANTS", response.data);
+            })
+          }
         },
-    
-
         created(){
             plantsService.listPlants().then(response => {
                 this.$store.commit("SET_PLANTS", response.data);

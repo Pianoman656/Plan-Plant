@@ -33,6 +33,7 @@ export default new Vuex.Store({
     },
     plot_plants: [],
     plots: [],
+    plot_id: '',
     plot_plant: {
       plotPlantId: '',
       plotId: '',
@@ -97,6 +98,9 @@ export default new Vuex.Store({
     },
     SET_CURRENT_SUPPLY(state, data) {
       state.supply = data;
+    },
+    SET_CURRENT_PLOT_ID(state, data) {
+      state.plot_id = data;
     }
   },
   
