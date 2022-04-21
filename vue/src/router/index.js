@@ -11,11 +11,11 @@ import CreatePlant from '../views/CreatePlant.vue'
 import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
-import Suggestions from '../views/Suggestions.vue'
 import MyCart from '../views/MyCart.vue'
 import Farm from '../views/Farm.vue'
 import CreatePlot from '../views/CreatePlot.vue'
 import ViewPlot from '../views/ViewPlot.vue'
+import Suggestions from '../views/Suggestions.vue'
 
 
 Vue.use(Router)
@@ -96,11 +96,6 @@ const router = new Router({
       component: NotFound
     },
     {
-      path: '/suggestions',
-      name: 'suggestions',
-      component: Suggestions
-    },
-    {
       path: '/mycart',
       name: 'mycart',
       component: MyCart
@@ -114,6 +109,11 @@ const router = new Router({
       path: '/plot/create',
       name: 'create-plot',
       component: CreatePlot
+    },
+    {
+      path: '/suggestions',
+      name: 'suggestions',
+      component: Suggestions
     },
     {
       path: '/plot/:plotId',

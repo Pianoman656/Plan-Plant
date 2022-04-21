@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="plant in sortedPlants" :key="plant.plotPlantId">       
+      <tr v-for="plant in plantsInPlot" :key="plant.plotPlantId">       
         
         <td> 
             <img :src="plant.imageUrl" class="plant-image" />  
@@ -45,14 +45,17 @@ export default {
             plotsService.getPlantsByPlot(this.$route.params.plotId).then(response => {
                 this.$store.commit("SET_PLOT_PLANTS", response.data);    
             });
+        },
+        setCurrentPlot() {
+          this.$store.commit("SET_CURRENT_PLOT_ID", this.$route.params.plotId)
         }
     },
     created() {
-        this.getPlotPlants();
-
+        this.getPlotPlants(),
+        this.setCurrentPlot()
     },
     computed: {
-        sortedPlants() {
+        plantsInPlot() {
             return this.$store.state.plot_plants                            
         }
     }

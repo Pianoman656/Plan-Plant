@@ -84,7 +84,7 @@ namespace Capstone.Controllers
             return PlantSqlDao.GetAllPlantingsByPlot(plot_id);
         }
 
-        //adds a plant to a plot. PlantedPlant object passed in from front must include target plot_id and target plant_id
+        //adds a plant to a plot. PlantedPlant object passed in from front must include target plot_id and target plant_id'
         [HttpPost("planting")]
         [Authorize]
         public IActionResult AddPlantToPlot(PlantingPlant plantToAdd)

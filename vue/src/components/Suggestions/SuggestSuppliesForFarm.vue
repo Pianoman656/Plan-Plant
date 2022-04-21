@@ -1,6 +1,6 @@
 <template>
-  <div id="suggested-supplies">
-    <h1>Supply Suggestions</h1>
+  <div class="main">
+      <h1>Supply Suggestions</h1>
     <ul class="supply_container">
         <div class="suggested_supplies" v-for="supply in sortedSupplies" :key="supply.supplyId">
           <div class="supply_description">
@@ -14,7 +14,7 @@
            </a>
           </div>
         </div>
-    </ul>
+    </ul>    
   </div>
 </template>
 
@@ -68,35 +68,5 @@ export default {
 
 
 <style scoped>
-.suggested-supplies h2{
-  font-size:20px
-}
-.suggested_supplies{
-    justify-content: center;
-    flex-basis:50%;
-    display:flex;
-    background-color: rgba(168, 211, 189, 0.733);
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-}
 
-.supply_description{
-  margin: 10px;
-}
-
-img{
-    height: 150px;
-    width: 180px;
-    margin:10px;
-    margin-right:10px;
-    border-radius:10px;
-}
-
-button{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    border:none;
-    height:30px;
-    font-weight: bold;
-}
 </style>

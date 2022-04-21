@@ -72,5 +72,9 @@ export default {
     //plantToRemove must contain supply_farms_plants_id.. must refactor...
     removePlantFromShoppingList(plantToRemove) {
       return axios.delete('/Plant/shoppingList', plantToRemove)
+    },
+
+    addPlantToPlot(plantToAdd) {
+      return axios.post('/Plant/planting', plantToAdd)
     }
 }

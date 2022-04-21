@@ -5,15 +5,18 @@
       >Add New Plot
     </router-link>
     <plots-list />
+    <suggest-supplies />
   </div>
 </template>
 
 <script>
 import PlotsList from "../components/PlotsList";
+import SuggestSupplies from "../components/Suggestions/SuggestSupplies";
 
 export default {
   components: {
-    PlotsList
+    PlotsList,
+    SuggestSupplies
   }
 };
 </script>
