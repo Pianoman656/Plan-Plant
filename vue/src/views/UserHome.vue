@@ -39,6 +39,9 @@
       <button id="save" @click.prevent="update()">
         Save
       </button>
+    </form>
+    <form class="container2" v-on:submit.prevent>
+     <h2 v-show="plots.length == 0" class="no-plots">You Have No Plots</h2>
       <ul id="plots">
         <li v-for="plot in plots" v-bind:key="plot.plotId">
           <button v-on:click="deletePlot(plot)">
@@ -179,6 +182,19 @@ button#save:hover {
   border-radius: 5px;
   background-color: white;
 }
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  max-height:40px;
+  justify-content: space-around;
+  margin: 20px auto 0;
+  border: 0.7px solid #aaa;
+  padding: 60px;
+  border-radius: 5px;
+  background-color: white;
+}
 .container a {
   color: #0055c5;
 }
@@ -201,12 +217,17 @@ input {
   text-align: center;
   color: #777;
 }
+.no-plots{
+  position:relative;
+  text-align: center;
+  top:70px;
+}
 #plots {
   padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-top: 0.7px solid #dcdcdc;
+  
   min-height: 120px;
 }
 #plots li {
