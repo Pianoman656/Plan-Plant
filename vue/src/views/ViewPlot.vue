@@ -20,25 +20,27 @@
                 
 
                 <plot-plants-list />
-                <suggest-plants />
+                <suggest-plants-for-plot ></suggest-plants-for-plot>
         
     </div>
     
-</template>
+</template> 
 
 <script>
 import PlotPlantsList from '../components/PlotPlantsList.vue'
-import SuggestPlants from "../components/Suggestions/SuggestPlants"
+import SuggestPlantsForPlot from "../components/Suggestions/SuggestPlantsForPlot.vue"
 //import SuggestPlants from '../components/Suggestions/SuggestPlants.vue'
 //import plotsService from '../services/PlotsService'
 
 export default {
-  components: { PlotPlantsList },
-  SuggestPlants,
-  
+  components:  {
+    PlotPlantsList ,
+    SuggestPlantsForPlot
+  },
     data() {
         return {
-            plot: {}            
+            plot: {},
+
         }
     
     },

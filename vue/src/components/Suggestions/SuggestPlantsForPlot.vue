@@ -1,7 +1,8 @@
 <template>
   <div class="suggested_plants">
+      <h1>Add Plants to your Plot</h1>
     <div v-for="plant in sortedPlants" :key="plant.plantId">
-        <a class="shopping_list" href="#" v-on:click="addPlantToShoppingList(plant)"> 
+        <a class="shopping_list" href="#" v-on:click="addPlantToPlot(plant.plantId)"> 
                 <div class="image_container">
                 <img :src="plant.imageUrl" class="plant_image"/>
             <div class="bottom-right">{{plant.commonName}}</div>
@@ -18,37 +19,30 @@ import SuggestService from '../../services/SuggestService'
 
 export default {
         name: "suggested-plants",
+        props: ['plotId'],
         data(){
             return {
-                
             }
         },
         methods: {
-            addPlantToShoppingList(plant){
+            addPlantToPlot(targetPlantId){
+                let plantToAdd = {
+                    plotId: this.PlotId,
+                    plantId: targetPlantId
+                };
                 SuggestService
-                    .addPlantToShoppingList(plant)
+                    .addPlantToPlot(plantToAdd)
                     .then(response => {
-                        if (response.status === 201) {
-                        this.$router.push("/Shop");
+                        if(response.status === 201) {
+                        this.$router.push(`/Plot/${this.PlotId}`)
                         }
                     })
                     .catch(error => {
                         console.error(error);
                     });
-            },
-            addSupplyToShoppingList(supply){ //not yet working 
-                SuggestService
-                    .addSupplyToShoppingList(supply)
-                    .then(response => {
-                        if (response.status === 201) {
-                        this.$router.push("/Shop");
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });                
-                }
-            },
+            }  
+        },
+    
 
         created(){
             plantsService.listPlants().then(response => {
