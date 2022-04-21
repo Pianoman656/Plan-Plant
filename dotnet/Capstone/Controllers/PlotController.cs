@@ -72,10 +72,10 @@ namespace Capstone.Controllers
 
         //delete plot and its "planted plants" from data store.
         //plotToDelete.PlotId is needed to identify target plot
-        [HttpDelete()]
-        public IActionResult DeletePlot(Plot plotToDelete)
+        [HttpDelete("{plotid}")]
+        public IActionResult DeletePlot(int plotId)
         {
-            Plot emptyPlot = PlotSqlDao.DeletePlot(plotToDelete);
+            Plot emptyPlot = PlotSqlDao.DeletePlot(plotId);
 
             if (emptyPlot.PlotName == null)
                 return Ok("Your plot was deleted.");

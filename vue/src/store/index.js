@@ -59,9 +59,18 @@ export default new Vuex.Store({
       supplyName: '',
       supplyCost: ''
     },
-    
+    shoppingList: [],
+    shopListItem: {
+      listItemId: '',
+      supplyId: '',
+      plantId: '',
+      farmId: '',
+    }
   },
   mutations: {
+    SET_SHOP_LIST(state, data) {
+      state.shoppingList = data;
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);

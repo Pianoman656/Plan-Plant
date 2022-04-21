@@ -131,7 +131,7 @@ namespace Capstone.DAO
             return GetPlot(newPlotId);
         }
 
-        public Plot DeletePlot (Plot plotToDelete)
+        public Plot DeletePlot (int plotId)
         {
             try
             {
@@ -141,14 +141,14 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("DELETE FROM plots_plants " +
                                                     "WHERE plot_id = @plot_id", conn);
-                    cmd.Parameters.AddWithValue("@plot_id", plotToDelete.PlotId); 
+                    cmd.Parameters.AddWithValue("@plot_id", plotId); 
                     cmd.ExecuteNonQuery();
                     
                     
                     //Two deletes needed due to FK restrictions. Delete planted plants first, and then delete respective plot. 
                     SqlCommand cmd1 = new SqlCommand("DELETE FROM plots " +
                                                      "WHERE plot_id = @plot_id", conn);
-                    cmd1.Parameters.AddWithValue("@plot_id", plotToDelete.PlotId);
+                    cmd1.Parameters.AddWithValue("@plot_id", plotId);
                     cmd1.ExecuteNonQuery();
 
                 }
@@ -158,7 +158,7 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return GetPlot(plotToDelete.PlotId);
+            return GetPlot(plotId);
 
         }
 
