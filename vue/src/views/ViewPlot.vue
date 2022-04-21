@@ -20,7 +20,7 @@
                 
 
                 <plot-plants-list />
-                
+                <suggest-plants />
         
     </div>
     
@@ -28,11 +28,13 @@
 
 <script>
 import PlotPlantsList from '../components/PlotPlantsList.vue'
+import SuggestPlants from "../components/Suggestions/SuggestPlants"
 //import SuggestPlants from '../components/Suggestions/SuggestPlants.vue'
 //import plotsService from '../services/PlotsService'
 
 export default {
   components: { PlotPlantsList },
+  SuggestPlants,
   
     data() {
         return {
