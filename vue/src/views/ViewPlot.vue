@@ -1,8 +1,8 @@
 <template>
   
-  <div id="login" class="text-center">
+  <div id="view-plot" class="text-center">
         
-        <h1 class="h3 mb-3 font-weight-normal">Plot Details</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Plot Details {{plot.plotName}} </h1>
         <!-- <form v-on:submit.prevent> -->
           
                 <p>{{ plot.plotId}} </p>
@@ -17,8 +17,10 @@
                 <p>{{ plot.plotSquareFootage}} </p>
                 
                 <p>{{ plot.zoneId}} </p>
+                
 
                 <plot-plants-list />
+                
         
     </div>
     
@@ -26,14 +28,24 @@
 
 <script>
 import PlotPlantsList from '../components/PlotPlantsList.vue'
+//import SuggestPlants from '../components/Suggestions/SuggestPlants.vue'
+//import plotsService from '../services/PlotsService'
+
 export default {
   components: { PlotPlantsList },
   
     data() {
         return {
-            plot: {}
+            plot: {}            
         }
-    }
+    
+    },
+    // methods: {
+    //     getPlot() {
+    //         plotsService.getPlot(this.$route.params.plotId).then(response => )
+    //     }
+    //}
+
     // this needs a headline saying what the Plot Name is at the top
     // and then a list of all the plots in the Plot
 
