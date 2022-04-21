@@ -11,6 +11,10 @@ export default {
       return axios.get(`/plot/id/${plotId}`)
     },
     
+    getPlantsByPlot(plotId) {
+      return axios.get(`plant/${plotId}`)
+    },
+
     createPlot(plot) {
       return axios.post('/plot/', plot);      
     },
