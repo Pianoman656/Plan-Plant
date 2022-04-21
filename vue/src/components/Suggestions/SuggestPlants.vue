@@ -41,7 +41,7 @@ export default {
       SuggestService.addPlantToShoppingList(plant)
         .then((response) => {
           if (response.status === 201) {
-            this.$router.push('/Shop')
+            this.$router.push('/shoppingList')
           }
         })
         .catch((error) => {
@@ -49,19 +49,6 @@ export default {
         })
     },
   },
-  addSupplyToShoppingList(supply) {
-    //not yet working
-    SuggestService.addSupplyToShoppingList(supply)
-      .then((response) => {
-        if (response.status === 201) {
-          this.$router.push('/Shop')
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  },
-
   created() {
     plantsService.listPlants().then((response) => {
       this.$store.commit('SET_PLANTS', response.data)

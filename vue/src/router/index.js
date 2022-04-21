@@ -97,7 +97,7 @@ const router = new Router({
     },
     {
       path: '/shoppingList',
-      name: 'shoppingList',
+      name: 'shopping-list',
       component: ShoppingList
     },
     {
