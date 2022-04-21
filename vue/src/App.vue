@@ -22,6 +22,9 @@
 
       <router-link v-bind:to="{ name: 'farm' }">My Farm></router-link>
 
+      <router-link v-bind:to="{ name: 'farm' }">My Farm</router-link>
+
+      
       <router-link
         v-bind:to="{ name: 'logout' }"
         v-if="$store.state.token != ''"
