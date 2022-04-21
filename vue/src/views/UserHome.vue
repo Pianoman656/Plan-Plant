@@ -41,10 +41,13 @@
       </button>
       <ul id="plots">
         <li v-for="plot in plots" v-bind:key="plot.plotId">
-          <button @click="deletePlot(plot.plotId)">
+          <button v-on:click="deletePlot(plot)">
             Delete
           </button>
           {{ plot['plotName'] }}
+          <small class="alert">
+            <span v-if="deleted">Plot Deleted!</span>
+          </small>
         </li>
       </ul>
     </form>
@@ -69,6 +72,7 @@ export default {
         zip: '',
       },
       successful: false,
+      deleted: false
     }
   },
   methods: {
@@ -83,18 +87,33 @@ export default {
         })
       })
     },
-    async deletePlot(id) {
+    //async deletePlot(id) {
       // console.log("Plot delete: ", id)
       // plotsService.deletePlot(parseInt(id))
       // .catch(err => console.log("Error!: ", err))
-      console.log("Passed in id value: ", id)
-      await fetch(`https://localhost:44315/plot/${id}`, 
-      {
-        method: "delete"
-      })
-      .then(res => console.log(res))
+      //console.log("Passed in id value: ", id)
+      //await fetch(`https://localhost:44315/plot/${id}`, 
+      //{
+       // method: "delete"
+     // })
+      //.then(res => console.log(res))
       // .then(result => console.log("Result: ",result))
-      .catch(err => console.log("Fetch Error!: ", err))
+     // .catch(err => console.log("Fetch Error!: ", err))
+    //},
+    deletePlot(plot) {
+        plotsService.deletePlot(plot).then((response) => {
+          if (response.status === 200) {
+            this.deleted = true;
+            this.getPlots();
+          }
+        })
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$router.push("/404");
+          } else {
+            console.error(error);
+          }
+        });
     },
     async getPlots() {
       plotsService.listPlots().then((res) => {

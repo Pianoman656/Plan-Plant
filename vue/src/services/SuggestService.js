@@ -77,4 +77,5 @@ export default {
     addPlantToPlot(plantToAdd) {
       return axios.post('/Plant/planting', plantToAdd)
     }
+
 }
