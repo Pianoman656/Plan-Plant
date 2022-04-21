@@ -33,6 +33,15 @@ export default new Vuex.Store({
     },
     plot_plants: [],
     plots: [],
+    plot_plant: {
+      plotPlantId: '',
+      plotId: '',
+      farmId: '',
+      plotName: '',
+      sunExposure: '',
+      plotSquareFootage: '',
+      zoneId: ''
+    },
     plot: {
       plotId: '',
       farmId: '',

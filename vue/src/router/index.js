@@ -11,7 +11,6 @@ import CreatePlant from '../views/CreatePlant.vue'
 import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
-import Suggestions from '../views/Suggestions.vue'
 import MyCart from '../views/MyCart.vue'
 import Farm from '../views/Farm.vue'
 import CreatePlot from '../views/CreatePlot.vue'
@@ -94,11 +93,6 @@ const router = new Router({
       path: '/404',
       name: 'NotFound',
       component: NotFound
-    },
-    {
-      path: '/suggestions',
-      name: 'suggestions',
-      component: Suggestions
     },
     {
       path: '/mycart',

@@ -18,7 +18,9 @@
         
       <router-link v-bind:to="{ name: 'suggestions'}">Suggestions</router-link>
 
-      <router-link v-bind:to="{ name: 'mycart'}">My Cart</router-link>
+      <router-link v-bind:to="{ name: 'myCart'}">My Cart</router-link>
+
+      <router-link v-bind:to="{ name: 'farm' }">My Farm></router-link>
 
       <router-link
         v-bind:to="{ name: 'logout' }"
