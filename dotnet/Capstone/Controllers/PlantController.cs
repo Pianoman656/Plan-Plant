@@ -14,6 +14,7 @@ namespace Capstone.Controllers
     [ApiController]
     public class PlantController : ControllerBase
     {
+
         private readonly IPlantDao PlantSqlDao;
         public PlantController(IPlantDao plantDao)
         {
@@ -26,6 +27,14 @@ namespace Capstone.Controllers
         {
             return PlantSqlDao.GetAllPlants();
         }
+
+        //gets a specific plant by plant_id
+        [HttpGet("id/{id}")]
+        public ActionResult<Plant> GetPlantById(int id)
+        {
+            return PlantSqlDao.GetPlantById(id);
+        }
+
 
         // post request to /Plant/ only admin can access
         [HttpPost()]
@@ -49,6 +58,72 @@ namespace Capstone.Controllers
 
             if (updatedPlant != null && updatedPlant.Description == plantToUpdate.Description && updatedPlant.CommonName == plantToUpdate.CommonName)
                 return Ok();
+            else
+                return StatusCode(409);
+        }
+
+        //get request for plants based on their sun exposure
+        [HttpGet("sun/{sun_requirements}")]
+        public ActionResult<List<Plant>> ListAllPlantsBySunRequirements(string sun_requirements)
+        {
+            return PlantSqlDao.GetAllPlantsBySunRequirements(sun_requirements);
+        }
+
+        
+        [HttpGet("{plot_id}")]
+        [Authorize]
+        public ActionResult<List<Plant>> ListAllPlantsByPlotId(int plot_id)
+        {
+            return PlantSqlDao.GetAllPlantsByPlot(plot_id);
+        }
+
+
+        [HttpGet("{plot_id}/planted")]
+        public ActionResult<List<PlantedPlant>> ListAllPlantingsByPlotId(int plot_id)
+        {
+            return PlantSqlDao.GetAllPlantingsByPlot(plot_id);
+        }
+
+        //adds a plant to a plot. PlantedPlant object passed in from front must include target plot_id and target plant_id
+        [HttpPost("planting")]
+        [Authorize]
+        public IActionResult AddPlantToPlot(PlantingPlant plantToAdd)
+        {
+                bool isPlanted = PlantSqlDao.AddPlantToPlot(plantToAdd);
+
+            if (isPlanted)
+                return StatusCode(201, "Plant added to plot");
+            else
+                return StatusCode(409);
+        }
+
+        //returns the list of all plants on a users shopping list
+        [HttpGet("shoppingList")]
+        public ActionResult<List<Plant>> AllPlantsOnShoppingList()
+        { 
+            return PlantSqlDao.GetAllPlantsOnFarmList(GetUserIdFromToken());
+        }
+
+        //adds a plant to shopping list. the "SupplyListItem" object needs farm_id, plant_id... refactoring needed
+        [HttpPost("shoppingList")]
+        public IActionResult AddPlantToShoppingList(Plant plant)
+        {
+            bool isAdded = PlantSqlDao.AddPlantToFarmList(plant, GetUserIdFromToken());
+
+            if (isAdded)
+                return StatusCode(201, "Plant added to shopping list");
+            else
+                return StatusCode(409);
+        }
+        
+        //deletes a plant from the shopping list. "SupplyListItem" object passed in needs SupplysFarmsPlantsId...ugh... refactoring needed
+        [HttpDelete("shoppingList")]
+        public IActionResult RemovePlantFromShoppingList(ShoppingListItem plant)
+        {
+            bool isRemoved = PlantSqlDao.RemovePlantFromFarmList(plant);
+
+            if (isRemoved)
+                return StatusCode(201, "Plant removed from shopping list");
             else
                 return StatusCode(409);
         }

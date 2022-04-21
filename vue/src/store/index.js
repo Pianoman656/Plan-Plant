@@ -19,7 +19,37 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    plants: [],
+    plant: {
+      plantId: '',      
+      commonName: '',
+      description: '',
+      squareArea: '',
+      cost: '',
+      sunRequirements: '',
+      imageUrl: '',
+      temporaryUsdaZones: ''
+    },
+    plot_plants: [],
+    plots: [],
+    plot: {
+      plotId: '',
+      farmId: '',
+      plotName: '',
+      sunExposure: '',
+      plotSquareFootage: '',
+      zoneId: ''
+    },    
+    supplies: [],
+    supply: {
+      supplyId: '',
+      description: '',
+      imageUrl: '',
+      supplyName: '',
+      supplyCost: ''
+    },
+    
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -37,6 +67,34 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_PLANTS(state, data) {
+      state.plants = data;
+    },
+    SET_CURRENT_PLANT(state, data) {
+      state.plant = data;
+    },
+    SET_PLOTS(state, data) {
+      state.plots = data;
+    },
+    SET_CURRENT_PLOT(state, data) {
+      state.plot = data;
+    },
+    SET_PLOT_PLANTS(state, data) {    //no idea if this will work
+      state.plot_plants = data;
+    },
+    SET_SUPPLIES(state,data) {
+      state.supplies = data;
+    },
+    SET_CURRENT_SUPPLY(state, data) {
+      state.supply = data;
     }
-  }
+  },
+  
+  actions: {
+    
+  },
+  modules: {
+
+  },
 })

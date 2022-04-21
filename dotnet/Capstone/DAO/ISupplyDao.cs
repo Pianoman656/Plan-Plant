@@ -9,5 +9,13 @@ namespace Capstone.DAO
     public interface ISupplyDao
     {
         List<Supply> GetAllSupplies();
+        List<Supply> GetAllSuppliesOnFarmList(int userId);
+        bool AddSupplyToFarmList(ShoppingListItem supplyToAdd, int userId);
+        bool RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove);
+
+        /* 
+         * bool AddSupplyToDatabase();
+           bool RemoveSupplyFromDatabase();
+        */
     }
 }

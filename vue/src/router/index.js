@@ -1,12 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
+//import Home from '../views/Home.vue'
+import AdminHome from '../views/AdminHome.vue'
+import UserHome from '../views/UserHome.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
-import CropGallery from '../views/CropGallery.vue'
-import Account from '../views/Account.vue'
+import Plant from '../views/Plant.vue'
+import CreatePlant from '../views/CreatePlant.vue'
+import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
+import NotFound from '../views/NotFound.vue'
+import Suggestions from '../views/Suggestions.vue'
+import MyCart from '../views/MyCart.vue'
+import Farm from '../views/Farm.vue'
+import CreatePlot from '../views/CreatePlot.vue'
+import ViewPlot from '../views/ViewPlot.vue'
+
 
 Vue.use(Router)
 
@@ -24,9 +34,17 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home,
+      path: '/admin',
+      name: 'admin-home',
+      component: AdminHome,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/user',
+      name: 'user-home',
+      component: UserHome,
       meta: {
         requiresAuth: true
       }
@@ -38,11 +56,11 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    },
+    },    
     {
       path: "/logout",
       name: "logout",
-      component: Logout,
+      component: Logout, 
       meta: {
         requiresAuth: false
       }
@@ -54,22 +72,53 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },   
+    {
+      path: '/plant/create',
+      name: 'create-plant',
+      component: CreatePlant
     },
     {
-      path: "/crop-gallery",
-      name: "crop-gallery",
-      component: CropGallery,
-      meta: {
-        requiresAuth: false,
-      }
+      path: '/plant/:plantId/edit',
+      name: 'edit-plant',
+      component: EditPlant
+    },
+    
+    {
+      path: '/plant/:plantId',
+      name: 'Plant',
+      component: Plant
+    },
+    
+    {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
     },
     {
-      path: "/account",
-      name: "account",
-      component: Account,
-      meta: {
-        requiresAuth: false
-      }
+      path: '/suggestions',
+      name: 'suggestions',
+      component: Suggestions
+    },
+    {
+      path: '/mycart',
+      name: 'mycart',
+      component: MyCart
+    },
+    {
+      path: '/farm',
+      name: 'farm',
+      component: Farm
+    },
+    {
+      path: '/plot/create',
+      name: 'create-plot',
+      component: CreatePlot
+    },
+    {
+      path: '/plot/:plotId',
+      name: 'view-plot',
+      component: ViewPlot
     }
   ]
 })
