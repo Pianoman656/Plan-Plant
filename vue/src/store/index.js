@@ -68,7 +68,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SET_SHOP_LIST(state, data) {
+    SET_SHOPPING_LIST(state, data) {
       state.shoppingList = data;
     },
     SET_AUTH_TOKEN(state, token) {
