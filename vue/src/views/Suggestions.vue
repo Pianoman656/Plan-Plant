@@ -1,5 +1,5 @@
 <template>
-  <div class="suggest">
+  <div class="container">
     <suggest-plants />
     <suggest-supplies />
   </div>
@@ -19,9 +19,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
-h1{
+/* h1{
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
   text-shadow: -2px 0px 20px rgb(102, 102, 102);
@@ -29,8 +29,8 @@ h1{
 }
 h2{
   margin-right:5px;
-}
-.suggest{ 
+} */
+/* .suggest{ 
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -40,5 +40,5 @@ h2{
   grid-template-columns: 1fr;
 }
 
-}
+} */
 </style>
