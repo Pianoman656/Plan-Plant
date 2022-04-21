@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-      <h1>Supply Suggestions</h1>
+  <div id="suggested-supplies">
+      <!-- <h1>Supply Suggestions</h1>
     <ul class="supply_container">
         <div class="suggested_supplies" v-for="supply in sortedSupplies" :key="supply.supplyId">
           <div class="supply_description">
@@ -14,7 +14,7 @@
            </a>
           </div>
         </div>
-    </ul>    
+    </ul>     -->
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
 
 
 <style scoped>
-h2{
+.suggested-supplies h2{
   font-size:20px
 }
 .suggested_supplies{

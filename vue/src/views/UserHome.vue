@@ -1,6 +1,6 @@
 <template>
   <div id="user-home">
-    <form class="container">
+    <form class="container" @submit.prevent>
       <h1 class="h3 mb-3 font-weight-normal">Edit User Account</h1>
 
       <div class="user-info">
@@ -41,7 +41,7 @@
       </button>
       <ul id="plots">
         <li v-for="plot in plots" v-bind:key="plot.plotId">
-          <button @click.prevent="deletePlot(plot.plotId)">
+          <button @click="deletePlot(plot.plotId)">
             Delete
           </button>
           {{ plot['plotName'] }}
@@ -87,19 +87,19 @@ export default {
       // console.log("Plot delete: ", id)
       // plotsService.deletePlot(parseInt(id))
       // .catch(err => console.log("Error!: ", err))
-
+      console.log("Passed in id value: ", id)
       await fetch(`https://localhost:44315/plot/${id}`, 
       {
         method: "delete"
       })
-      .then(res => res.json())
-      .then(result => console.log("Result: ",result))
+      .then(res => console.log(res))
+      // .then(result => console.log("Result: ",result))
       .catch(err => console.log("Fetch Error!: ", err))
     },
     async getPlots() {
       plotsService.listPlots().then((res) => {
         this.plots = res.data
-        console.log('Plots[0]: ', this.plots[0])
+        // console.log('Plots[0]: ', this.plots[0])
         console.log('Res.Data: ', res.data)
       })
       .catch((err) => console.log(err))
