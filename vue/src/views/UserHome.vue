@@ -1,6 +1,6 @@
 <template>
   <div id="user-home">
-    <form class="container" @submit.prevent>
+    <form class="container">
       <h1 class="h3 mb-3 font-weight-normal">Edit User Account</h1>
 
       <div class="user-info">
