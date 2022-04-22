@@ -1,6 +1,6 @@
 <template>
   <div id="user-home">
-    <form class="container" @submit.prevent>
+    <div class="container">
       <h1 class="h3 mb-3 font-weight-normal">Edit User Account</h1>
 
       <div class="user-info">
@@ -47,7 +47,7 @@
           {{ plot['plotName'] }}
         </li>
       </ul>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -85,16 +85,16 @@ export default {
     },
     async deletePlot(id) {
       // console.log("Plot delete: ", id)
-      // plotsService.deletePlot(parseInt(id))
-      // .catch(err => console.log("Error!: ", err))
-      console.log("Passed in id value: ", id)
-      await fetch(`https://localhost:44315/plot/${id}`, 
-      {
-        method: "delete"
-      })
-      .then(res => console.log(res))
-      // .then(result => console.log("Result: ",result))
-      .catch(err => console.log("Fetch Error!: ", err))
+      plotsService.deletePlot(id)
+      .catch(err => console.log("Error!: ", err))
+      // console.log("Passed in id value: ", id)
+      // await fetch(`https://localhost:44315/plot/${id}`, 
+      // {
+      //   method: "delete"
+      // })
+      // .then(res => console.log(res))
+      // // .then(result => console.log("Result: ",result))
+      // .catch(err => console.log("Fetch Error!: ", err))
     },
     async getPlots() {
       plotsService.listPlots().then((res) => {

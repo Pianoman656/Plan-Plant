@@ -1,9 +1,6 @@
 <template>
   <div>
-    <h1 class="farm">My Farm</h1>
-    <router-link :to="{ name: 'create-plot' }"
-      >Add New Plot
-    </router-link>
+    
     <plots-list />
     <suggest-supplies />
   </div>
@@ -29,7 +26,7 @@ h1.farm {
 }
 
 admin-home h1 {  
-  color: #019875;  
+  color: var(--main-green);  
 }
 
 .farm a {
@@ -40,7 +37,7 @@ admin-home h1 {
 .farm a:visited {
   padding: 20px 20px 20px 0;
   text-align: right;
-  color: #019875;
+  color: var(--main-green);
   text-decoration: none;
 }
 .farm a:hover {

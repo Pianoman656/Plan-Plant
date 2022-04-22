@@ -126,7 +126,7 @@ textarea {
 
 a:link,
 a:visited {
-  color: rgb(48, 161, 123);
+  color: var(--main-green);
   text-decoration: none;
 }
 a:hover {
