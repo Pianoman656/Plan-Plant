@@ -33,8 +33,8 @@ export default {
     //remove supply from shopping list
     //this method takes a partially built "supply" object
     //supplyToRemove MUST include farmId property in json object
-    removeSupplyFromShoppingList(supplyToRemove) {
-      return axios.delete('/Supply/shoppingList', supplyToRemove)
+    removeSupplyFromShoppingList(listItemId) {
+      return axios.delete(`/Supply/shoppingList/${listItemId}`)
     },
 
     //get list of all of user's plots based on token

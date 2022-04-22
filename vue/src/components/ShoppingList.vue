@@ -11,7 +11,7 @@
            <div> 
             <h2>{{supply.supplyName}}</h2>
             <h2 id="item-cost">${{supply.supplyCost}}</h2>
-            <button @click='removeFromList(supply)' class='button is-info'>Remove from List</button> 
+            <button @click='removeFromList(supply.supplyId)' class='button is-info'>Remove from List</button> 
            </div>
         </div>
         
@@ -27,7 +27,7 @@
             <button @click='removeFromList(product)' class='removeFromList'>Remove from list</button>
            </div>
         </div>
-      <h2 class="cost">Estimated cost of your farm supplies: ${{totalCost}}</h2>
+      <h2 class="cost">Estimated cost of your supplies: ${{totalCost}}</h2>
     </div>
   </div>
 </template>
@@ -52,8 +52,11 @@ export default {
             this.$store.commit("SET_SUPPLIES", response.data);
             });
         },
-        removeFromList(supply){
-          suggestService.removeSupplyFromShoppingList(supply);
+        removeFromList(supplyId){
+          suggestService.removeSupplyFromShoppingList(supplyId);
+          suggestService.getShoppingList().then(response => {
+            this.$store.commit("SET_SHOPPING_LIST", response.data);
+        });
         }
     },
 
@@ -104,9 +107,16 @@ export default {
 }
 
 h2.cost{
-  color:white;
-  background-color:black;
-  font-size: 50px
+  position:relative;
+  top: 200px;
+  font-size: 40px;
+  font-weight: 400;
+  color: #fff;
+  text-shadow: 0px 0px 25px black, 0 0 5px black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
+  border-radius: 4px;
+  padding: 0 15px;
+  text-align: center;
 }
 .container {
     color: black;
