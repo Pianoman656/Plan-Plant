@@ -28,6 +28,7 @@
 import suggestService from '../../services/SuggestService'
 
 export default {
+<<<<<<< HEAD
   name: 'suggested-supplies',
   data() {
     return {
@@ -41,6 +42,27 @@ export default {
         .then((response) => {
           if (response.status === 201) {
             this.$router.push('/Shop')
+=======
+        name: "suggested-supplies",
+        data() {
+          return {
+            suggestedSupplies:[],
+          }
+        },
+        methods:{
+        addSupplyToShoppingList(supply){ 
+          suggestService
+              .addSupplyToShoppingList(supply)
+              .then(response => {
+                  if (response.status === 201) {
+                  this.$router.push("/ShoppingList");
+                  }
+              })
+              .catch(error => {
+                  console.error(error);
+              });                
+
+>>>>>>> 698c994e53b2b9e69b545fce102db6b97cd60f04
           }
         })
         .catch((error) => {

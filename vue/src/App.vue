@@ -20,7 +20,7 @@
 
       <router-link v-bind:to="{ name: 'shopping-list'}">Shopping List</router-link>
 
-      <router-link v-bind:to="{ name: 'farm' }">My Farm</router-link>
+      <router-link v-bind:to="{ name: 'farm' }">Add Plots</router-link>
 
       <router-link
         v-bind:to="{ name: 'logout' }"
