@@ -11,5 +11,6 @@ namespace Capstone.Models
         public int SupplyId { get; set; }
         public int FarmId { get; set; }
         public int PlantId { get; set; }
+        public decimal Cost { get; set; }
     }
 }

@@ -59,10 +59,10 @@ namespace Capstone.Controllers
         }
 
         //must have SuppliesFarmsPlantsId property of SupplyListItem
-        [HttpDelete("shoppingList")]
-        public IActionResult RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove)
+        [HttpDelete("shoppingList/{listItemId}")]
+        public IActionResult RemoveSupplyFromFarmList(int listItemId)
         {
-            bool isRemoved = SupplySqlDao.RemoveSupplyFromFarmList(supplyToRemove);
+            bool isRemoved = SupplySqlDao.RemoveSupplyFromFarmList(listItemId);
             if (isRemoved)
                 return Ok("Supply removed from the farm list.");
             else

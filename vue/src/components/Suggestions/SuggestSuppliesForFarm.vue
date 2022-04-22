@@ -34,7 +34,7 @@ export default {
               .addSupplyToShoppingList(supply)
               .then(response => {
                   if (response.status === 201) {
-                  this.$router.push("/Shop");
+                  this.$router.push("/Shoppinglist");
                   }
               })
               .catch(error => {

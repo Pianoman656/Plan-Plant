@@ -113,7 +113,7 @@ namespace Capstone.DAO
             return isAdded;
         }
 
-        public bool RemoveSupplyFromFarmList(ShoppingListItem supplyToRemove)
+        public bool RemoveSupplyFromFarmList(int listId)
         {
             bool isRemoved = false;
             ShoppingListItem test = new ShoppingListItem();
@@ -126,12 +126,12 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("DELETE FROM supplies_farms_plants " +
                                                     "WHERE supplies_farms_plants_id = @supplies_farms_plants_id", conn);
-                    cmd.Parameters.AddWithValue("@supplies_farms_plants_id", supplyToRemove.SuppliesFarmsPlantsId);
+                    cmd.Parameters.AddWithValue("@supplies_farms_plants_id", listId);
                     cmd.ExecuteNonQuery();
 
                     SqlCommand cmd1 = new SqlCommand("SELECT * FROM supplies_farms_plants " +
                                                      "WHERE supplies_farms_plants_id = @supplies_farms_plants_id;", conn);
-                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", supplyToRemove.SuppliesFarmsPlantsId);
+                    cmd1.Parameters.AddWithValue("@supplies_farms_plants_id", listId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
