@@ -1,6 +1,6 @@
 <template>
 <div id="all-page">
-  <h1>Supplies for your Garden</h1>
+  <h1 class='supply-header'>Supplies for your Garden</h1>
   <div id="supply-page">
         
         
@@ -10,8 +10,7 @@
           </a>
            <div> 
             <h2>{{supply.supplyName}}</h2>
-            <p>{{supply.description}}</p>
-            <h2>${{supply.supplyCost}}</h2>
+            <h2 id="item-cost">${{supply.supplyCost}}</h2>
             <button @click='removeFromList(supply)' class='button is-info'>Remove from List</button> 
            </div>
         </div>
@@ -53,8 +52,8 @@ export default {
             this.$store.commit("SET_SUPPLIES", response.data);
             });
         },
-        removeFromList(){
-
+        removeFromList(supply){
+          suggestService.removeSupplyFromShoppingList(supply);
         }
     },
 
@@ -93,8 +92,15 @@ export default {
 </script>
 
 <style scoped>
-h1{
-  color:black;
+.supply-header{
+    font-size: xx-large;
+    font-weight: 400;
+    color: black;
+    text-shadow: 0px 0px 2px black, 0 0 2px black;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI';
+    border-radius: 4px;
+    padding: 0 15px;
+    text-align: center;
 }
 
 h2.cost{
@@ -103,13 +109,12 @@ h2.cost{
   font-size: 50px
 }
 .container {
-    color: ivory;
+    color: black;
     text-shadow: gray ;
     border: 2px solid black;
     border-radius: 10px;
     background-color: rgba(168, 211, 189, 0.733);
     width: 250px;
-    height: 550px;
     margin: 20px;
 }
 img{
