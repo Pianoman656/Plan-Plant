@@ -27,7 +27,7 @@ export default {
         methods: {
             addPlantToPlot(targetPlantId){
                 let plantToAdd = {
-                    plotId: parseInt(this.$store.state.plot_id),
+                    plotId: parseInt(this.$route.params.plotId),
                     plantId: targetPlantId
                   };
                 suggestService.addPlantToPlot(plantToAdd)

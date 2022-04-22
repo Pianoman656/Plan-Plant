@@ -1,8 +1,8 @@
 <template>
 <div id="all-page">
-  <h1>Plants and Supplies for your Garden</h1>
+  <h1>Supplies for your Garden</h1>
   <div id="supply-page">
-        <div class="container" v-for="supply in sortedSupplies" :key="supply.supplyId">
+        <div class="container" v-for="supply in myShoppingList" :key="supply.supplyId">
           <a href="https://www.ruralking.com"> 
             <img :src="supply.imageUrl" class="supply-image"/>
           </a>
@@ -31,44 +31,52 @@
 <script>
 import suggestService from '../services/SuggestService'
 import plantsService from '../services/PlantsService'
+import plotsService from '../services/PlotsService'
 //import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'shopping-list',
     methods: {
-
+        getTotalAreaOfFarm() {
+          plotsService.listPlots().then(response => {
+            this.$store.commit("SET_PLOTS", response.data);
+          })
+        },
         getSupplyStore() {
         suggestService.getSupplyStore().then(response => {
             this.$store.commit("SET_SUPPLIES", response.data);
             });
-            }
-          },
-        created(){
+        },
+        calculateTotal() {
+
+        }
+    },
+
+    created(){
+        suggestService.getShoppingList().then(response => {
+            this.$store.commit("SET_SHOPPING_LIST", response.data);
+        });
         suggestService.getSupplyStore().then(response => {
             this.$store.commit("SET_SUPPLIES", response.data);
-        }),
+        });
         plantsService.listPlants().then(response => {
-                this.$store.commit("SET_PLANTS", response.data);
+            this.$store.commit("SET_PLANTS", response.data);
+        });
+        plotsService.listPlots().then(response => {
+            this.$store.commit("SET_PLOTS", response.data);
         });
     },
     computed: {
-              sortedSupplies() {
-                return this.$store.state.supplies.filter((supply) => {
-                    return supply;
-                });
+        myShoppingList() {
+          return this.$store.state.shoppingList.filter(() => {
+              return true;
+          });
         },
-              sortedPlants() {
-                return this.$store.state.plants.filter((plant) => {
-                    return plant; // 
-                });
+        expectedCost() {
+          return this.$store.state.plants.filter((plant) => {
+              return plant; // 
+          });
         },
-  //       mapGetters({
-  //   products: 'allProducts',
-  //   length: 'getNumberOfProducts'
-  // }),
-  // methods: mapActions([
-  //   'addToCart'
-  // ])
     }    
 }
 </script>

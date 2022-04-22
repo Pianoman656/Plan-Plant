@@ -19,7 +19,7 @@ export default {
     //get list of all supplies currently on your shopping list
     //potentially use this for comparison 
     //to determine which suggestions are made to user
-    getSupplyList() {
+    getShoppingList() {
       return axios.get('/Supply/shoppingList');
     },
 
@@ -77,4 +77,5 @@ export default {
     addPlantToPlot(plantToAdd) {
       return axios.post('/Plant/planting', plantToAdd)
     }
+
 }

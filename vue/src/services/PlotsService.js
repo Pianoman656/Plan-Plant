@@ -27,8 +27,8 @@ export default {
       return axios.put(`/plot/${plot.plotId}`, plot);
     },
     
-    deletePlot(id) {
-      return axios.delete('/plot/' + id);
+    deletePlot(plot) {
+      return axios.delete(`/plot/${plot.plotId}`);
     }
 
   }

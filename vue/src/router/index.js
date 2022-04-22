@@ -11,7 +11,7 @@ import CreatePlant from '../views/CreatePlant.vue'
 import EditPlant from '../views/EditPlant.vue'
 import store from '../store/index'
 import NotFound from '../views/NotFound.vue'
-import MyCart from '../views/MyCart.vue'
+import ShoppingList from '../views/ShoppingList.vue'
 import Farm from '../views/Farm.vue'
 import CreatePlot from '../views/CreatePlot.vue'
 import ViewPlot from '../views/ViewPlot.vue'
@@ -96,9 +96,9 @@ const router = new Router({
       component: NotFound
     },
     {
-      path: '/mycart',
-      name: 'mycart',
-      component: MyCart
+      path: '/shoppingList',
+      name: 'shopping-list',
+      component: ShoppingList
     },
     {
       path: '/farm',
